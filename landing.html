@@ -272,7 +272,7 @@
     .submit-feedback.error { color: #d14369; }
 
     .footer-block { text-align: center; padding: 6px 10px 2px; }
-    .footer-title { font-size: 36px; line-height: 1.02; letter-spacing: -0.06em; font-weight: 800; margin-bottom: 20px; }
+    .footer-title { font-size: 30px; line-height: 1.12; letter-spacing: -0.03em; font-weight: 600; margin-bottom: 20px; color: #2a2a32; }
     .store-buttons {
       display: flex;
       flex-direction: row;
@@ -686,15 +686,19 @@
       }) + "€";
     }
 
-    /** Grille officielle : paliers selon le nombre de clientes / mois */
+    /**
+     * Grille tarifaire : paliers « jusqu’à X clientes » (bornes incluses),
+     * alignée sur l’usage courant des tableaux (évite les erreurs aux bornes 5, 15, 35, etc.).
+     * 1–5 → 9,99€ | 6–15 → 19,99€ | 16–35 → 59,99€ | 36–50 → 99,99€ | 51–100 → 149,99€ | 101–250 → 279,99€ | 251+ → 329,99€
+     */
     function computeTier(clients) {
-      const n = Number(clients);
-      if (n < 5) return { price: 9.99, index: 0 };
-      if (n < 15) return { price: 19.99, index: 1 };
-      if (n < 35) return { price: 59.99, index: 2 };
-      if (n < 50) return { price: 99.99, index: 3 };
-      if (n < 100) return { price: 149.99, index: 4 };
-      if (n < 250) return { price: 279.99, index: 5 };
+      const n = Math.max(1, Math.min(300, Math.round(Number(clients))));
+      if (n <= 5) return { price: 9.99, index: 0 };
+      if (n <= 15) return { price: 19.99, index: 1 };
+      if (n <= 35) return { price: 59.99, index: 2 };
+      if (n <= 50) return { price: 99.99, index: 3 };
+      if (n <= 100) return { price: 149.99, index: 4 };
+      if (n <= 250) return { price: 279.99, index: 5 };
       return { price: 329.99, index: 6 };
     }
 
@@ -711,6 +715,7 @@
     }
 
     clientsRange?.addEventListener("input", updatePricing);
+    clientsRange?.addEventListener("change", updatePricing);
     updatePricing();
 
     document.getElementById("appStoreBtn").href = APP_LINKS.appStore;
