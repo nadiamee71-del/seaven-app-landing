@@ -225,7 +225,8 @@
       background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(252,252,254,1) 100%);
     }
     .pricing-card h3 { font-size: 22px; line-height: 1.08; letter-spacing: -0.05em; font-weight: 800; margin-bottom: 18px; }
-    .range-wrap { padding: 0 8px; }
+    /* Marge latérale ≈ moitié du thumb (20px) pour rapprocher échelle visuelle et centre du curseur */
+    .range-wrap { padding: 0 10px; }
     .range { width: 100%; appearance: none; background: transparent; margin: 8px 0 6px; }
     .range::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, rgba(184,157,246,0.18) 0%, rgba(184,157,246,0.5) 100%); }
     .range::-webkit-slider-thumb { appearance: none; margin-top: -7px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
@@ -246,17 +247,7 @@
       line-height: 1.2;
       white-space: nowrap;
     }
-    .range-labels .rl-mid {
-      transform: translateX(-50%);
-    }
-    .range-labels .rl-start {
-      left: 0 !important;
-      transform: none;
-    }
-    .range-labels .rl-end {
-      left: 100% !important;
-      transform: translateX(-100%);
-    }
+    .range-labels .rl-pos { transform: translateX(-50%); }
     .monthly-clients { margin-top: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
     .price-big { font-size: 58px; line-height: 0.95; letter-spacing: -0.07em; font-weight: 800; color: var(--lavender); margin-top: 18px; }
     .price-big.is-featured-tier { color: var(--pink); }
@@ -510,19 +501,29 @@
               max="300"
               step="1"
               value="30"
+              list="pricingTickmarks"
               aria-label="Nombre de clients mensuels"
             />
+            <datalist id="pricingTickmarks">
+              <option value="1"></option>
+              <option value="5"></option>
+              <option value="15"></option>
+              <option value="35"></option>
+              <option value="50"></option>
+              <option value="100"></option>
+              <option value="250"></option>
+              <option value="300"></option>
+            </datalist>
 
-            <div class="range-labels" aria-hidden="true">
-              <!-- left% = (valeur - 1) / (300 - 1) * 100 pour coïncider avec le curseur -->
-              <span class="rl rl-start">1</span>
-              <span class="rl rl-mid" style="left: 1.338%">5</span>
-              <span class="rl rl-mid" style="left: 4.682%">15</span>
-              <span class="rl rl-mid" style="left: 11.371%">35</span>
-              <span class="rl rl-mid" style="left: 16.389%">50</span>
-              <span class="rl rl-mid" style="left: 33.111%">100</span>
-              <span class="rl rl-mid" style="left: 83.278%">250</span>
-              <span class="rl rl-end">300</span>
+            <div class="range-labels" id="rangeScaleLabels" aria-hidden="true">
+              <span class="rl rl-pos" data-scale-value="1">1</span>
+              <span class="rl rl-pos" data-scale-value="5">5</span>
+              <span class="rl rl-pos" data-scale-value="15">15</span>
+              <span class="rl rl-pos" data-scale-value="35">35</span>
+              <span class="rl rl-pos" data-scale-value="50">50</span>
+              <span class="rl rl-pos" data-scale-value="100">100</span>
+              <span class="rl rl-pos" data-scale-value="250">250</span>
+              <span class="rl rl-pos" data-scale-value="300">300</span>
             </div>
 
             <div class="monthly-clients">
@@ -704,6 +705,28 @@
     const clientsValue = document.getElementById("clientsValue");
     const priceValue = document.getElementById("priceValue");
     const tierRows = document.querySelectorAll(".pricing-tier-row[data-tier-index]");
+    /** Largeur du pouce (px), alignée sur .range::-webkit-slider-thumb */
+    const RANGE_THUMB_WIDTH = 20;
+
+    /** Repères 1, 5, 15… alignés sur le centre réel du curseur pour tous les paliers */
+    function positionRangeScaleLabels() {
+      const el = clientsRange;
+      const wrap = document.getElementById("rangeScaleLabels");
+      if (!el || !wrap) return;
+      const r = el.getBoundingClientRect();
+      if (r.width < 2) return;
+      const min = Number(el.min);
+      const max = Number(el.max);
+      const denom = max - min;
+      const thumb = RANGE_THUMB_WIDTH;
+      wrap.querySelectorAll("[data-scale-value]").forEach((span) => {
+        const v = Number(span.dataset.scaleValue);
+        const t = denom > 0 ? (v - min) / denom : 0;
+        const centerX = thumb / 2 + t * (r.width - thumb);
+        span.style.left = (centerX / r.width) * 100 + "%";
+        span.style.transform = "translateX(-50%)";
+      });
+    }
 
     function formatEuro(amount) {
       return amount.toLocaleString("fr-FR", {
@@ -743,6 +766,14 @@
     clientsRange?.addEventListener("input", updatePricing);
     clientsRange?.addEventListener("change", updatePricing);
     updatePricing();
+
+    window.addEventListener("resize", positionRangeScaleLabels);
+    window.addEventListener("load", positionRangeScaleLabels);
+    document.fonts?.ready?.then(positionRangeScaleLabels).catch(() => {});
+    requestAnimationFrame(() => {
+      positionRangeScaleLabels();
+      requestAnimationFrame(positionRangeScaleLabels);
+    });
 
     document.getElementById("appStoreBtn").href = APP_LINKS.appStore;
     document.getElementById("googlePlayBtn").href = APP_LINKS.googlePlay;
