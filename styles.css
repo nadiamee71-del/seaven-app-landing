@@ -1,0 +1,31 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7fb;
+  color: #161616;
+}
+.page {
+  width: min(100%, 430px);
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: grid;
+  gap: 14px;
+}
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.hero { text-align: center; }
+.logo {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 10px;
+}
+h1 { margin: 0 0 10px; font-size: 1.8rem; }
+h2 { margin: 0 0 8px; }
+p { margin: 0; color: #666; }
