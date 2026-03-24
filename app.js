@@ -1,11 +1,11 @@
 const LINK_CONFIG = {
-  preinscription: "#waitlist",
+  joinAdventure: "#waitlist",
+  openApp: "#",
+  goCalculator: "#calculateur-ia",
+  waitlistSubmit: "#",
   iosStore: "#",
   androidStore: "#",
-  apkDirect: "#",
-  loginApp: "#",
-  openApp: "#",
-  deepLink: "#"
+  apkDirect: "#"
 };
 
 function formatEuro(value) {
@@ -17,9 +17,10 @@ function formatEuro(value) {
 }
 
 function computeSubscriptionPrice(clientes) {
-  const base = 19.99;
-  const variable = clientes * 0.42;
-  return Math.min(99.99, base + variable);
+  const base = 29.99;
+  const variable = (clientes - 50) * 0.18;
+  const result = base + variable;
+  return Math.max(19.99, Math.min(89.99, result));
 }
 
 function setupHeroTabs() {
@@ -61,19 +62,21 @@ function setupSubscriptionCalculator() {
   const slider = document.getElementById("clientes-slider");
   const clientesOutput = document.getElementById("clientes-value");
   const priceOutput = document.getElementById("abonnement-price");
-  if (!trigger || !box || !slider || !clientesOutput || !priceOutput) return;
+  if (!slider || !clientesOutput || !priceOutput) return;
 
   function update() {
     const clientes = Number(slider.value);
     const price = computeSubscriptionPrice(clientes);
     clientesOutput.textContent = String(clientes);
-    priceOutput.textContent = `${formatEuro(price)} / mois`;
+    priceOutput.textContent = formatEuro(price).replace(" €", "€");
   }
 
-  trigger.addEventListener("click", () => {
-    box.classList.add("active");
-    slider.focus();
-  });
+  if (trigger && box) {
+    trigger.addEventListener("click", () => {
+      box.classList.add("active");
+      slider.focus();
+    });
+  }
   slider.addEventListener("input", update);
   update();
 }
@@ -89,6 +92,7 @@ function setupCtaPlaceholders() {
     }
 
     el.addEventListener("click", (event) => {
+      if (href === "#waitlist" || href === "#calculateur-ia") return;
       if (href === "#") {
         event.preventDefault();
         const status = document.getElementById("waitlist-status");
@@ -103,13 +107,11 @@ function setupCtaPlaceholders() {
 
 function setupWaitlistForm() {
   const form = document.getElementById("waitlist-form");
-  const input = document.getElementById("waitlist-email");
-  if (!form || !input) return;
+  if (!form) return;
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const status = document.getElementById("waitlist-status");
-    if (!input.value.trim()) return;
     if (status) {
       status.textContent =
         "Préinscription enregistrée localement (mode test). Connexion email à activer.";
@@ -118,8 +120,22 @@ function setupWaitlistForm() {
   });
 }
 
+function setupEstimateCta() {
+  const cta = document.getElementById("estimate-cta");
+  const target = document.getElementById("calculateur-ia");
+  if (!cta || !target) return;
+
+  cta.addEventListener("click", (event) => {
+    event.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    target.classList.add("focus-card");
+    window.setTimeout(() => target.classList.remove("focus-card"), 1200);
+  });
+}
+
 setupHeroTabs();
 setupQuickEstimate();
 setupSubscriptionCalculator();
 setupCtaPlaceholders();
 setupWaitlistForm();
+setupEstimateCta();

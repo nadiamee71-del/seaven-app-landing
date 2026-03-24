@@ -4,195 +4,170 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seaven - Landing Officielle</title>
-    <meta
-      name="description"
-      content="Seaven simplifie la prise de rendez-vous prestations en quelques clics."
-    />
+    <meta name="description" content="Landing Seaven mobile-first premium." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="page" id="top">
-      <section class="mobile-card hero">
-        <div class="hero-head">
-          <img class="logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
-          <a
-            href="#waitlist"
-            class="ghost-link"
-            id="header-cta"
-            data-cta-key="preinscription"
-          >
-            Lancement
-          </a>
-        </div>
-        <h1>One App. One Place.<br />Everything.</h1>
+      <section class="mobile-card hero" id="hero">
+        <img class="logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
+        <h1>One App. One Place. Everything connected.</h1>
         <p class="subtitle">
-          Réservez vos prestations beauté, lifestyle et bien-être avec les
-          meilleurs prestataires autour de vous.
+          Le réseau social de réservation et de vente pour les indépendants.
+          Simplifiez votre quotidien. Boostez votre visibilité.
         </p>
-        <div class="hero-cta-row">
-          <a
-            href="#waitlist"
-            class="btn btn-primary"
-            id="hero-primary-cta"
-            data-cta-key="preinscription"
-          >
-            Réserver en avant-première
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#waitlist" data-cta-key="joinAdventure">
+            Rejoindre l’aventure
+          </a>
+          <a class="btn btn-secondary" href="#" data-cta-key="openApp">
+            Découvrir l’App
           </a>
         </div>
       </section>
 
-      <section class="mobile-card split">
-        <button class="app-tab active" type="button" id="tab-client" data-view="client">
+      <section class="mobile-card split" id="hero-tabs">
+        <button class="app-tab active" type="button" id="tab-client" data-view="client" data-cta-key="openApp">
           Côté cliente
         </button>
-        <button class="app-tab" type="button" id="tab-pro" data-view="pro">
+        <button class="app-tab" type="button" id="tab-pro" data-view="pro" data-cta-key="openApp">
           Côté prestataire
         </button>
         <div class="phone-mock active" id="phone-client">
-          <span>Recherche • Créneau • Confirmation</span>
+          <span>Réservation sociale instantanée</span>
         </div>
         <div class="phone-mock" id="phone-pro">
-          <span>Agenda • Revenus • Disponibilités</span>
+          <span>Planning et ventes connectées</span>
         </div>
       </section>
 
-      <section class="mobile-card">
-        <h2>Réservation <span>ultra-simple</span></h2>
+      <section class="mobile-card" id="fonctionnalites-1">
+        <h2>Finis le chaos. Tout dans une seule app.</h2>
+        <div class="feature-block">
+          <h3>📅 Réservation Intelligente</h3>
+          <p>Laissez vos clients réserver 24/7 sans aucun effort de votre part</p>
+        </div>
+        <div class="feature-block">
+          <h3>💳 Paiements Sécurisés</h3>
+          <p>Encaissez vos paiements facilement directement via l’application</p>
+        </div>
+        <article class="image-card">
+          <img src="./assets/images/coiffeur.jpg" alt="Coiffeur" />
+          <div class="image-card-content">
+            <h3>Professionnels en action</h3>
+            <a class="btn btn-violet" href="#" data-cta-key="openApp">Voir dans l’app</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="mobile-card services" id="metiers">
+        <h2>Pensé pour tous les métiers.</h2>
+        <article class="service-item">
+          <img class="service-photo" src="./assets/images/cosmetiques.jpg" alt="produits cosmétiques" />
+          <div>
+            <h3>Vendez sans limites</h3>
+            <p>Proposez vos produits et services directement à votre clientèle</p>
+          </div>
+        </article>
+        <article class="service-item">
+          <img class="service-photo" src="./assets/images/toilettage-chien.jpg" alt="chien toiletté" />
+          <div>
+            <h3>Gestion simplifiée</h3>
+            <p>Gérez vos données clients en un seul clic</p>
+          </div>
+        </article>
+        <article class="service-item">
+          <img class="service-photo" src="./assets/images/tatoueur.jpg" alt="tatoueur" />
+          <div>
+            <h3>Portfolio Digital</h3>
+            <p>Affichez vos plus beaux réalisations et attirez de nouveaux passionnés</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="mobile-card estimate" id="estimation">
+        <h2>Estimation par IA.</h2>
         <p>
-          Trouvez votre prestataire, comparez les créneaux disponibles et
-          confirmez votre rendez-vous en quelques secondes.
+          Ne bradez plus jamais votre talent. Notre IA analyse la complexité, les matériaux et le temps pour vous proposer le prix le plus juste pour vous et vos clients.
         </p>
+        <a class="btn btn-primary estimate-btn" href="#calculateur-ia" id="estimate-cta" data-cta-key="goCalculator">
+          Calculer maintenant
+        </a>
       </section>
 
-      <section class="mobile-card">
-        <h2>Pourquoi <span>Seaven</span></h2>
-        <ul class="feature-list">
-          <li>Prestataires vérifiés et évalués</li>
-          <li>Disponibilités en temps réel</li>
-          <li>Paiement sécurisé et rappels intelligents</li>
-        </ul>
-      </section>
-
-      <section class="mobile-card services">
-        <h2>Services populaires</h2>
-        <article class="service-item">
-          <div class="service-thumb thumb-1" aria-hidden="true"></div>
-          <div>
-            <h3>Coiffure & Beauté</h3>
-            <p>Brushing, makeup, ongles, coiffures événementielles.</p>
-          </div>
-        </article>
-        <article class="service-item">
-          <div class="service-thumb thumb-2" aria-hidden="true"></div>
-          <div>
-            <h3>Bien-être</h3>
-            <p>Soins visage, massage, relaxation et soins personnalisés.</p>
-          </div>
-        </article>
-        <article class="service-item">
-          <div class="service-thumb thumb-3" aria-hidden="true"></div>
-          <div>
-            <h3>Lifestyle</h3>
-            <p>Prestations premium à domicile ou en salon partenaire.</p>
-          </div>
-        </article>
-      </section>
-
-      <section class="mobile-card estimate">
-        <h2>Estimation <span>rapide</span></h2>
-        <div class="estimate-box">
-          <label for="service">Choisis un service</label>
-          <select id="service" name="service">
-            <option value="15">Coiffure + brushing</option>
-            <option value="22">Onglerie complète</option>
-            <option value="30">Maquillage événement</option>
-          </select>
-          <div class="price" id="quick-estimate-price">Dès 15,00 €</div>
+      <section class="mobile-card ia-card" id="calculateur-ia">
+        <h2>Calculateur IA 🎯</h2>
+        <div class="ia-lines">
+          <p>Complexité du projet : Intermédiaire</p>
+          <p>Temps estimé : 1h 30min</p>
+          <p>Prix du marché : 260€ — 350€</p>
+          <p class="ia-price">Recommandé Seaven : 315,00€</p>
         </div>
       </section>
 
-      <section class="mobile-card offer" id="abonnement">
-        <h2>Un abonnement <span>adapté</span></h2>
-        <p>
-          Estimez rapidement votre tarif selon votre volume de clientes mensuel.
-        </p>
-
-        <button
-          type="button"
-          class="btn btn-primary offer-trigger"
-          id="calculer-tarif-btn"
-        >
-          Calculer mon tarif
-        </button>
-
-        <div class="pricing-calculator" id="pricing-calculator" aria-live="polite">
-          <div class="calculator-row">
-            <span>Nombre de clientes / mois</span>
-            <strong id="clientes-value">25</strong>
-          </div>
+      <section class="mobile-card offer" id="tarif">
+        <h2>Un abonnement adapté.</h2>
+        <p>Un tarif juste, qui évolue avec votre activité.</p>
+        <div class="pricing-calculator active" id="pricing-calculator" aria-live="polite">
+          <label for="clientes-slider">Nombre de clients mensuels</label>
           <input
             type="range"
-            min="5"
-            max="200"
-            step="5"
-            value="25"
+            min="10"
+            max="250"
+            step="10"
+            value="50"
             id="clientes-slider"
-            aria-label="Nombre de clientes mensuelles"
+            aria-label="Nombre de clients mensuels"
           />
-          <div class="calculator-row total">
-            <span>Tarif estimé</span>
-            <strong id="abonnement-price">29,99 € / mois</strong>
+          <div class="calculator-row">
+            <span>Clients sélectionnés</span>
+            <strong id="clientes-value">50</strong>
           </div>
-        </div>
-      </section>
-
-      <section class="mobile-card feedback">
-        <h2>Avis clients</h2>
-        <blockquote>
-          "Application fluide, belle et rapide. J'ai trouvé ma prestataire en 2
-          minutes."
-        </blockquote>
-        <cite>- Sarah M.</cite>
-      </section>
-
-      <section class="mobile-card stores">
-        <h2>Disponible bientôt sur</h2>
-        <div class="store-grid">
-          <a href="#" class="store-badge" data-cta-key="iosStore">App Store</a>
-          <a href="#" class="store-badge" data-cta-key="androidStore">Google Play</a>
-          <a href="#" class="store-badge" data-cta-key="apkDirect">APK direct</a>
+          <p class="offer-price" id="abonnement-price">29,99€</p>
+          <p class="offer-sub">par mois, sans engagement</p>
         </div>
       </section>
 
       <section id="waitlist" class="mobile-card cta">
-        <h2>Disponible prochainement</h2>
-        <p>Inscrivez-vous pour être avertie du lancement officiel Seaven.</p>
+        <h2>Rejoindre l’aventure</h2>
         <form class="waitlist-form" id="waitlist-form">
-          <input
-            type="email"
-            id="waitlist-email"
-            placeholder="Ton email"
-            autocomplete="email"
-            required
-          />
+          <input type="text" id="nom" name="nom" placeholder="Nom" required />
+          <input type="text" id="prenom" name="prenom" placeholder="Prénom" required />
+          <select id="role" name="role" required>
+            <option value="">Sélectionner votre rôle</option>
+          </select>
+          <input type="email" id="waitlist-email" placeholder="Email" autocomplete="email" required />
+          <label class="checkbox-row">
+            <input type="checkbox" id="consent" required />
+            <span>J’accepte d’être recontacté(e) par l’équipe de l’application</span>
+          </label>
           <button
             type="submit"
             class="btn btn-primary"
             id="waitlist-submit"
-            data-cta-key="preinscription"
+            data-cta-key="waitlistSubmit"
           >
             Je m'inscris
           </button>
         </form>
-        <small id="waitlist-status">
-          Formulaire en mode préparation. Connexion email officielle à venir.
-        </small>
+        <small id="waitlist-status">Formulaire prêt pour connexion email.</small>
+      </section>
+
+      <footer class="mobile-card footer">
+        <p class="footer-title">Disponible prochainement sur iOS & Android</p>
+        <div class="store-grid">
+          <a href="#" class="store-badge dark" data-cta-key="iosStore">App Store</a>
+          <a href="#" class="store-badge dark" data-cta-key="androidStore">Google Play</a>
+        </div>
+      </footer>
+      <section class="hidden-links">
+        <a href="#" data-cta-key="apkDirect">APK</a>
       </section>
     </main>
     <script src="./app.js"></script>
