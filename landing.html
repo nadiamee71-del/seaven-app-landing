@@ -231,7 +231,32 @@
     .range::-webkit-slider-thumb { appearance: none; margin-top: -7px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
     .range::-moz-range-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, rgba(184,157,246,0.18) 0%, rgba(184,157,246,0.5) 100%); }
     .range::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
-    .range-labels { display: flex; justify-content: space-between; gap: 6px; margin-top: 8px; color: #babac4; font-size: 11px; font-weight: 700; }
+    /* Repères alignés sur l’échelle réelle du slider (min 1, max 300), pas en espacement uniforme */
+    .range-labels {
+      position: relative;
+      height: 20px;
+      margin-top: 8px;
+      color: #babac4;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .range-labels .rl {
+      position: absolute;
+      top: 0;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .range-labels .rl-mid {
+      transform: translateX(-50%);
+    }
+    .range-labels .rl-start {
+      left: 0 !important;
+      transform: none;
+    }
+    .range-labels .rl-end {
+      left: 100% !important;
+      transform: translateX(-100%);
+    }
     .monthly-clients { margin-top: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
     .price-big { font-size: 58px; line-height: 0.95; letter-spacing: -0.07em; font-weight: 800; color: var(--lavender); margin-top: 18px; }
     .price-big.is-featured-tier { color: var(--pink); }
@@ -488,15 +513,16 @@
               aria-label="Nombre de clients mensuels"
             />
 
-            <div class="range-labels">
-              <span>1</span>
-              <span>5</span>
-              <span>15</span>
-              <span>35</span>
-              <span>50</span>
-              <span>100</span>
-              <span>250</span>
-              <span>300</span>
+            <div class="range-labels" aria-hidden="true">
+              <!-- left% = (valeur - 1) / (300 - 1) * 100 pour coïncider avec le curseur -->
+              <span class="rl rl-start">1</span>
+              <span class="rl rl-mid" style="left: 1.338%">5</span>
+              <span class="rl rl-mid" style="left: 4.682%">15</span>
+              <span class="rl rl-mid" style="left: 11.371%">35</span>
+              <span class="rl rl-mid" style="left: 16.389%">50</span>
+              <span class="rl rl-mid" style="left: 33.111%">100</span>
+              <span class="rl rl-mid" style="left: 83.278%">250</span>
+              <span class="rl rl-end">300</span>
             </div>
 
             <div class="monthly-clients">
