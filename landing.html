@@ -232,22 +232,45 @@
     .range::-webkit-slider-thumb { appearance: none; margin-top: -7px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
     .range::-moz-range-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, rgba(184,157,246,0.18) 0%, rgba(184,157,246,0.5) 100%); }
     .range::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
-    /* Repères alignés sur l’échelle réelle du slider (min 1, max 300), pas en espacement uniforme */
+    /*
+     * Repères = flex entre les valeurs, poids = écart sur l’échelle 1–300 (4+10+20+15+50+150+50=299).
+     * Même géométrie que le curseur (centres entre 10px et largeur−10px). Aucun JS : pas de chevauchement.
+     */
     .range-labels {
-      position: relative;
-      height: 20px;
       margin-top: 8px;
+      padding: 0 10px;
+      box-sizing: border-box;
       color: #babac4;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
+      font-variant-numeric: tabular-nums;
     }
-    .range-labels .rl {
+    .range-ticks-row {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      min-height: 1.35em;
+    }
+    .range-tick {
+      flex: 0 0 0;
+      width: 0;
+      position: relative;
+      overflow: visible;
+    }
+    .range-tick-label {
       position: absolute;
+      left: 0;
       top: 0;
-      line-height: 1.2;
+      transform: translateX(-50%);
+      line-height: 1.25;
       white-space: nowrap;
+      pointer-events: none;
     }
-    .range-labels .rl-pos { transform: translateX(-50%); }
+    .range-tick-gap {
+      min-width: 0;
+      height: 1px;
+      align-self: stretch;
+    }
     .monthly-clients { margin-top: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
     .price-big { font-size: 58px; line-height: 0.95; letter-spacing: -0.07em; font-weight: 800; color: var(--lavender); margin-top: 18px; }
     .price-big.is-featured-tier { color: var(--pink); }
@@ -516,14 +539,23 @@
             </datalist>
 
             <div class="range-labels" id="rangeScaleLabels" aria-hidden="true">
-              <span class="rl rl-pos" data-scale-value="1">1</span>
-              <span class="rl rl-pos" data-scale-value="5">5</span>
-              <span class="rl rl-pos" data-scale-value="15">15</span>
-              <span class="rl rl-pos" data-scale-value="35">35</span>
-              <span class="rl rl-pos" data-scale-value="50">50</span>
-              <span class="rl rl-pos" data-scale-value="100">100</span>
-              <span class="rl rl-pos" data-scale-value="250">250</span>
-              <span class="rl rl-pos" data-scale-value="300">300</span>
+              <div class="range-ticks-row">
+                <span class="range-tick"><span class="range-tick-label">1</span></span>
+                <span class="range-tick-gap" style="flex: 4 1 0" aria-hidden="true"></span>
+                <span class="range-tick"><span class="range-tick-label">5</span></span>
+                <span class="range-tick-gap" style="flex: 10 1 0" aria-hidden="true"></span>
+                <span class="range-tick"><span class="range-tick-label">15</span></span>
+                <span class="range-tick-gap" style="flex: 20 1 0" aria-hidden="true"></span>
+                <span class="range-tick"><span class="range-tick-label">35</span></span>
+                <span class="range-tick-gap" style="flex: 15 1 0" aria-hidden="true"></span>
+                <span class="range-tick"><span class="range-tick-label">50</span></span>
+                <span class="range-tick-gap" style="flex: 50 1 0" aria-hidden="true"></span>
+                <span class="range-tick"><span class="range-tick-label">100</span></span>
+                <span class="range-tick-gap" style="flex: 150 1 0" aria-hidden="true"></span>
+                <span class="range-tick"><span class="range-tick-label">250</span></span>
+                <span class="range-tick-gap" style="flex: 50 1 0" aria-hidden="true"></span>
+                <span class="range-tick"><span class="range-tick-label">300</span></span>
+              </div>
             </div>
 
             <div class="monthly-clients">
@@ -705,28 +737,6 @@
     const clientsValue = document.getElementById("clientsValue");
     const priceValue = document.getElementById("priceValue");
     const tierRows = document.querySelectorAll(".pricing-tier-row[data-tier-index]");
-    /** Largeur du pouce (px), alignée sur .range::-webkit-slider-thumb */
-    const RANGE_THUMB_WIDTH = 20;
-
-    /** Repères 1, 5, 15… alignés sur le centre réel du curseur pour tous les paliers */
-    function positionRangeScaleLabels() {
-      const el = clientsRange;
-      const wrap = document.getElementById("rangeScaleLabels");
-      if (!el || !wrap) return;
-      const r = el.getBoundingClientRect();
-      if (r.width < 2) return;
-      const min = Number(el.min);
-      const max = Number(el.max);
-      const denom = max - min;
-      const thumb = RANGE_THUMB_WIDTH;
-      wrap.querySelectorAll("[data-scale-value]").forEach((span) => {
-        const v = Number(span.dataset.scaleValue);
-        const t = denom > 0 ? (v - min) / denom : 0;
-        const centerX = thumb / 2 + t * (r.width - thumb);
-        span.style.left = (centerX / r.width) * 100 + "%";
-        span.style.transform = "translateX(-50%)";
-      });
-    }
 
     function formatEuro(amount) {
       return amount.toLocaleString("fr-FR", {
@@ -766,14 +776,6 @@
     clientsRange?.addEventListener("input", updatePricing);
     clientsRange?.addEventListener("change", updatePricing);
     updatePricing();
-
-    window.addEventListener("resize", positionRangeScaleLabels);
-    window.addEventListener("load", positionRangeScaleLabels);
-    document.fonts?.ready?.then(positionRangeScaleLabels).catch(() => {});
-    requestAnimationFrame(() => {
-      positionRangeScaleLabels();
-      requestAnimationFrame(positionRangeScaleLabels);
-    });
 
     document.getElementById("appStoreBtn").href = APP_LINKS.appStore;
     document.getElementById("googlePlayBtn").href = APP_LINKS.googlePlay;
