@@ -32,19 +32,9 @@
         </div>
       </section>
 
-      <section class="mobile-card split" id="hero-tabs">
-        <button class="app-tab active" type="button" id="tab-client" data-view="client" data-cta-key="openApp">
-          Côté cliente
-        </button>
-        <button class="app-tab" type="button" id="tab-pro" data-view="pro" data-cta-key="openApp">
-          Côté prestataire
-        </button>
-        <div class="phone-mock active" id="phone-client">
-          <span>Réservation sociale instantanée</span>
-        </div>
-        <div class="phone-mock" id="phone-pro">
-          <span>Planning et ventes connectées</span>
-        </div>
+      <section class="mobile-card split" id="hero-visuals">
+        <div class="visual-block visual-light" aria-hidden="true"></div>
+        <div class="visual-block visual-dark" aria-hidden="true"></div>
       </section>
 
       <section class="mobile-card" id="fonctionnalites-1">
@@ -60,7 +50,6 @@
         <article class="image-card">
           <img src="./assets/images/coiffeur.jpg" alt="Coiffeur" />
           <div class="image-card-content">
-            <h3>Professionnels en action</h3>
             <a class="btn btn-violet" href="#" data-cta-key="openApp">Voir dans l’app</a>
           </div>
         </article>
@@ -139,6 +128,7 @@
         <form class="waitlist-form" id="waitlist-form">
           <input type="text" id="nom" name="nom" placeholder="Nom" required />
           <input type="text" id="prenom" name="prenom" placeholder="Prénom" required />
+          <label for="role">Je suis *</label>
           <select id="role" name="role" required>
             <option value="">Sélectionner votre rôle</option>
           </select>
@@ -153,7 +143,7 @@
             id="waitlist-submit"
             data-cta-key="waitlistSubmit"
           >
-            Je m'inscris
+            S’inscrire à la liste d’attente
           </button>
         </form>
         <small id="waitlist-status">Formulaire prêt pour connexion email.</small>

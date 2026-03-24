@@ -111,53 +111,19 @@ p {
   gap: 10px;
 }
 
-.app-tab {
-  border: 1px solid #e5e5ef;
-  border-radius: 12px;
-  padding: 8px;
-  background: #fafafd;
-  color: #676786;
-  font-weight: 600;
-  font-family: inherit;
-}
-
-.app-tab.active {
-  background: #f3eefe;
-  border-color: #cfc1ff;
-  color: #5f47c8;
-}
-
-.phone-mock {
-  display: none;
-  min-height: 120px;
+.visual-block {
+  min-height: 132px;
   border-radius: 20px;
   border: 1px solid #ececf4;
-  padding: 10px;
-  align-items: end;
-  justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
-.phone-mock.active {
-  display: flex;
-}
-
-#phone-client {
-  grid-column: 1;
+.visual-light {
   background: linear-gradient(145deg, #f5f5fb, #ffffff);
 }
 
-#phone-pro {
-  grid-column: 2;
+.visual-dark {
   background: linear-gradient(145deg, #38384a, #1f202c);
-}
-
-.phone-mock span {
-  font-size: 0.8rem;
-  color: #8888a5;
-}
-
-#phone-pro span {
-  color: #d0d0e4;
 }
 
 .feature-block {
@@ -338,6 +304,12 @@ input[type="range"] {
   margin: 12px 0 8px;
   display: grid;
   gap: 9px;
+}
+
+.waitlist-form label {
+  color: #5f5f78;
+  font-size: 0.86rem;
+  font-weight: 600;
 }
 
 .waitlist-form input {

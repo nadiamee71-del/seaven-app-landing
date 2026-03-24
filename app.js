@@ -23,39 +23,6 @@ function computeSubscriptionPrice(clientes) {
   return Math.max(19.99, Math.min(89.99, result));
 }
 
-function setupHeroTabs() {
-  const tabClient = document.getElementById("tab-client");
-  const tabPro = document.getElementById("tab-pro");
-  const phoneClient = document.getElementById("phone-client");
-  const phonePro = document.getElementById("phone-pro");
-  if (!tabClient || !tabPro || !phoneClient || !phonePro) return;
-
-  function activate(view) {
-    const isClient = view === "client";
-    tabClient.classList.toggle("active", isClient);
-    tabPro.classList.toggle("active", !isClient);
-    phoneClient.classList.toggle("active", isClient);
-    phonePro.classList.toggle("active", !isClient);
-  }
-
-  tabClient.addEventListener("click", () => activate("client"));
-  tabPro.addEventListener("click", () => activate("pro"));
-}
-
-function setupQuickEstimate() {
-  const select = document.getElementById("service");
-  const priceOutput = document.getElementById("quick-estimate-price");
-  if (!select || !priceOutput) return;
-
-  function update() {
-    const value = Number(select.value || 0);
-    priceOutput.textContent = `Dès ${formatEuro(value)}`;
-  }
-
-  select.addEventListener("change", update);
-  update();
-}
-
 function setupSubscriptionCalculator() {
   const trigger = document.getElementById("calculer-tarif-btn");
   const box = document.getElementById("pricing-calculator");
@@ -133,8 +100,6 @@ function setupEstimateCta() {
   });
 }
 
-setupHeroTabs();
-setupQuickEstimate();
 setupSubscriptionCalculator();
 setupCtaPlaceholders();
 setupWaitlistForm();
