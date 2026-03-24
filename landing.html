@@ -234,7 +234,7 @@
     .range::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
     /*
      * Repères = flex entre les valeurs, poids = écart sur l’échelle 1–300 (4+10+20+15+50+150+50=299).
-     * Même géométrie que le curseur (centres entre 10px et largeur−10px). Aucun JS : pas de chevauchement.
+     * flex-shrink: 0 sur les segments (pas 1) sinon sur mobile les gaps s’effondrent → « 1515 ».
      */
     .range-labels {
       margin-top: 8px;
@@ -247,13 +247,16 @@
     }
     .range-ticks-row {
       display: flex;
+      flex-wrap: nowrap;
       align-items: flex-start;
       width: 100%;
+      min-width: 0;
       min-height: 1.35em;
     }
     .range-tick {
       flex: 0 0 0;
       width: 0;
+      min-width: 0;
       position: relative;
       overflow: visible;
     }
@@ -267,7 +270,7 @@
       pointer-events: none;
     }
     .range-tick-gap {
-      min-width: 0;
+      flex-shrink: 0;
       height: 1px;
       align-self: stretch;
     }
@@ -541,19 +544,19 @@
             <div class="range-labels" id="rangeScaleLabels" aria-hidden="true">
               <div class="range-ticks-row">
                 <span class="range-tick"><span class="range-tick-label">1</span></span>
-                <span class="range-tick-gap" style="flex: 4 1 0" aria-hidden="true"></span>
+                <span class="range-tick-gap" style="flex: 4 0 0" aria-hidden="true"></span>
                 <span class="range-tick"><span class="range-tick-label">5</span></span>
-                <span class="range-tick-gap" style="flex: 10 1 0" aria-hidden="true"></span>
+                <span class="range-tick-gap" style="flex: 10 0 0" aria-hidden="true"></span>
                 <span class="range-tick"><span class="range-tick-label">15</span></span>
-                <span class="range-tick-gap" style="flex: 20 1 0" aria-hidden="true"></span>
+                <span class="range-tick-gap" style="flex: 20 0 0" aria-hidden="true"></span>
                 <span class="range-tick"><span class="range-tick-label">35</span></span>
-                <span class="range-tick-gap" style="flex: 15 1 0" aria-hidden="true"></span>
+                <span class="range-tick-gap" style="flex: 15 0 0" aria-hidden="true"></span>
                 <span class="range-tick"><span class="range-tick-label">50</span></span>
-                <span class="range-tick-gap" style="flex: 50 1 0" aria-hidden="true"></span>
+                <span class="range-tick-gap" style="flex: 50 0 0" aria-hidden="true"></span>
                 <span class="range-tick"><span class="range-tick-label">100</span></span>
-                <span class="range-tick-gap" style="flex: 150 1 0" aria-hidden="true"></span>
+                <span class="range-tick-gap" style="flex: 150 0 0" aria-hidden="true"></span>
                 <span class="range-tick"><span class="range-tick-label">250</span></span>
-                <span class="range-tick-gap" style="flex: 50 1 0" aria-hidden="true"></span>
+                <span class="range-tick-gap" style="flex: 50 0 0" aria-hidden="true"></span>
                 <span class="range-tick"><span class="range-tick-label">300</span></span>
               </div>
             </div>
