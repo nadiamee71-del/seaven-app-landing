@@ -3,20 +3,118 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seaven - Landing</title>
+    <title>Seaven - One App One Place</title>
     <meta
       name="description"
-      content="Landing page Seaven fidele a la maquette Canva."
+      content="Seaven, la plateforme de rendez-vous prestations: beaute, bien-etre, lifestyle."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="canvas-exact">
-      <img
-        src="./assets/landing-reference.png"
-        alt="Maquette landing page Seaven"
-        class="reference-shot"
-      />
+    <main class="page">
+      <section class="mobile-card hero">
+        <img class="logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
+        <h1>One App. One Place.<br />Everything.</h1>
+        <p class="subtitle">
+          Reserve en quelques clics tes prestations preferees a domicile ou en
+          salon.
+        </p>
+        <a href="#waitlist" class="btn btn-primary">Rejoindre la liste d'attente</a>
+      </section>
+
+      <section class="mobile-card split">
+        <div class="phone phone-light">
+          <span>Mode client</span>
+        </div>
+        <div class="phone phone-dark">
+          <span>Mode pro</span>
+        </div>
+      </section>
+
+      <section class="mobile-card">
+        <h2>Reservation <span>ultra-simple</span></h2>
+        <p>
+          Choisis ton service, ton prestataire, ton horaire puis confirme.
+          Seaven s'occupe du reste.
+        </p>
+      </section>
+
+      <section class="mobile-card">
+        <h2>Pourquoi <span>Seaven</span></h2>
+        <ul class="feature-list">
+          <li>Prestataires verifies et notes</li>
+          <li>Disponibilites en temps reel</li>
+          <li>Paiement securise et suivi de rendez-vous</li>
+        </ul>
+      </section>
+
+      <section class="mobile-card services">
+        <h2>Services populaires</h2>
+        <article class="service-item">
+          <div class="service-thumb thumb-1" aria-hidden="true"></div>
+          <div>
+            <h3>Coiffure & Beaute</h3>
+            <p>Coupe, brushing, makeup, onglerie.</p>
+          </div>
+        </article>
+        <article class="service-item">
+          <div class="service-thumb thumb-2" aria-hidden="true"></div>
+          <div>
+            <h3>Bien-etre</h3>
+            <p>Massage, soins visage, relaxation.</p>
+          </div>
+        </article>
+        <article class="service-item">
+          <div class="service-thumb thumb-3" aria-hidden="true"></div>
+          <div>
+            <h3>Lifestyle</h3>
+            <p>Prestations premium personnalisees.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="mobile-card estimate">
+        <h2>Estimation <span>rapide</span></h2>
+        <div class="estimate-box">
+          <label for="service">Choisis un service</label>
+          <select id="service" name="service">
+            <option>Coiffure + brushing</option>
+            <option>Onglerie complete</option>
+            <option>Maquillage evenement</option>
+          </select>
+          <div class="price">Des 15,00 EUR</div>
+        </div>
+      </section>
+
+      <section class="mobile-card offer">
+        <h2>Un abonnement <span>malin</span></h2>
+        <p>Remises exclusives, priorite et avantages partenaires.</p>
+        <div class="offer-price">29,99 EUR <small>/ mois</small></div>
+      </section>
+
+      <section class="mobile-card feedback">
+        <h2>Avis clients</h2>
+        <blockquote>
+          "Interface canon, tres rapide. J'ai reserve ma presta en 2 minutes."
+        </blockquote>
+        <cite>- Sarah M.</cite>
+      </section>
+
+      <section id="waitlist" class="mobile-card cta">
+        <h2>Disponible prochainement</h2>
+        <p>Inscris-toi pour etre avertie du lancement officiel Seaven.</p>
+        <form class="waitlist-form">
+          <input type="email" placeholder="Ton email" required />
+          <button type="submit" class="btn btn-primary">Je m'inscris</button>
+        </form>
+        <small>Tu recevras uniquement les infos de lancement.</small>
+      </section>
     </main>
   </body>
 </html>

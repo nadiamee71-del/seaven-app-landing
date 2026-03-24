@@ -1,23 +1,282 @@
+:root {
+  --bg: #f4f4f8;
+  --card: #ffffff;
+  --text: #171720;
+  --muted: #707088;
+  --primary: #ef5ca0;
+  --primary-dark: #d84a8d;
+  --accent: #57d9d2;
+  --line: #ececf3;
+  --radius: 24px;
+  --shadow: 0 12px 28px rgba(17, 20, 45, 0.08);
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #f3f3f7;
-  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 16% 0%, #ffffff 0%, transparent 38%),
+    var(--bg);
 }
 
-.canvas-exact {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 10px 8px 30px;
+.page {
+  width: min(100%, 430px);
+  margin: 0 auto;
+  padding: 18px 14px 40px;
+  display: grid;
+  gap: 14px;
 }
 
-.reference-shot {
-  width: min(100%, 390px);
-  height: auto;
+.mobile-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.hero {
+  text-align: center;
+  padding-top: 14px;
+}
+
+.logo {
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  margin: 0 auto 10px;
   display: block;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 1.95rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+h2 span {
+  color: var(--primary);
+}
+
+p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.subtitle {
+  margin: 10px 0 16px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.93rem;
+  display: inline-block;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(160deg, var(--primary), var(--primary-dark));
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.phone {
+  min-height: 118px;
   border-radius: 20px;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: end center;
+  padding-bottom: 10px;
+}
+
+.phone span {
+  font-size: 0.75rem;
+  color: #8a8aa1;
+  font-weight: 500;
+}
+
+.phone-light {
+  background: linear-gradient(140deg, #f1f2f8, #ffffff);
+}
+
+.phone-dark {
+  background: linear-gradient(145deg, #323344, #1d1e2a);
+}
+
+.feature-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.feature-list li::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  background: var(--accent);
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.services h2 {
+  margin-bottom: 8px;
+}
+
+.service-item {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.service-thumb {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.thumb-1 {
+  background: linear-gradient(145deg, #fce9f0, #f28bb6);
+}
+
+.thumb-2 {
+  background: linear-gradient(145deg, #e4eefc, #88b5e5);
+}
+
+.thumb-3 {
+  background: linear-gradient(145deg, #ebf9ec, #96dda3);
+}
+
+.service-item h3 {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.service-item p {
+  font-size: 0.84rem;
+}
+
+.estimate-box {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fbfbfe;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.estimate label {
+  font-size: 0.86rem;
+  color: #52526b;
+}
+
+select {
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid #d9d9e7;
+  border-radius: 12px;
+  font-family: inherit;
+  color: #3a3a4d;
+  background: #fff;
+}
+
+.price {
+  text-align: right;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.offer {
+  background: linear-gradient(165deg, #ffffff, #ffe8f3);
+}
+
+.offer p {
+  margin-top: 8px;
+}
+
+.offer-price {
+  margin-top: 12px;
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.offer-price small {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.feedback blockquote {
+  margin: 10px 0 6px;
+  color: #3b3b50;
+  font-size: 0.93rem;
+}
+
+.feedback cite {
+  font-style: normal;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.cta {
+  text-align: center;
+}
+
+.waitlist-form {
+  margin: 12px 0 8px;
+  display: grid;
+  gap: 9px;
+}
+
+.waitlist-form input {
+  width: 100%;
+  padding: 12px 13px;
+  border-radius: 999px;
+  border: 1px solid #d8d8e5;
+  font-family: inherit;
+}
+
+.cta small {
+  color: #8f8fa6;
+  font-size: 0.78rem;
 }
