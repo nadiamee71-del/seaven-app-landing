@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seaven - One App One Place</title>
+    <title>Seaven - Landing Officielle</title>
     <meta
       name="description"
-      content="Seaven, la plateforme de rendez-vous prestations: beaute, bien-etre, lifestyle."
+      content="Seaven simplifie la prise de rendez-vous prestations en quelques clics."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,40 +17,65 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="page">
+    <main class="page" id="top">
       <section class="mobile-card hero">
-        <img class="logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
+        <div class="hero-head">
+          <img class="logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
+          <a
+            href="#waitlist"
+            class="ghost-link"
+            id="header-cta"
+            data-cta-key="preinscription"
+          >
+            Lancement
+          </a>
+        </div>
         <h1>One App. One Place.<br />Everything.</h1>
         <p class="subtitle">
-          Reserve en quelques clics tes prestations preferees a domicile ou en
-          salon.
+          Réservez vos prestations beauté, lifestyle et bien-être avec les
+          meilleurs prestataires autour de vous.
         </p>
-        <a href="#waitlist" class="btn btn-primary">Rejoindre la liste d'attente</a>
+        <div class="hero-cta-row">
+          <a
+            href="#waitlist"
+            class="btn btn-primary"
+            id="hero-primary-cta"
+            data-cta-key="preinscription"
+          >
+            Réserver en avant-première
+          </a>
+        </div>
       </section>
 
       <section class="mobile-card split">
-        <div class="phone phone-light">
-          <span>Mode client</span>
+        <button class="app-tab active" type="button" id="tab-client" data-view="client">
+          Côté cliente
+        </button>
+        <button class="app-tab" type="button" id="tab-pro" data-view="pro">
+          Côté prestataire
+        </button>
+        <div class="phone-mock active" id="phone-client">
+          <span>Recherche • Créneau • Confirmation</span>
         </div>
-        <div class="phone phone-dark">
-          <span>Mode pro</span>
+        <div class="phone-mock" id="phone-pro">
+          <span>Agenda • Revenus • Disponibilités</span>
         </div>
       </section>
 
       <section class="mobile-card">
-        <h2>Reservation <span>ultra-simple</span></h2>
+        <h2>Réservation <span>ultra-simple</span></h2>
         <p>
-          Choisis ton service, ton prestataire, ton horaire puis confirme.
-          Seaven s'occupe du reste.
+          Trouvez votre prestataire, comparez les créneaux disponibles et
+          confirmez votre rendez-vous en quelques secondes.
         </p>
       </section>
 
       <section class="mobile-card">
         <h2>Pourquoi <span>Seaven</span></h2>
         <ul class="feature-list">
-          <li>Prestataires verifies et notes</li>
-          <li>Disponibilites en temps reel</li>
-          <li>Paiement securise et suivi de rendez-vous</li>
+          <li>Prestataires vérifiés et évalués</li>
+          <li>Disponibilités en temps réel</li>
+          <li>Paiement sécurisé et rappels intelligents</li>
         </ul>
       </section>
 
@@ -59,22 +84,22 @@
         <article class="service-item">
           <div class="service-thumb thumb-1" aria-hidden="true"></div>
           <div>
-            <h3>Coiffure & Beaute</h3>
-            <p>Coupe, brushing, makeup, onglerie.</p>
+            <h3>Coiffure & Beauté</h3>
+            <p>Brushing, makeup, ongles, coiffures événementielles.</p>
           </div>
         </article>
         <article class="service-item">
           <div class="service-thumb thumb-2" aria-hidden="true"></div>
           <div>
-            <h3>Bien-etre</h3>
-            <p>Massage, soins visage, relaxation.</p>
+            <h3>Bien-être</h3>
+            <p>Soins visage, massage, relaxation et soins personnalisés.</p>
           </div>
         </article>
         <article class="service-item">
           <div class="service-thumb thumb-3" aria-hidden="true"></div>
           <div>
             <h3>Lifestyle</h3>
-            <p>Prestations premium personnalisees.</p>
+            <p>Prestations premium à domicile ou en salon partenaire.</p>
           </div>
         </article>
       </section>
@@ -84,37 +109,92 @@
         <div class="estimate-box">
           <label for="service">Choisis un service</label>
           <select id="service" name="service">
-            <option>Coiffure + brushing</option>
-            <option>Onglerie complete</option>
-            <option>Maquillage evenement</option>
+            <option value="15">Coiffure + brushing</option>
+            <option value="22">Onglerie complète</option>
+            <option value="30">Maquillage événement</option>
           </select>
-          <div class="price">Des 15,00 EUR</div>
+          <div class="price" id="quick-estimate-price">Dès 15,00 €</div>
         </div>
       </section>
 
-      <section class="mobile-card offer">
-        <h2>Un abonnement <span>malin</span></h2>
-        <p>Remises exclusives, priorite et avantages partenaires.</p>
-        <div class="offer-price">29,99 EUR <small>/ mois</small></div>
+      <section class="mobile-card offer" id="abonnement">
+        <h2>Un abonnement <span>adapté</span></h2>
+        <p>
+          Estimez rapidement votre tarif selon votre volume de clientes mensuel.
+        </p>
+
+        <button
+          type="button"
+          class="btn btn-primary offer-trigger"
+          id="calculer-tarif-btn"
+        >
+          Calculer mon tarif
+        </button>
+
+        <div class="pricing-calculator" id="pricing-calculator" aria-live="polite">
+          <div class="calculator-row">
+            <span>Nombre de clientes / mois</span>
+            <strong id="clientes-value">25</strong>
+          </div>
+          <input
+            type="range"
+            min="5"
+            max="200"
+            step="5"
+            value="25"
+            id="clientes-slider"
+            aria-label="Nombre de clientes mensuelles"
+          />
+          <div class="calculator-row total">
+            <span>Tarif estimé</span>
+            <strong id="abonnement-price">29,99 € / mois</strong>
+          </div>
+        </div>
       </section>
 
       <section class="mobile-card feedback">
         <h2>Avis clients</h2>
         <blockquote>
-          "Interface canon, tres rapide. J'ai reserve ma presta en 2 minutes."
+          "Application fluide, belle et rapide. J'ai trouvé ma prestataire en 2
+          minutes."
         </blockquote>
         <cite>- Sarah M.</cite>
       </section>
 
+      <section class="mobile-card stores">
+        <h2>Disponible bientôt sur</h2>
+        <div class="store-grid">
+          <a href="#" class="store-badge" data-cta-key="iosStore">App Store</a>
+          <a href="#" class="store-badge" data-cta-key="androidStore">Google Play</a>
+          <a href="#" class="store-badge" data-cta-key="apkDirect">APK direct</a>
+        </div>
+      </section>
+
       <section id="waitlist" class="mobile-card cta">
         <h2>Disponible prochainement</h2>
-        <p>Inscris-toi pour etre avertie du lancement officiel Seaven.</p>
-        <form class="waitlist-form">
-          <input type="email" placeholder="Ton email" required />
-          <button type="submit" class="btn btn-primary">Je m'inscris</button>
+        <p>Inscrivez-vous pour être avertie du lancement officiel Seaven.</p>
+        <form class="waitlist-form" id="waitlist-form">
+          <input
+            type="email"
+            id="waitlist-email"
+            placeholder="Ton email"
+            autocomplete="email"
+            required
+          />
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="waitlist-submit"
+            data-cta-key="preinscription"
+          >
+            Je m'inscris
+          </button>
         </form>
-        <small>Tu recevras uniquement les infos de lancement.</small>
+        <small id="waitlist-status">
+          Formulaire en mode préparation. Connexion email officielle à venir.
+        </small>
       </section>
     </main>
+    <script src="./app.js"></script>
   </body>
 </html>
