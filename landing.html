@@ -1,165 +1,624 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seaven - Landing Officielle</title>
-    <meta name="description" content="Landing Seaven mobile-first premium." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <main class="page" id="top">
-      <section class="mobile-card hero" id="hero">
-        <img class="logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
-        <h1>One App. One Place. Everything connected.</h1>
-        <p class="subtitle">
-          Le réseau social de réservation et de vente pour les indépendants.
-          Simplifiez votre quotidien. Boostez votre visibilité.
-        </p>
-        <div class="hero-buttons">
-          <a class="btn btn-primary" href="#waitlist" data-cta-key="joinAdventure">
-            Rejoindre l’aventure
-          </a>
-          <a class="btn btn-secondary" href="#" data-cta-key="openApp">
-            Découvrir l’App
-          </a>
-        </div>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seaven — Landing</title>
+  <meta name="description" content="Le réseau social de réservation et de vente pour les indépendants." />
 
-      <section class="mobile-card split" id="hero-visuals">
-        <div class="visual-block visual-light" aria-hidden="true"></div>
-        <div class="visual-block visual-dark" aria-hidden="true"></div>
-      </section>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 
-      <section class="mobile-card" id="fonctionnalites-1">
-        <h2>Finis le chaos. Tout dans une seule app.</h2>
-        <div class="feature-block">
-          <h3>📅 Réservation Intelligente</h3>
-          <p>Laissez vos clients réserver 24/7 sans aucun effort de votre part</p>
-        </div>
-        <div class="feature-block">
-          <h3>💳 Paiements Sécurisés</h3>
-          <p>Encaissez vos paiements facilement directement via l’application</p>
-        </div>
-        <article class="image-card">
-          <img src="./assets/images/coiffeur.jpg" alt="Coiffeur" />
-          <div class="image-card-content">
-            <a class="btn btn-violet" href="#" data-cta-key="openApp">Voir dans l’app</a>
+  <style>
+    :root {
+      --bg: #f7f7f9;
+      --card: #ffffff;
+      --text: #151515;
+      --muted: #6f6f77;
+      --border: #ececf1;
+      --shadow: 0 12px 32px rgba(26, 21, 31, 0.07);
+      --shadow-soft: 0 8px 20px rgba(26, 21, 31, 0.05);
+
+      --pink: #ee4b93;
+      --pink-dark: #d93b82;
+      --lavender: #b89df6;
+      --violet: #9b7cf2;
+      --mint: #8dddc7;
+      --green: #6cc9a9;
+      --black-btn: #121212;
+      --field: #f1f1f4;
+      --white: #ffffff;
+
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-pill: 999px;
+      --container-w: 390px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+
+    .page { width: 100%; display: flex; justify-content: center; padding: 18px 12px 36px; }
+    .mobile-shell { width: 100%; max-width: var(--container-w); }
+    .stack { display: flex; flex-direction: column; gap: 18px; }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+    .soft-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+    }
+    .section-pad { padding: 20px 18px; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 6px 2px 8px; }
+    .brand { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .brand-logo {
+      width: 22px; height: 22px; border-radius: 8px; object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08); background: #fff;
+    }
+    .brand-name { font-size: 14px; font-weight: 700; letter-spacing: -0.02em; }
+
+    .top-cta {
+      border: 0; background: linear-gradient(180deg, #f36cac 0%, var(--pink) 100%); color: #fff;
+      border-radius: var(--radius-pill); padding: 10px 14px; font-size: 12px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 10px 18px rgba(238, 75, 147, 0.28);
+    }
+
+    .hero { padding: 14px 16px 18px; }
+    .hero-inner { text-align: center; padding: 6px 6px 0; }
+    .eyebrow-space { height: 6px; }
+    h1, h2, h3, p { margin: 0; }
+
+    .hero-title {
+      font-size: 32px; line-height: 1.02; letter-spacing: -0.055em; font-weight: 800; margin-top: 10px;
+    }
+    .accent-pink { color: var(--pink); }
+    .accent-lavender { color: var(--lavender); }
+    .accent-mint { color: var(--mint); }
+
+    .hero-text {
+      margin: 14px auto 0; max-width: 300px; font-size: 14px; line-height: 1.5; color: var(--muted); font-weight: 500;
+    }
+    .hero-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; align-items: center; }
+
+    .btn {
+      border: 0; border-radius: var(--radius-pill); min-height: 50px; width: 100%; max-width: 272px;
+      padding: 0 18px; font-size: 14px; font-weight: 700; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background: linear-gradient(180deg, #f56ead 0%, var(--pink) 100%); color: #fff; box-shadow: 0 14px 22px rgba(238, 75, 147, 0.28); }
+    .btn-secondary { background: #ececed; color: #5b5b60; box-shadow: inset 0 1px 0 rgba(255,255,255,0.85); }
+
+    .hero-visuals { display: flex; justify-content: center; gap: 18px; margin-top: 22px; padding-bottom: 6px; }
+    .hero-visual-box {
+      width: 118px; height: 118px; border-radius: 28px; overflow: hidden; background: #fff;
+      display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); border: 1px solid var(--border);
+    }
+    .hero-visual-box.dark { background: #1b1d26; border-color: rgba(255,255,255,0.08); }
+    .hero-visual-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    .section-title { font-size: 30px; line-height: 1.06; letter-spacing: -0.055em; font-weight: 800; margin-bottom: 16px; }
+
+    .feature-list { display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
+    .feature-item { display: flex; gap: 12px; align-items: flex-start; }
+    .feature-icon {
+      width: 34px; height: 34px; border-radius: 12px; background: rgba(184, 157, 246, 0.18); color: #8f72ea;
+      display: flex; align-items: center; justify-content: center; font-size: 16px; flex: 0 0 auto; margin-top: 1px;
+    }
+    .feature-body h3 { font-size: 16px; line-height: 1.2; letter-spacing: -0.03em; font-weight: 800; margin-bottom: 4px; }
+    .feature-body p { font-size: 13px; line-height: 1.45; color: var(--muted); font-weight: 500; }
+
+    .visual-card { padding: 14px; position: relative; overflow: hidden; }
+    .visual-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 24px; }
+    .floating-chip {
+      position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.95); color: #8357ef;
+      padding: 10px 14px; border-radius: 999px; box-shadow: var(--shadow-soft); font-size: 12px; font-weight: 800;
+      backdrop-filter: blur(8px);
+    }
+    .floating-btn {
+      position: absolute; right: 28px; bottom: 28px; background: #b180f7; color: #fff; border: 0; border-radius: 999px;
+      padding: 10px 16px; font-size: 12px; font-weight: 800; box-shadow: 0 10px 16px rgba(155, 124, 242, 0.25); cursor: pointer;
+    }
+
+    .cards-grid { display: flex; flex-direction: column; gap: 16px; }
+    .service-card { padding: 16px; }
+    .service-tag { display: inline-block; font-size: 11px; line-height: 1; letter-spacing: -0.02em; font-weight: 700; color: #8fd7c3; margin-bottom: 10px; }
+    .service-title { font-size: 26px; line-height: 1.02; letter-spacing: -0.05em; font-weight: 800; margin-bottom: 8px; }
+    .service-text { font-size: 14px; line-height: 1.5; color: var(--muted); font-weight: 500; margin-bottom: 14px; }
+    .service-image { width: 100%; height: 220px; object-fit: cover; border-radius: 26px; }
+
+    .estimate-text { font-size: 14px; line-height: 1.55; color: var(--muted); font-weight: 500; margin: 10px 0 18px; }
+
+    .calculator-card { padding: 18px; }
+    .calculator-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .calculator-title { font-size: 22px; line-height: 1.05; letter-spacing: -0.05em; font-weight: 800; }
+    .calculator-badge {
+      width: 28px; height: 28px; border-radius: 50%; background: rgba(238,75,147,0.1); color: var(--pink);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .calc-row {
+      display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; line-height: 1.35;
+    }
+    .calc-row:last-of-type { margin-bottom: 14px; }
+    .calc-label { color: var(--muted); font-weight: 600; }
+    .calc-value { color: var(--text); font-weight: 700; text-align: right; }
+    .recommended-box { margin-top: 18px; padding-top: 8px; text-align: center; }
+    .recommended-label { color: #d59bbb; font-size: 14px; line-height: 1.2; font-weight: 700; margin-bottom: 6px; }
+    .recommended-price { color: var(--pink); font-size: 42px; line-height: 1; letter-spacing: -0.06em; font-weight: 800; }
+
+    .pricing-subtext { font-size: 15px; line-height: 1.55; color: #a4a4ad; font-weight: 500; margin-top: 8px; text-align: center; }
+    .pricing-card {
+      padding: 22px 18px 20px; text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(252,252,254,1) 100%);
+    }
+    .pricing-card h3 { font-size: 22px; line-height: 1.08; letter-spacing: -0.05em; font-weight: 800; margin-bottom: 18px; }
+    .range-wrap { padding: 0 8px; }
+    .range { width: 100%; appearance: none; background: transparent; margin: 8px 0 6px; }
+    .range::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, rgba(184,157,246,0.18) 0%, rgba(184,157,246,0.5) 100%); }
+    .range::-webkit-slider-thumb { appearance: none; margin-top: -7px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
+    .range::-moz-range-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, rgba(184,157,246,0.18) 0%, rgba(184,157,246,0.5) 100%); }
+    .range::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: #9d7cf2; box-shadow: 0 6px 16px rgba(157,124,242,0.35); cursor: pointer; }
+    .range-labels { display: flex; justify-content: space-between; gap: 6px; margin-top: 8px; color: #babac4; font-size: 11px; font-weight: 700; }
+    .monthly-clients { margin-top: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
+    .price-big { font-size: 58px; line-height: 0.95; letter-spacing: -0.07em; font-weight: 800; color: var(--lavender); margin-top: 18px; }
+    .price-caption { margin-top: 6px; font-size: 14px; color: #8e8e97; font-weight: 600; }
+
+    .form-card { padding: 22px 18px; position: relative; overflow: hidden; }
+    .arrow-glow {
+      position: absolute; top: 24px; right: 18px; width: 92px; height: 36px;
+      background: linear-gradient(90deg, rgba(238,75,147,0.12), rgba(184,157,246,0.05));
+      clip-path: polygon(0 50%, 72% 0, 100% 50%, 72% 100%); filter: blur(0.3px);
+    }
+    .form-title { position: relative; z-index: 1; font-size: 34px; line-height: 0.98; letter-spacing: -0.055em; font-weight: 800; margin-bottom: 18px; }
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 13px; font-weight: 700; color: #1d1d20; margin-bottom: 8px; }
+    .field, .select {
+      width: 100%; min-height: 52px; border: 1px solid transparent; border-radius: 999px; padding: 0 18px;
+      background: var(--field); color: #44444c; outline: none; font-size: 14px; font-weight: 600;
+    }
+    .field::placeholder { color: #9c9ca5; font-weight: 600; }
+
+    .consent { display: flex; align-items: flex-start; gap: 10px; margin: 8px 0 18px; }
+    .consent input { margin-top: 3px; accent-color: var(--pink); }
+    .consent-text { font-size: 13px; line-height: 1.45; color: #7e7e87; font-weight: 600; }
+
+    .submit-feedback { margin-top: 12px; font-size: 13px; font-weight: 700; color: #2f9f73; display: none; }
+    .submit-feedback.error { color: #d14369; }
+
+    .footer-block { text-align: center; padding: 6px 10px 2px; }
+    .footer-title { font-size: 36px; line-height: 1.02; letter-spacing: -0.06em; font-weight: 800; margin-bottom: 20px; }
+    .store-buttons { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .store-btn {
+      width: 190px; min-height: 52px; border-radius: 999px; background: var(--black-btn); color: #fff;
+      display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; font-size: 15px;
+      box-shadow: 0 12px 22px rgba(18,18,18,0.18); transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    .store-btn:hover { transform: translateY(-1px); opacity: 0.98; }
+    .store-icon { font-size: 18px; line-height: 1; }
+    .tiny-note { text-align: center; margin-top: 8px; color: #a0a0a8; font-size: 11px; font-weight: 600; }
+
+    @media (max-width: 390px) {
+      .hero-title, .section-title, .footer-title, .form-title { font-size: clamp(28px, 8vw, 34px); }
+      .service-title { font-size: 24px; }
+      .recommended-price { font-size: 36px; }
+      .price-big { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="mobile-shell">
+      <div class="stack">
+
+        <header class="topbar">
+          <div class="brand">
+            <img class="brand-logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
+            <div class="brand-name">Seaven</div>
           </div>
-        </article>
-      </section>
+          <button class="top-cta" type="button" data-link="waitlist">Rejoindre l’aventure</button>
+        </header>
 
-      <section class="mobile-card services" id="metiers">
-        <h2>Pensé pour tous les métiers.</h2>
-        <article class="service-item">
-          <img class="service-photo" src="./assets/images/cosmetiques.jpg" alt="produits cosmétiques" />
-          <div>
-            <h3>Vendez sans limites</h3>
-            <p>Proposez vos produits et services directement à votre clientèle</p>
+        <section class="card hero">
+          <div class="hero-inner">
+            <div class="eyebrow-space"></div>
+
+            <h1 class="hero-title">
+              One App. One Place.<br />
+              <span class="accent-pink">Everything connected.</span>
+            </h1>
+
+            <p class="hero-text">
+              Le réseau social de réservation et de vente pour les indépendants.
+              Simplifiez votre quotidien. Boostez votre visibilité.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" data-link="waitlist">
+                Rejoindre l’aventure
+              </button>
+              <button class="btn btn-secondary" type="button" data-link="discover">
+                Découvrir l’App
+              </button>
+            </div>
+
+            <div class="hero-visuals">
+              <div class="hero-visual-box">
+                <img src="./assets/images/coiffeur.jpg" alt="Aperçu application Seaven" />
+              </div>
+              <div class="hero-visual-box dark">
+                <img src="./assets/images/cosmetiques.jpg" alt="Aperçu service Seaven" />
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="service-item">
-          <img class="service-photo" src="./assets/images/toilettage-chien.jpg" alt="chien toiletté" />
-          <div>
-            <h3>Gestion simplifiée</h3>
-            <p>Gérez vos données clients en un seul clic</p>
+        </section>
+
+        <section class="section-pad">
+          <h2 class="section-title">
+            Finis le chaos.<br />
+            <span class="accent-lavender">Tout dans une seule app.</span>
+          </h2>
+
+          <div class="feature-list">
+            <article class="feature-item">
+              <div class="feature-icon">📅</div>
+              <div class="feature-body">
+                <h3>Réservation Intelligente</h3>
+                <p>Laissez vos clients réserver 24/7 sans aucun effort de votre part</p>
+              </div>
+            </article>
+
+            <article class="feature-item">
+              <div class="feature-icon">💳</div>
+              <div class="feature-body">
+                <h3>Paiements Sécurisés</h3>
+                <p>Encaissez vos paiements facilement directement via l’application</p>
+              </div>
+            </article>
           </div>
-        </article>
-        <article class="service-item">
-          <img class="service-photo" src="./assets/images/tatoueur.jpg" alt="tatoueur" />
-          <div>
-            <h3>Portfolio Digital</h3>
-            <p>Affichez vos plus beaux réalisations et attirez de nouveaux passionnés</p>
-          </div>
-        </article>
-      </section>
+        </section>
 
-      <section class="mobile-card estimate" id="estimation">
-        <h2>Estimation par IA.</h2>
-        <p>
-          Ne bradez plus jamais votre talent. Notre IA analyse la complexité, les matériaux et le temps pour vous proposer le prix le plus juste pour vous et vos clients.
-        </p>
-        <a class="btn btn-primary estimate-btn" href="#calculateur-ia" id="estimate-cta" data-cta-key="goCalculator">
-          Calculer maintenant
-        </a>
-      </section>
+        <section class="soft-card visual-card">
+          <div class="floating-chip">+ disponibilité</div>
+          <img src="./assets/images/coiffeur.jpg" alt="Coiffeur utilisant Seaven" />
+          <button class="floating-btn" type="button" data-link="discover">Réserver</button>
+        </section>
 
-      <section class="mobile-card ia-card" id="calculateur-ia">
-        <h2>Calculateur IA 🎯</h2>
-        <div class="ia-lines">
-          <p>Complexité du projet : Intermédiaire</p>
-          <p>Temps estimé : 1h 30min</p>
-          <p>Prix du marché : 260€ — 350€</p>
-          <p class="ia-price">Recommandé Seaven : 315,00€</p>
-        </div>
-      </section>
+        <section class="section-pad">
+          <h2 class="section-title">
+            Pensé pour <span class="accent-mint">tous les métiers.</span>
+          </h2>
+        </section>
 
-      <section class="mobile-card offer" id="tarif">
-        <h2>Un abonnement adapté.</h2>
-        <p>Un tarif juste, qui évolue avec votre activité.</p>
-        <div class="pricing-calculator active" id="pricing-calculator" aria-live="polite">
-          <label for="clientes-slider">Nombre de clients mensuels</label>
-          <input
-            type="range"
-            min="10"
-            max="250"
-            step="10"
-            value="50"
-            id="clientes-slider"
-            aria-label="Nombre de clients mensuels"
-          />
-          <div class="calculator-row">
-            <span>Clients sélectionnés</span>
-            <strong id="clientes-value">50</strong>
-          </div>
-          <p class="offer-price" id="abonnement-price">29,99€</p>
-          <p class="offer-sub">par mois, sans engagement</p>
-        </div>
-      </section>
+        <section class="cards-grid">
+          <article class="soft-card service-card">
+            <span class="service-tag">Business & Boutique</span>
+            <h3 class="service-title">Vendez sans limites</h3>
+            <p class="service-text">
+              Proposez vos produits et services directement à votre clientèle
+            </p>
+            <img class="service-image" src="./assets/images/cosmetiques.jpg" alt="Produits cosmétiques" />
+          </article>
 
-      <section id="waitlist" class="mobile-card cta">
-        <h2>Rejoindre l’aventure</h2>
-        <form class="waitlist-form" id="waitlist-form">
-          <input type="text" id="nom" name="nom" placeholder="Nom" required />
-          <input type="text" id="prenom" name="prenom" placeholder="Prénom" required />
-          <label for="role">Je suis *</label>
-          <select id="role" name="role" required>
-            <option value="">Sélectionner votre rôle</option>
-          </select>
-          <input type="email" id="waitlist-email" placeholder="Email" autocomplete="email" required />
-          <label class="checkbox-row">
-            <input type="checkbox" id="consent" required />
-            <span>J’accepte d’être recontacté(e) par l’équipe de l’application</span>
-          </label>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            id="waitlist-submit"
-            data-cta-key="waitlistSubmit"
-          >
-            S’inscrire à la liste d’attente
+          <article class="soft-card service-card">
+            <span class="service-tag">Service & Relation</span>
+            <h3 class="service-title">Gestion simplifiée</h3>
+            <p class="service-text">
+              Gérez vos données clients en un seul clic
+            </p>
+            <img class="service-image" src="./assets/images/toilettage-chien.jpg" alt="Toiletteur de chien" />
+          </article>
+
+          <article class="soft-card service-card">
+            <span class="service-tag">Création & Visibilité</span>
+            <h3 class="service-title">Portfolio Digital</h3>
+            <p class="service-text">
+              Affichez vos plus beaux réalisations et attirez de nouveaux passionnés
+            </p>
+            <img class="service-image" src="./assets/images/tatoueur.jpg" alt="Tatoueur au travail" />
+          </article>
+        </section>
+
+        <section class="section-pad" id="estimate-section">
+          <h2 class="section-title">
+            Estimation <span class="accent-pink">par IA.</span>
+          </h2>
+
+          <p class="estimate-text">
+            Ne bradez plus jamais votre talent. Notre IA analyse la complexité,
+            les matériaux et le temps pour vous proposer le prix le plus juste
+            pour vous et vos clients.
+          </p>
+
+          <button class="btn btn-primary" type="button" id="calculateNowBtn">
+            Calculer maintenant
           </button>
-        </form>
-        <small id="waitlist-status">Formulaire prêt pour connexion email.</small>
-      </section>
+        </section>
 
-      <footer class="mobile-card footer">
-        <p class="footer-title">Disponible prochainement sur iOS & Android</p>
-        <div class="store-grid">
-          <a href="#" class="store-badge dark" data-cta-key="iosStore">App Store</a>
-          <a href="#" class="store-badge dark" data-cta-key="androidStore">Google Play</a>
-        </div>
-      </footer>
-      <section class="hidden-links">
-        <a href="#" data-cta-key="apkDirect">APK</a>
-      </section>
+        <section class="card calculator-card" id="calculator-card">
+          <div class="calculator-head">
+            <h3 class="calculator-title">Calculateur IA 🎯</h3>
+            <div class="calculator-badge">✦</div>
+          </div>
+
+          <div class="calc-row">
+            <div class="calc-label">Complexité du projet</div>
+            <div class="calc-value">Intermédiaire</div>
+          </div>
+
+          <div class="calc-row">
+            <div class="calc-label">Temps estimé</div>
+            <div class="calc-value">1h 30min</div>
+          </div>
+
+          <div class="calc-row">
+            <div class="calc-label">Prix du marché</div>
+            <div class="calc-value">260€ — 350€</div>
+          </div>
+
+          <div class="recommended-box">
+            <div class="recommended-label">Recommandé Seaven</div>
+            <div class="recommended-price">315,00€</div>
+          </div>
+        </section>
+
+        <section class="section-pad" id="pricing-section">
+          <h2 class="section-title">
+            Un abonnement<br />
+            <span class="accent-lavender">adapté.</span>
+          </h2>
+          <p class="pricing-subtext">
+            Un tarif juste, qui évolue avec votre activité.
+          </p>
+        </section>
+
+        <section class="card pricing-card">
+          <h3>Nombre de clients<br />mensuels</h3>
+
+          <div class="range-wrap">
+            <input
+              class="range"
+              id="clientsRange"
+              type="range"
+              min="5"
+              max="100"
+              step="5"
+              value="30"
+              aria-label="Nombre de clients mensuels"
+            />
+
+            <div class="range-labels">
+              <span>5</span>
+              <span>20</span>
+              <span>40</span>
+              <span>60</span>
+              <span>80</span>
+              <span>100</span>
+            </div>
+
+            <div class="monthly-clients">
+              <span id="clientsValue">30</span> clients / mois
+            </div>
+          </div>
+
+          <div class="price-big" id="priceValue">29,99€</div>
+          <div class="price-caption">par mois, sans engagement</div>
+        </section>
+
+        <section class="card form-card" id="waitlist-section">
+          <div class="arrow-glow"></div>
+
+          <h2 class="form-title">
+            Rejoindre<br />
+            <span class="accent-pink">l’aventure</span>
+          </h2>
+
+          <form id="waitlistForm">
+            <div class="form-group">
+              <label class="form-label" for="lastName">Nom</label>
+              <input class="field" id="lastName" name="lastName" type="text" placeholder="Dupont" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="firstName">Prénom</label>
+              <input class="field" id="firstName" name="firstName" type="text" placeholder="Julie" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="role">Je suis *</label>
+              <select class="select" id="role" name="role" required>
+                <option value="">Sélectionner votre rôle</option>
+                <option value="prestataire">Prestataire indépendant(e)</option>
+                <option value="client">Client(e)</option>
+                <option value="partenaire">Partenaire</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input class="field" id="email" name="email" type="email" placeholder="je@exemple.com" required />
+            </div>
+
+            <label class="consent">
+              <input id="consent" name="consent" type="checkbox" required />
+              <span class="consent-text">
+                J’accepte d’être recontacté(e) par l’équipe de l’application
+              </span>
+            </label>
+
+            <button class="btn btn-primary" type="submit">
+              S’inscrire à la liste d’attente
+            </button>
+
+            <div class="submit-feedback" id="formFeedback"></div>
+          </form>
+        </section>
+
+        <section class="footer-block">
+          <h2 class="footer-title">
+            Disponible<br />
+            prochainement sur<br />
+            iOS &amp; Android
+          </h2>
+
+          <div class="store-buttons">
+            <a class="store-btn" id="appStoreBtn" href="#" target="_blank" rel="noopener">
+              <span class="store-icon"></span>
+              <span>App Store</span>
+            </a>
+
+            <a class="store-btn" id="googlePlayBtn" href="#" target="_blank" rel="noopener">
+              <span class="store-icon">▶</span>
+              <span>Google Play</span>
+            </a>
+          </div>
+
+          <div class="tiny-note">
+            Liens modifiables plus tard avec les URLs officielles.
+          </div>
+        </section>
+
+      </div>
     </main>
-    <script src="./app.js"></script>
-  </body>
+  </div>
+
+  <script>
+    const APP_LINKS = {
+      waitlistAnchor: "#waitlist-section",
+      discoverAnchor: "#estimate-section",
+      appStore: "#",
+      googlePlay: "#",
+      apk: "#",
+      deepLink: "#",
+      formEndpoint: ""
+    };
+
+    const topWaitlistButtons = document.querySelectorAll('[data-link="waitlist"]');
+    const discoverButtons = document.querySelectorAll('[data-link="discover"]');
+
+    topWaitlistButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelector(APP_LINKS.waitlistAnchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    discoverButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelector(APP_LINKS.discoverAnchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    const calculateNowBtn = document.getElementById("calculateNowBtn");
+    calculateNowBtn?.addEventListener("click", () => {
+      document.getElementById("calculator-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        document.getElementById("pricing-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 500);
+    });
+
+    const clientsRange = document.getElementById("clientsRange");
+    const clientsValue = document.getElementById("clientsValue");
+    const priceValue = document.getElementById("priceValue");
+
+    function formatEuro(amount) {
+      return amount.toLocaleString("fr-FR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }) + "€";
+    }
+
+    function computePrice(clients) {
+      const base = 29.99;
+      const extra = Math.max(0, clients - 30) * 0.18;
+      const discount = clients <= 30 ? 0 : 0;
+      return Math.max(base, base + extra - discount);
+    }
+
+    function updatePricing() {
+      const clients = Number(clientsRange.value);
+      const price = computePrice(clients);
+      clientsValue.textContent = clients.toString();
+      priceValue.textContent = formatEuro(price);
+    }
+
+    clientsRange?.addEventListener("input", updatePricing);
+    updatePricing();
+
+    document.getElementById("appStoreBtn").href = APP_LINKS.appStore;
+    document.getElementById("googlePlayBtn").href = APP_LINKS.googlePlay;
+
+    const waitlistForm = document.getElementById("waitlistForm");
+    const formFeedback = document.getElementById("formFeedback");
+
+    waitlistForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!waitlistForm.checkValidity()) {
+        waitlistForm.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(waitlistForm);
+      const payload = Object.fromEntries(formData.entries());
+
+      if (!APP_LINKS.formEndpoint) {
+        formFeedback.style.display = "block";
+        formFeedback.classList.remove("error");
+        formFeedback.textContent =
+          "Formulaire prêt. Ajoute ton endpoint (ex. Formspree) dans APP_LINKS.formEndpoint pour recevoir les inscriptions.";
+        return;
+      }
+
+      try {
+        const response = await fetch(APP_LINKS.formEndpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error("Échec de l’envoi");
+        }
+
+        waitlistForm.reset();
+        updatePricing();
+        formFeedback.style.display = "block";
+        formFeedback.classList.remove("error");
+        formFeedback.textContent = "Inscription envoyée avec succès.";
+      } catch (error) {
+        formFeedback.style.display = "block";
+        formFeedback.classList.add("error");
+        formFeedback.textContent = "Impossible d’envoyer le formulaire pour le moment.";
+      }
+    });
+  </script>
+</body>
 </html>
