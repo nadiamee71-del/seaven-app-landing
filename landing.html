@@ -226,7 +226,20 @@
     .range-labels { display: flex; justify-content: space-between; gap: 6px; margin-top: 8px; color: #babac4; font-size: 11px; font-weight: 700; }
     .monthly-clients { margin-top: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
     .price-big { font-size: 58px; line-height: 0.95; letter-spacing: -0.07em; font-weight: 800; color: var(--lavender); margin-top: 18px; }
+    .price-big.is-featured-tier { color: var(--pink); }
     .price-caption { margin-top: 6px; font-size: 14px; color: #8e8e97; font-weight: 600; }
+
+    .pricing-tiers { margin-top: 20px; text-align: left; border-top: 1px solid var(--border); padding-top: 8px; }
+    .pricing-tier-row {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 600; color: var(--text);
+    }
+    .pricing-tier-row:last-child { border-bottom: 0; }
+    .pricing-tier-row .tier-label { text-align: left; }
+    .pricing-tier-row .tier-price { text-align: right; white-space: nowrap; font-weight: 700; }
+    .pricing-tier-row.featured-tier { color: var(--pink); }
+    .pricing-tier-row.featured-tier .tier-price { color: var(--pink); }
+    .pricing-tier-row.active-tier { background: rgba(238, 75, 147, 0.06); margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: 12px; border-bottom-color: transparent; }
 
     .form-card { padding: 22px 18px; position: relative; overflow: hidden; }
     .arrow-glow {
@@ -432,8 +445,8 @@
 
         <section class="section-pad" id="pricing-section">
           <h2 class="section-title">
-            Un abonnement<br />
-            <span class="accent-lavender">adapté.</span>
+            Un abonnement,<br />
+            <span class="accent-pink">adapté à votre clientèle.</span>
           </h2>
           <p class="pricing-subtext">
             Un tarif juste, qui évolue avec votre activité.
@@ -448,29 +461,62 @@
               class="range"
               id="clientsRange"
               type="range"
-              min="5"
-              max="100"
-              step="5"
+              min="1"
+              max="300"
+              step="1"
               value="30"
               aria-label="Nombre de clients mensuels"
             />
 
             <div class="range-labels">
+              <span>1</span>
               <span>5</span>
-              <span>20</span>
-              <span>40</span>
-              <span>60</span>
-              <span>80</span>
+              <span>15</span>
+              <span>35</span>
+              <span>50</span>
               <span>100</span>
+              <span>250</span>
+              <span>300</span>
             </div>
 
             <div class="monthly-clients">
-              <span id="clientsValue">30</span> clients / mois
+              <span id="clientsValue">30</span> clientes / mois
             </div>
           </div>
 
-          <div class="price-big" id="priceValue">29,99€</div>
+          <div class="price-big" id="priceValue">59,99€ / mois</div>
           <div class="price-caption">par mois, sans engagement</div>
+
+          <div class="pricing-tiers" id="pricingTiers" aria-label="Grille tarifaire">
+            <div class="pricing-tier-row" data-tier-index="0">
+              <span class="tier-label">&lt; 5 clientes</span>
+              <span class="tier-price">9,99€ / mois</span>
+            </div>
+            <div class="pricing-tier-row" data-tier-index="1">
+              <span class="tier-label">&lt; 15 clientes</span>
+              <span class="tier-price">19,99€ / mois</span>
+            </div>
+            <div class="pricing-tier-row featured-tier" data-tier-index="2">
+              <span class="tier-label">&lt; 35 clientes ✨</span>
+              <span class="tier-price">59,99€ / mois</span>
+            </div>
+            <div class="pricing-tier-row" data-tier-index="3">
+              <span class="tier-label">&lt; 50 clientes</span>
+              <span class="tier-price">99,99€ / mois</span>
+            </div>
+            <div class="pricing-tier-row" data-tier-index="4">
+              <span class="tier-label">&lt; 100 clientes</span>
+              <span class="tier-price">149,99€ / mois</span>
+            </div>
+            <div class="pricing-tier-row" data-tier-index="5">
+              <span class="tier-label">&lt; 250 clientes</span>
+              <span class="tier-price">279,99€ / mois</span>
+            </div>
+            <div class="pricing-tier-row" data-tier-index="6">
+              <span class="tier-label">+ 250 clientes</span>
+              <span class="tier-price">329,99€ / mois</span>
+            </div>
+          </div>
         </section>
 
         <section class="card form-card" id="waitlist-section">
@@ -611,6 +657,7 @@
     const clientsRange = document.getElementById("clientsRange");
     const clientsValue = document.getElementById("clientsValue");
     const priceValue = document.getElementById("priceValue");
+    const tierRows = document.querySelectorAll(".pricing-tier-row[data-tier-index]");
 
     function formatEuro(amount) {
       return amount.toLocaleString("fr-FR", {
@@ -619,18 +666,28 @@
       }) + "€";
     }
 
-    function computePrice(clients) {
-      const base = 29.99;
-      const extra = Math.max(0, clients - 30) * 0.18;
-      const discount = clients <= 30 ? 0 : 0;
-      return Math.max(base, base + extra - discount);
+    /** Grille officielle : paliers selon le nombre de clientes / mois */
+    function computeTier(clients) {
+      const n = Number(clients);
+      if (n < 5) return { price: 9.99, index: 0 };
+      if (n < 15) return { price: 19.99, index: 1 };
+      if (n < 35) return { price: 59.99, index: 2 };
+      if (n < 50) return { price: 99.99, index: 3 };
+      if (n < 100) return { price: 149.99, index: 4 };
+      if (n < 250) return { price: 279.99, index: 5 };
+      return { price: 329.99, index: 6 };
     }
 
     function updatePricing() {
       const clients = Number(clientsRange.value);
-      const price = computePrice(clients);
+      const { price, index } = computeTier(clients);
       clientsValue.textContent = clients.toString();
-      priceValue.textContent = formatEuro(price);
+      priceValue.textContent = formatEuro(price) + " / mois";
+      priceValue.classList.toggle("is-featured-tier", index === 2);
+      tierRows.forEach((row) => {
+        const i = Number(row.getAttribute("data-tier-index"));
+        row.classList.toggle("active-tier", i === index);
+      });
     }
 
     clientsRange?.addEventListener("input", updatePricing);
