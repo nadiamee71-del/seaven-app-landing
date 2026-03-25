@@ -317,7 +317,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .grad-bar{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--mint),var(--yellow));}
 
 /* HERO */
-.hero{text-align:center;padding:80px max(16px,env(safe-area-inset-left)) 72px max(16px,env(safe-area-inset-right));max-width:860px;margin:0 auto;min-width:0;width:100%;box-sizing:border-box;}
+.hero{text-align:center;padding:28px max(16px,env(safe-area-inset-left)) 72px max(16px,env(safe-area-inset-right));max-width:860px;margin:0 auto;min-width:0;width:100%;box-sizing:border-box;}
 .hero-launch{display:inline-flex;align-items:center;gap:6px;background:var(--light);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:28px;}
 .hero-launch span{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;}
 .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,8.5vw,72px);font-weight:800;line-height:1.05;letter-spacing:-0.04em;margin-bottom:22px;overflow-wrap:anywhere;}
@@ -326,7 +326,8 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .btn-main{display:inline-flex;align-items:center;gap:8px;justify-content:center;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;border-radius:30px;padding:16px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:transform .2s,box-shadow .2s;max-width:100%;box-sizing:border-box;}
 .btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(232,99,140,.35);}
 .hero-note{font-size:12px;color:var(--mid);margin-top:14px;line-height:1.55;max-width:min(420px,100%);margin-left:auto;margin-right:auto;}
-.hero-motion-wrap{width:100%;max-width:100%;min-width:0;margin:clamp(8px,2vw,16px) 0 clamp(22px,5vw,36px);box-sizing:border-box;}
+.hero-motion-slot{width:100%;max-width:860px;margin:0 auto;padding:8px max(16px,env(safe-area-inset-left)) 18px max(16px,env(safe-area-inset-right));box-sizing:border-box;}
+.hero-motion-wrap{width:100%;max-width:100%;min-width:0;margin:0;box-sizing:border-box;}
 .hero-extra-offers{margin-top:28px;padding-top:22px;border-top:1px solid var(--border);width:100%;max-width:min(400px,100%);margin-left:auto;margin-right:auto;display:flex;flex-direction:column;align-items:center;gap:14px;box-sizing:border-box;}
 .hero-promo{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,rgba(232,99,140,.12),rgba(168,125,200,.14));border:1px solid rgba(232,99,140,.25);color:var(--black);font-size:11px;font-weight:800;padding:8px 14px;border-radius:999px;margin:0;text-align:center;line-height:1.3;}
 .btn-parrain{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--pink);border:2px solid var(--pink);border-radius:30px;padding:12px 22px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;margin:0;max-width:100%;box-sizing:border-box;transition:transform .2s,background .2s,color .2s;}
@@ -494,8 +495,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-di
 @media(max-width:700px){
 .feat-slide{padding:16px 12px;gap:16px;}
 .fg{grid-template-columns:1fr;}
-.sec,.feat-outer{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));}
-.hero{padding:48px max(10px,env(safe-area-inset-left)) 48px max(10px,env(safe-area-inset-right));}
+.hero{padding:22px max(10px,env(safe-area-inset-left)) 48px max(10px,env(safe-area-inset-right));}
+.sec,.feat-outer,.hero-motion-slot{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));}
 footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env(safe-area-inset-left)) 24px max(12px,env(safe-area-inset-right));}
 .feat-controls{flex-wrap:wrap;row-gap:10px;max-width:100%;justify-content:center;}
 .fc-count{margin-left:0;}
@@ -525,6 +526,15 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
           </div>
         </header>
 
+        <div class="hero-motion-slot">
+          <div class="hero-motion-wrap">
+            <div class="motion-video-placeholder" id="motion-video" aria-label="Emplacement vidéo motion design">
+              <p class="motion-video-label">Vidéo motion design</p>
+              <p class="motion-video-hint">Intègre ici ton MP4 ou un embed (remplace ce bloc).</p>
+            </div>
+          </div>
+        </div>
+
         <!-- HERO -->
         <div class="hero">
           <div class="hero-launch"><span></span> Lancement le 21 septembre 2026</div>
@@ -532,12 +542,6 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
           <p class="hero-sub">
             Réservations, IA, stock, messagerie, marketplace — là où tout se passait avant sur Instagram.
           </p>
-          <div class="hero-motion-wrap">
-            <div class="motion-video-placeholder" id="motion-video" aria-label="Emplacement vidéo motion design">
-              <p class="motion-video-label">Vidéo motion design</p>
-              <p class="motion-video-hint">Intègre ici ton MP4 ou un embed (remplace ce bloc).</p>
-            </div>
-          </div>
           <button class="btn-main" type="button" onclick="scroll2('waitlist')">
             Rejoindre la liste d'attente
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
