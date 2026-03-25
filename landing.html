@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seaven — Landing</title>
+  <title>SEAVEN — Liste d'attente</title>
   <meta name="description" content="Le réseau social de réservation et de vente pour les indépendants." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
 
@@ -271,8 +271,206 @@
       .recommended-price { font-size: 36px; }
     }
   </style>
+
+  <!-- Refonte Seaven — partie 1 (base + hero + sections) -->
+  <style>
+:root{
+--pink:#E8638C;--purple:#A87DC8;--mint:#7EC8A4;--blue:#4A90D9;--yellow:#FFCA28;
+--black:#1A1A1A;--dark:#1C1C1E;--mid:#6B6B6B;--light:#F5F5F7;--border:#E8E8E8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflow-x:hidden;}
+
+/* GRAD BAR */
+.grad-bar{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--mint),var(--yellow));}
+
+/* BANDEAU */
+.banner{background:var(--dark);padding:12px 24px;text-align:center;cursor:pointer;}
+.banner:hover .banner-arrow{transform:translateX(3px);}
+.banner-inner{display:inline-flex;align-items:center;gap:8px;color:white;font-size:13px;font-weight:600;}
+.banner-pill{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.3px;}
+.banner-arrow{display:inline-block;transition:transform .2s;}
+
+/* HERO */
+.hero{text-align:center;padding:80px 24px 72px;max-width:860px;margin:0 auto;}
+.hero-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:48px;}
+.hero-logo-text{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;}
+.hero-launch{display:inline-flex;align-items:center;gap:6px;background:var(--light);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:28px;}
+.hero-launch span{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(46px,7vw,82px);font-weight:800;line-height:1.0;letter-spacing:-3px;margin-bottom:22px;}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:17px;color:var(--mid);max-width:500px;margin:0 auto 40px;line-height:1.7;}
+.btn-main{display:inline-flex;align-items:center;gap:8px;background:var(--black);color:white;border:none;border-radius:30px;padding:16px 32px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:transform .2s,box-shadow .2s;}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.18);}
+.hero-note{font-size:12px;color:var(--mid);margin-top:14px;}
+.hero-stats{display:flex;gap:0;justify-content:center;margin-top:64px;border:1px solid var(--border);border-radius:20px;overflow:hidden;max-width:520px;margin-left:auto;margin-right:auto;}
+.stat{flex:1;padding:20px 16px;text-align:center;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-l{font-size:11px;color:var(--mid);font-weight:600;margin-top:2px;}
+
+/* SECTION */
+.sec{padding:80px 48px;max-width:1100px;margin:0 auto;}
+.sec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--pink);margin-bottom:10px;}
+.sec-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;}
+.sec-title em{font-style:normal;color:var(--pink);}
+.sec-sub{font-size:16px;color:var(--mid);line-height:1.7;max-width:500px;}
+
+/* FEATURES CAROUSEL — grande card sombre */
+.feat-outer{background:#fff;padding:0 48px 80px;max-width:1100px;margin:0 auto;}
+.feat-viewport{overflow:hidden;border-radius:28px;}
+.feat-track{display:flex;transition:transform .55s cubic-bezier(.25,.46,.45,.94);}
+.feat-slide{flex:0 0 100%;min-width:100%;background:var(--dark);border-radius:28px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+/* slide text */
+.fs-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;}
+.fs-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-1.5px;line-height:1.08;color:white;margin-bottom:16px;}
+.fs-title em{font-style:normal;}
+.fs-desc{font-size:15px;color:#888;line-height:1.75;margin-bottom:24px;}
+.fs-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.fs-tag{font-size:11px;font-weight:700;padding:6px 13px;border-radius:10px;background:#2A2A2C;color:#666;}
+/* iPhone */
+.iphone-wrap{display:flex;justify-content:center;}
+.iphone{width:240px;height:480px;background:#111;border:7px solid #333;border-radius:40px;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.05);}
+.i-notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:22px;background:#000;border-radius:11px;z-index:10;}
+.i-screen{position:absolute;inset:0;padding:44px 13px 16px;background:#fff;display:flex;flex-direction:column;gap:8px;overflow:hidden;}
+.dark-screen .i-screen{background:#1C1C1E;}
+/* screen UI */
+.s-hd{font-size:9px;font-weight:700;display:flex;align-items:center;gap:4px;margin-bottom:2px;}
+.s-title{font-size:12px;font-weight:800;color:#1A1A1A;margin-bottom:6px;}
+.dark-screen .s-title{color:white;}
+.s-card{background:#F5F5F7;border-radius:13px;padding:11px 12px;}
+.dark-screen .s-card{background:#2C2C2E;}
+.s-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #E8E8E8;}
+.dark-screen .s-row{border-bottom-color:#3A3A3C;}
+.s-row:last-child{border-bottom:none;}
+.s-av{width:24px;height:24px;border-radius:50%;background:#E8E8E8;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+.s-name{font-size:10px;font-weight:700;color:#1A1A1A;}
+.dark-screen .s-name{color:white;}
+.s-txt{font-size:9px;color:#888;}
+.s-badge{font-size:8px;font-weight:700;background:#F5EDFF;color:var(--purple);padding:2px 6px;border-radius:5px;white-space:nowrap;margin-left:auto;}
+.s-trow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #E8E8E8;font-size:10px;}
+.dark-screen .s-trow{border-bottom-color:#3A3A3C;}
+.s-trow:last-child{border-bottom:none;}
+.s-trow span:first-child{color:#888;}
+.s-trow span:last-child{font-weight:700;color:#1A1A1A;}
+.dark-screen .s-trow span:last-child{color:white;}
+.s-total{display:flex;justify-content:space-between;padding-top:8px;font-size:12px;font-weight:800;}
+.s-stock{margin-bottom:8px;}
+.s-sname{font-size:9px;font-weight:700;color:#1A1A1A;margin-bottom:3px;}
+.dark-screen .s-sname{color:white;}
+.s-srow{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.s-sbadge{font-size:8px;font-weight:700;padding:2px 6px;border-radius:5px;}
+.ok{background:#F0FAF4;color:#3DA874;}.warn{background:#FFF8E0;color:#C8960A;}.alert{background:#FFF0F4;color:var(--pink);}
+.s-bar{height:4px;border-radius:2px;background:#E8E8E8;margin-bottom:8px;}
+.dark-screen .s-bar{background:#3A3A3C;}
+.s-bar-fill{height:4px;border-radius:2px;}
+.s-rrow{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid #E8E8E8;font-size:9px;}
+.dark-screen .s-rrow{border-bottom-color:#3A3A3C;}
+.s-rrow:last-child{border-bottom:none;}
+.s-rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.s-rlabel{flex:1;color:#888;}
+.s-rtime{font-weight:800;color:#1A1A1A;}
+.dark-screen .s-rtime{color:white;}
+.s-cta{background:#1A1A1A;color:white;border:none;border-radius:10px;padding:9px;font-size:10px;font-weight:700;width:100%;margin-top:auto;cursor:pointer;font-family:'Manrope',sans-serif;}
+.dark-screen .s-cta{background:white;color:#1A1A1A;}
+/* carousel controls */
+.feat-controls{display:flex;align-items:center;gap:14px;margin-top:22px;}
+.fc-btn{width:42px;height:42px;border-radius:50%;background:var(--light);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--black);transition:all .2s;}
+.fc-btn:hover{background:var(--black);color:white;border-color:var(--black);}
+.fc-dots{display:flex;gap:6px;align-items:center;}
+.fc-dot{width:6px;height:6px;border-radius:3px;background:var(--border);cursor:pointer;transition:all .3s;}
+.fc-dot.on{width:22px;background:var(--pink);}
+.fc-count{margin-left:auto;font-size:12px;font-weight:700;color:var(--mid);}
+
+/* MÉTIERS TICKER */
+.ticker-outer{overflow:hidden;position:relative;margin:28px 0 36px;}
+.ticker-outer::before,.ticker-outer::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;}
+.ticker-outer::before{left:0;background:linear-gradient(90deg,white,transparent);}
+.ticker-outer::after{right:0;background:linear-gradient(-90deg,white,transparent);}
+.ticker{display:flex;gap:10px;width:max-content;animation:tick 32s linear infinite;}
+.ticker:hover{animation-play-state:paused;}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.m-chip{display:inline-flex;align-items:center;gap:7px;background:var(--light);border:1.5px solid var(--border);border-radius:40px;padding:10px 18px;cursor:pointer;transition:all .2s;white-space:nowrap;font-size:13px;font-weight:700;color:var(--black);}
+.m-chip:hover,.m-chip.on{background:var(--dark);color:white;border-color:var(--dark);}
+
+/* MÉTIER REVEAL */
+.m-reveal{display:none;animation:fadeup .3s ease;}
+.m-reveal.show{display:block;}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.mr-card{background:var(--light);border-radius:24px;padding:32px;}
+.mr-head{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.mr-icon{font-size:44px;}
+.mr-name{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;letter-spacing:-.5px;}
+.mr-sub{font-size:13px;color:var(--mid);}
+.mr-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.mrf{background:white;border:1px solid var(--border);border-radius:16px;padding:16px;}
+.mrf-icon{font-size:20px;margin-bottom:8px;}
+.mrf-name{font-size:12px;font-weight:800;margin-bottom:4px;}
+.mrf-desc{font-size:11px;color:var(--mid);line-height:1.55;}
+.mr-bottom{display:flex;align-items:center;justify-content:space-between;background:var(--dark);border-radius:16px;padding:16px 20px;}
+.mr-comm{color:white;}
+.mr-comm-n{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;color:var(--pink);}
+.mr-comm-l{font-size:12px;color:#666;margin-top:1px;}
+.mr-cta-btn{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;border-radius:22px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;}
+
+/* TARIFS */
+.tarif-wrap{max-width:640px;margin:40px auto 0;}
+.t-q{font-size:16px;font-weight:700;margin-bottom:18px;}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;background:var(--border);outline:none;cursor:pointer;margin-bottom:8px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));cursor:pointer;box-shadow:0 3px 12px rgba(232,99,140,.4);}
+.t-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--mid);font-weight:600;margin-bottom:28px;}
+.t-box{background:var(--dark);border-radius:26px;padding:36px;text-align:center;}
+.t-pop{display:inline-block;font-size:10px;font-weight:700;padding:5px 14px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;margin-bottom:14px;}
+.t-nb{font-size:14px;color:#666;margin-bottom:10px;}
+.t-price{font-family:'Bricolage Grotesque',sans-serif;font-size:62px;font-weight:800;letter-spacing:-3px;color:white;}
+.t-price sub{font-size:18px;font-weight:500;color:#666;letter-spacing:0;}
+.t-feats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px;}
+.tf{font-size:11px;font-weight:700;padding:6px 13px;border-radius:10px;background:#2C2C2E;color:#666;}
+
+/* FORM */
+.form-wrap{max-width:540px;margin:40px auto 0;}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.ff{display:flex;flex-direction:column;gap:5px;}
+.ff.full{grid-column:1/-1;}
+.fl{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;}
+.fi{background:var(--light);border:1.5px solid var(--border);border-radius:14px;padding:13px 16px;font-size:14px;color:var(--black);font-family:'Manrope',sans-serif;outline:none;transition:border .2s;-webkit-appearance:none;appearance:none;}
+.fi:focus{border-color:var(--pink);}
+.form-est{background:var(--light);border:1.5px solid var(--border);border-radius:14px;padding:15px 20px;margin-bottom:14px;display:none;align-items:center;justify-content:space-between;}
+.fe-l{font-size:13px;color:var(--mid);font-weight:600;}
+.fe-p{font-size:20px;font-weight:800;color:var(--pink);}
+.btn-submit{width:100%;background:var(--black);color:white;border:none;border-radius:28px;padding:17px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:transform .2s,box-shadow .2s;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.15);}
+.f-notice{text-align:center;font-size:11px;color:var(--mid);margin-top:12px;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;margin-top:40px;}
+.f-logo{display:flex;align-items:center;gap:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;}
+.f-sub{font-size:12px;color:var(--mid);}
+
+@media(max-width:700px){
+.feat-slide{grid-template-columns:1fr;}
+.mr-feats{grid-template-columns:1fr 1fr;}
+.fg{grid-template-columns:1fr;}
+.sec,.feat-outer{padding-left:20px;padding-right:20px;}
+.hero{padding:60px 20px 56px;}
+footer{flex-direction:column;gap:8px;text-align:center;}
+}
+
+  </style>
 </head>
 <body>
+<div class="grad-bar"></div>
+
+<!-- BANDEAU -->
+<div class="banner" onclick="scroll2('waitlist')">
+<div class="banner-inner">
+<div class="banner-pill">21 Septembre 2026</div>
+SEAVEN arrive — Rejoins la liste d'attente maintenant
+<span class="banner-arrow">→</span>
+</div>
+</div>
+
   <div class="page">
     <main class="mobile-shell">
       <div class="stack">
@@ -285,683 +483,690 @@
           <button class="top-cta" type="button" data-link="waitlist">Rejoindre l’aventure</button>
         </header>
 
-        <section class="card hero">
-          <div class="hero-inner">
-            <div class="eyebrow-space"></div>
-
-            <h1 class="hero-title">
-              One App. One Place.<br />
-              <span class="accent-pink">Everything connected.</span>
-            </h1>
-
-            <p class="hero-text">
-              Le réseau social de réservation et de vente pour les indépendants.
-              Simplifiez votre quotidien. Boostez votre visibilité.
-            </p>
-
-            <div class="hero-actions">
-              <button class="btn btn-primary" type="button" data-link="waitlist">
-                Rejoindre l’aventure
-              </button>
-              <button class="btn btn-secondary" type="button" data-link="discover">
-                Découvrir l’App
-              </button>
-            </div>
-
-            <div class="hero-visuals">
-              <div class="hero-visual-box">
-                <div class="phone-mock" aria-hidden="true">
-                  <img class="phone-screen" src="./assets/images/home-screen-1.png" alt="Aperçu application Seaven" />
-                </div>
-              </div>
-              <div class="hero-visual-box dark">
-                <div class="phone-mock" aria-hidden="true">
-                  <img class="phone-screen" src="./assets/images/home-screen-2.png" alt="Aperçu service Seaven" />
-                </div>
-              </div>
-            </div>
+        <!-- HERO -->
+        <div class="hero">
+          <div class="hero-logo">
+            <svg width="36" height="36" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+              <ellipse cx="40" cy="52" rx="7" ry="13" fill="#2A9D8F" />
+              <ellipse cx="40" cy="28" rx="6" ry="11" fill="#D4B030" />
+              <ellipse cx="40" cy="24" rx="5" ry="6" fill="#1A6ABF" />
+              <ellipse cx="40" cy="22" rx="2.5" ry="3" fill="#5DD8F8" />
+              <ellipse cx="26" cy="34" rx="5.5" ry="10" fill="#D4B030" transform="rotate(-28 26 34)" />
+              <ellipse cx="24" cy="29" rx="4" ry="5.5" fill="#1A6ABF" transform="rotate(-28 24 29)" />
+              <ellipse cx="23" cy="27" rx="2" ry="2.8" fill="#5DD8F8" transform="rotate(-28 23 27)" />
+              <ellipse cx="54" cy="34" rx="5.5" ry="10" fill="#D4B030" transform="rotate(28 54 34)" />
+              <ellipse cx="56" cy="29" rx="4" ry="5.5" fill="#1A6ABF" transform="rotate(28 56 29)" />
+              <ellipse cx="57" cy="27" rx="2" ry="2.8" fill="#5DD8F8" transform="rotate(28 57 27)" />
+              <ellipse cx="15" cy="42" rx="4.5" ry="9" fill="#D4B030" transform="rotate(-50 15 42)" />
+              <ellipse cx="12" cy="37" rx="3.5" ry="5" fill="#1A6ABF" transform="rotate(-50 12 37)" />
+              <ellipse cx="11" cy="35" rx="1.8" ry="2.5" fill="#5DD8F8" transform="rotate(-50 11 35)" />
+              <ellipse cx="65" cy="42" rx="4.5" ry="9" fill="#D4B030" transform="rotate(50 65 42)" />
+              <ellipse cx="68" cy="37" rx="3.5" ry="5" fill="#1A6ABF" transform="rotate(50 68 37)" />
+              <ellipse cx="69" cy="35" rx="1.8" ry="2.5" fill="#5DD8F8" transform="rotate(50 69 35)" />
+            </svg>
+            <span class="hero-logo-text">SEAVEN</span>
           </div>
-        </section>
-
-        <section class="section-pad">
-          <h2 class="section-title">
-            Finis le chaos.<br />
-            <span class="accent-lavender">Tout dans une seule app.</span>
-          </h2>
-
-          <div class="feature-list">
-            <article class="feature-item">
-              <div class="feature-icon">📅</div>
-              <div class="feature-body">
-                <h3>Réservation Intelligente</h3>
-                <p>Laissez vos clients réserver 24/7 sans aucun effort de votre part</p>
-              </div>
-            </article>
-
-            <article class="feature-item">
-              <div class="feature-icon">💳</div>
-              <div class="feature-body">
-                <h3>Paiements Sécurisés</h3>
-                <p>Encaissez vos paiements facilement directement via l’application</p>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="soft-card visual-card">
-          <div class="floating-chip">+ disponibilité</div>
-          <img src="./assets/images/coiffeur.jpg" alt="Coiffeur utilisant Seaven" />
-          <button class="floating-btn" type="button" data-link="discover">Réserver</button>
-        </section>
-
-        <section class="section-pad">
-          <h2 class="section-title">
-            Pensé pour <span class="accent-mint">tous les métiers.</span>
-          </h2>
-        </section>
-
-        <section class="cards-grid">
-          <article class="soft-card service-card">
-            <span class="service-tag">Business & Boutique</span>
-            <h3 class="service-title">Vendez sans limites</h3>
-            <p class="service-text">
-              Proposez vos produits et services directement à votre clientèle
-            </p>
-            <img class="service-image" src="./assets/images/cosmetiques.jpg" alt="Produits cosmétiques" />
-          </article>
-
-          <article class="soft-card service-card">
-            <span class="service-tag">Service & Relation</span>
-            <h3 class="service-title">Gestion simplifiée</h3>
-            <p class="service-text">
-              Gérez vos données clients en un seul clic
-            </p>
-            <img class="service-image" src="./assets/images/toilettage-chien.jpg" alt="Toiletteur de chien" />
-          </article>
-
-          <article class="soft-card service-card">
-            <span class="service-tag">Création & Visibilité</span>
-            <h3 class="service-title">Portfolio Digital</h3>
-            <p class="service-text">
-              Affichez vos plus beaux réalisations et attirez de nouveaux passionnés
-            </p>
-            <img class="service-image" src="./assets/images/tatoueur.jpg" alt="Tatoueur au travail" />
-          </article>
-        </section>
-
-        <section class="section-pad" id="estimate-section">
-          <h2 class="section-title">
-            Estimation <span class="accent-pink">par IA.</span>
-          </h2>
-
-          <p class="estimate-text">
-            Ne bradez plus jamais votre talent. Notre IA analyse la complexité,
-            les matériaux et le temps pour vous proposer le prix le plus juste
-            pour vous et vos clients.
+          <div class="hero-launch"><span></span> Lancement le 21 septembre 2026</div>
+          <h1>Ton business beauté,<br /><em>enfin tout en un.</em></h1>
+          <p class="hero-sub">
+            Réservations, IA, stock, messagerie, marketplace — là où tout se passait avant sur Instagram.
           </p>
-
-          <button class="btn btn-primary" type="button" id="calculateNowBtn">
-            Calculer maintenant
-          </button>
-        </section>
-
-        <section class="card calculator-card" id="calculator-card">
-          <div class="calculator-head">
-            <h3 class="calculator-title">Calculateur IA 🎯</h3>
-            <div class="calculator-badge">✦</div>
-          </div>
-
-          <div class="calc-row">
-            <div class="calc-label">Complexité du projet</div>
-            <div class="calc-value">Intermédiaire</div>
-          </div>
-
-          <div class="calc-row">
-            <div class="calc-label">Temps estimé</div>
-            <div class="calc-value">1h 30min</div>
-          </div>
-
-          <div class="calc-row">
-            <div class="calc-label">Prix du marché</div>
-            <div class="calc-value">260€ — 350€</div>
-          </div>
-
-          <div class="recommended-box">
-            <div class="recommended-label">Recommandé Seaven</div>
-            <div class="recommended-price">315,00€</div>
-          </div>
-        </section>
-
-        <section class="pricing-final" id="pricing-section">
-          <h2 class="pricing-title">
-            Un abonnement,<br />
-            <span>adapté à votre clientèle.</span>
-          </h2>
-
-          <p class="pricing-sub">
-            Un tarif juste, qui évolue avec votre activité.
-          </p>
-
-          <div class="pricing-card">
-            <h3 class="pricing-card-title">Nombre de clientes mensuels</h3>
-
-            <div class="pricing-slider-wrap">
-              <input
-                type="range"
-                min="0"
-                max="6"
-                step="1"
-                value="2"
-                id="pricingRangeFinal"
-                class="pricing-range-final"
-                aria-label="Nombre de clientes mensuels"
+          <button class="btn-main" type="button" onclick="scroll2('waitlist')">
+            Rejoindre la liste d'attente
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
-
-              <div class="pricing-thresholds-final" aria-hidden="true">
-                <span>&lt; 5</span>
-                <span>&lt; 15</span>
-                <span>&lt; 35</span>
-                <span>&lt; 50</span>
-                <span>&lt; 100</span>
-                <span>&lt; 250</span>
-                <span>+ 250</span>
-              </div>
+            </svg>
+          </button>
+          <p class="hero-note">🔒 Gratuit · Aucune carte bancaire requise</p>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-n">+20</div>
+              <div class="stat-l">métiers acceptés</div>
             </div>
-
-            <div class="pricing-big-price" id="pricingBigPriceFinal">
-              59,99€ / mois
+            <div class="stat">
+              <div class="stat-n">0%</div>
+              <div class="stat-l">commission</div>
             </div>
-
-            <div class="pricing-small-note">
-              par mois, sans engagement
+            <div class="stat">
+              <div class="stat-n">1</div>
+              <div class="stat-l">app pour tout</div>
             </div>
+          </div>
+        </div>
 
-            <div class="pricing-table-final" id="pricingTableFinal">
-              <div class="pricing-row-final">
-                <span>&lt; 5 clientes</span>
-                <span>9,99€ / mois</span>
+        <!-- FEATURES -->
+        <div class="feat-outer" id="features">
+          <div class="sec-label" style="margin-bottom: 6px">Pourquoi SEAVEN</div>
+          <div class="sec-title" style="margin-bottom: 6px">Pas comme <em>les autres.</em></div>
+          <div class="sec-sub" style="margin-bottom: 32px">
+            Une seule app. Toutes les fonctionnalités. Faite pour toi.
+          </div>
+          <div class="feat-viewport">
+            <div class="feat-track" id="ft">
+              <!-- 1 — IA DMs -->
+              <div class="feat-slide">
+                <div>
+                  <div class="fs-eyebrow" style="color: var(--purple)">✦ Intelligence artificielle</div>
+                  <div class="fs-title">
+                    L'IA répond<br />à tes DMs.<br /><em style="color: var(--purple)">Pendant que tu crées.</em>
+                  </div>
+                  <div class="fs-desc">
+                    Les mêmes questions reviennent ? Prix, disponibilités, délais — le chatbot les gère
+                    automatiquement 24h/24. Tu travailles, l'IA répond.
+                  </div>
+                  <div class="fs-tags">
+                    <div class="fs-tag">Réponses auto</div>
+                    <div class="fs-tag">Chatbot IA</div>
+                    <div class="fs-tag">24h/24</div>
+                  </div>
+                </div>
+                <div class="iphone-wrap">
+                  <div class="iphone dark-screen">
+                    <div class="i-notch"></div>
+                    <div class="i-screen" style="background: #1c1c1e">
+                      <div class="s-hd" style="color: var(--purple)">✦ Messagerie Seaven</div>
+                      <div class="s-title">3 réponses IA envoyées</div>
+                      <div class="s-card" style="flex: 1">
+                        <div class="s-row">
+                          <div class="s-av">🧑</div>
+                          <div style="flex: 1">
+                            <div class="s-name">Yasmine M.</div>
+                            <div class="s-txt">Réponse auto envoyée</div>
+                          </div>
+                          <div class="s-badge">IA ✦</div>
+                        </div>
+                        <div class="s-row">
+                          <div class="s-av">👩</div>
+                          <div style="flex: 1">
+                            <div class="s-name">Hannah H.</div>
+                            <div class="s-txt">Réponse auto envoyée</div>
+                          </div>
+                          <div class="s-badge">IA ✦</div>
+                        </div>
+                        <div class="s-row">
+                          <div class="s-av">🧕</div>
+                          <div style="flex: 1">
+                            <div class="s-name">Justine P.</div>
+                            <div class="s-txt">Réponse auto envoyée</div>
+                          </div>
+                          <div class="s-badge">IA ✦</div>
+                        </div>
+                      </div>
+                      <div
+                        style="
+                          background: #2c2c2e;
+                          border-radius: 10px;
+                          padding: 9px 11px;
+                          font-size: 9px;
+                          color: #666;
+                        "
+                      >
+                        <span style="color: var(--purple); font-weight: 700">47 messages</span> gérés par IA ce
+                        mois
+                      </div>
+                      <button class="s-cta" type="button">Voir ma messagerie →</button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="pricing-row-final">
-                <span>&lt; 15 clientes</span>
-                <span>19,99€ / mois</span>
+              <!-- 2 — IA Prix -->
+              <div class="feat-slide">
+                <div>
+                  <div class="fs-eyebrow" style="color: var(--pink)">✦ Intelligence artificielle</div>
+                  <div class="fs-title">
+                    Tu importes<br />ton inspi,<br /><em style="color: var(--pink)">l'IA calcule le prix.</em>
+                  </div>
+                  <div class="fs-desc">
+                    L'IA analyse la photo et décompose automatiquement le tarif selon tes prix configurés. Plus
+                    d'estimation au doigt mouillé.
+                  </div>
+                  <div class="fs-tags">
+                    <div class="fs-tag">Analyse photo</div>
+                    <div class="fs-tag">Tarif décomposé</div>
+                    <div class="fs-tag">Réservation auto</div>
+                  </div>
+                </div>
+                <div class="iphone-wrap">
+                  <div class="iphone">
+                    <div class="i-notch"></div>
+                    <div class="i-screen">
+                      <div class="s-hd" style="color: var(--pink)">✦ Ta réservation · IA</div>
+                      <div class="s-title">Décomposition du prix</div>
+                      <div class="s-card" style="flex: 1">
+                        <div class="s-trow"><span>Méthode Gel X</span><span>50 €</span></div>
+                        <div class="s-trow"><span>French</span><span>10 €</span></div>
+                        <div class="s-trow"><span>Fleurs 3D</span><span>10 €</span></div>
+                        <div class="s-trow"><span>Nail art</span><span>5 €</span></div>
+                        <div class="s-trow"><span>Bijoux</span><span>5 €</span></div>
+                        <div class="s-total">
+                          <span>Total</span><span style="color: var(--pink)">80 €</span>
+                        </div>
+                      </div>
+                      <button class="s-cta" type="button">Choisir un créneau →</button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="pricing-row-final active">
-                <span>&lt; 35 clientes ✦</span>
-                <span>59,99€ / mois</span>
+              <!-- 3 — Stock -->
+              <div class="feat-slide">
+                <div>
+                  <div class="fs-eyebrow" style="color: var(--mint)">✦ Gestion de stock</div>
+                  <div class="fs-title">
+                    Ton stock<br /><em style="color: var(--mint)">se gère tout seul.</em>
+                  </div>
+                  <div class="fs-desc">
+                    À chaque prestation réalisée, SEAVEN met ton stock à jour en temps réel. Tu sais toujours ce
+                    qui manque avant que ça soit trop tard.
+                  </div>
+                  <div class="fs-tags">
+                    <div class="fs-tag">Mise à jour auto</div>
+                    <div class="fs-tag">Alertes stock</div>
+                    <div class="fs-tag">Commande directe</div>
+                  </div>
+                </div>
+                <div class="iphone-wrap">
+                  <div class="iphone">
+                    <div class="i-notch"></div>
+                    <div class="i-screen">
+                      <div class="s-hd" style="color: var(--mint)">✦ Mon stock</div>
+                      <div class="s-title">3 produits suivis</div>
+                      <div class="s-card" style="flex: 1; display: flex; flex-direction: column; gap: 0">
+                        <div class="s-stock">
+                          <div class="s-srow">
+                            <span class="s-sname">Gel Sakura 50mL</span><span class="s-sbadge ok">OK</span>
+                          </div>
+                          <div style="font-size: 8px; color: #888; margin-bottom: 3px">23/45 poses</div>
+                          <div class="s-bar">
+                            <div class="s-bar-fill" style="width: 51%; background: var(--mint)"></div>
+                          </div>
+                        </div>
+                        <div class="s-stock">
+                          <div class="s-srow">
+                            <span class="s-sname">Top Coat Shining+</span><span class="s-sbadge warn">Bientôt</span>
+                          </div>
+                          <div style="font-size: 8px; color: #888; margin-bottom: 3px">8/30 poses</div>
+                          <div class="s-bar">
+                            <div class="s-bar-fill" style="width: 27%; background: var(--yellow)"></div>
+                          </div>
+                        </div>
+                        <div class="s-stock" style="margin-bottom: 0">
+                          <div class="s-srow">
+                            <span class="s-sname">Base d'adhérence</span>
+                            <span class="s-sbadge alert">Commander</span>
+                          </div>
+                          <div style="font-size: 8px; color: #888; margin-bottom: 3px">2/75 poses</div>
+                          <div class="s-bar">
+                            <div class="s-bar-fill" style="width: 3%; background: var(--pink)"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="s-cta" type="button">Voir tout mon stock →</button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="pricing-row-final">
-                <span>&lt; 50 clientes</span>
-                <span>99,99€ / mois</span>
+              <!-- 4 — Messagerie -->
+              <div class="feat-slide">
+                <div>
+                  <div class="fs-eyebrow" style="color: var(--blue)">✦ Messagerie unifiée</div>
+                  <div class="fs-title">
+                    Tous tes messages<br /><em style="color: var(--blue)">dans un seul endroit.</em>
+                  </div>
+                  <div class="fs-desc">
+                    Plus besoin de jongler entre Instagram, WhatsApp et les SMS. Toutes tes clientes dans une seule
+                    messagerie SEAVEN.
+                  </div>
+                  <div class="fs-tags">
+                    <div class="fs-tag">Instagram DMs</div>
+                    <div class="fs-tag">WhatsApp</div>
+                    <div class="fs-tag">SMS</div>
+                  </div>
+                </div>
+                <div class="iphone-wrap">
+                  <div class="iphone dark-screen">
+                    <div class="i-notch"></div>
+                    <div class="i-screen" style="background: #1c1c1e">
+                      <div class="s-hd" style="color: var(--blue)">✦ Messagerie Seaven</div>
+                      <div class="s-title">Toutes tes clientes</div>
+                      <div class="s-card" style="flex: 1">
+                        <div class="s-row">
+                          <div class="s-av">👩</div>
+                          <div style="flex: 1">
+                            <div class="s-name">Noemie W.</div>
+                            <div class="s-txt">Je confirme pour demain 14h 💌</div>
+                          </div>
+                          <div style="font-size: 8px; color: #555">maintenant</div>
+                        </div>
+                        <div class="s-row">
+                          <div class="s-av">🧑</div>
+                          <div style="flex: 1">
+                            <div class="s-name">Jade F.</div>
+                            <div class="s-txt">Ok j'ai trop hâte !! À demain 🥰</div>
+                          </div>
+                          <div style="font-size: 8px; color: #555">4h</div>
+                        </div>
+                        <div class="s-row">
+                          <div class="s-av">👩‍🦱</div>
+                          <div style="flex: 1">
+                            <div class="s-name">Valentine B.</div>
+                            <div class="s-txt">La pose est magnifique 🤩</div>
+                          </div>
+                          <div style="font-size: 8px; color: #555">22h</div>
+                        </div>
+                      </div>
+                      <button class="s-cta" type="button">Ouvrir la messagerie →</button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="pricing-row-final">
-                <span>&lt; 100 clientes</span>
-                <span>149,99€ / mois</span>
+              <!-- 5 — Réveil -->
+              <div class="feat-slide">
+                <div>
+                  <div class="fs-eyebrow" style="color: var(--yellow)">✦ Planning intelligent</div>
+                  <div class="fs-title">
+                    Plus jamais<br />en retard sur<br /><em style="color: var(--yellow)">ton premier RDV.</em>
+                  </div>
+                  <div class="fs-desc">
+                    SEAVEN calcule ton heure de réveil selon ton planning, ton temps de préparation et ton trajet. Tu
+                    poses le réveil une fois pour toutes.
+                  </div>
+                  <div class="fs-tags">
+                    <div class="fs-tag">Calcul trajet</div>
+                    <div class="fs-tag">Temps préparation</div>
+                    <div class="fs-tag">Réveil auto</div>
+                  </div>
+                </div>
+                <div class="iphone-wrap">
+                  <div class="iphone">
+                    <div class="i-notch"></div>
+                    <div class="i-screen">
+                      <div class="s-hd" style="color: var(--yellow)">✦ Réveil intelligent</div>
+                      <div class="s-title">Demain · Mardi 24 mars</div>
+                      <div class="s-card" style="flex: 1">
+                        <div class="s-rrow">
+                          <div class="s-rdot" style="background: var(--pink)"></div>
+                          <span class="s-rlabel">Réveil</span><span class="s-rtime">07:25</span>
+                        </div>
+                        <div class="s-rrow">
+                          <div class="s-rdot" style="background: var(--purple)"></div>
+                          <span class="s-rlabel">Départ</span><span class="s-rtime">08:25</span>
+                        </div>
+                        <div class="s-rrow">
+                          <div class="s-rdot" style="background: var(--blue)"></div>
+                          <span class="s-rlabel">Trajet</span><span class="s-rtime">15 mn</span>
+                        </div>
+                        <div class="s-rrow">
+                          <div class="s-rdot" style="background: var(--mint)"></div>
+                          <span class="s-rlabel">Arrivée</span><span class="s-rtime">08:40</span>
+                        </div>
+                        <div class="s-rrow">
+                          <div class="s-rdot" style="background: var(--yellow)"></div>
+                          <span class="s-rlabel">1er RDV</span>
+                          <span class="s-rtime" style="color: var(--pink)">09:00</span>
+                        </div>
+                      </div>
+                      <button class="s-cta" type="button">Configurer mon réveil →</button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="pricing-row-final">
-                <span>&lt; 250 clientes</span>
-                <span>279,99€ / mois</span>
-              </div>
-
-              <div class="pricing-row-final">
-                <span>+ 250 clientes</span>
-                <span>329,99€ / mois</span>
-              </div>
-            </div>
-
-            <div class="pricing-store-below" aria-label="Télécharger l’application">
-              <div class="store-buttons">
-                <a class="store-btn" id="pricingAppStoreBtn" href="#" target="_blank" rel="noopener">
-                  <span class="store-icon"></span>
-                  <span>App Store</span>
-                </a>
-                <a class="store-btn" id="pricingGooglePlayBtn" href="#" target="_blank" rel="noopener">
-                  <span class="store-icon">▶</span>
-                  <span>Google Play</span>
-                </a>
+              <!-- 6 — Marketplace -->
+              <div class="feat-slide">
+                <div>
+                  <div class="fs-eyebrow" style="color: var(--mint)">✦ Marketplace</div>
+                  <div class="fs-title">
+                    Vend. Achète.<br /><em style="color: var(--mint)">Entre pros.</em>
+                  </div>
+                  <div class="fs-desc">
+                    Vends tes produits directement dans l'app. Pro → Cliente. Pro → Pro. Zéro commission. Zéro
+                    intermédiaire.
+                  </div>
+                  <div class="fs-tags">
+                    <div class="fs-tag">Pro → Cliente</div>
+                    <div class="fs-tag">Pro → Pro</div>
+                    <div class="fs-tag">0% commission</div>
+                  </div>
+                </div>
+                <div class="iphone-wrap">
+                  <div class="iphone">
+                    <div class="i-notch"></div>
+                    <div class="i-screen">
+                      <div class="s-hd" style="color: var(--mint)">✦ Marketplace Seaven</div>
+                      <div class="s-title">Boutique en ligne</div>
+                      <div class="s-card" style="flex: 1; display: flex; flex-direction: column; gap: 8px">
+                        <div
+                          style="
+                            background: #f5f5f7;
+                            border-radius: 10px;
+                            padding: 9px;
+                            display: flex;
+                            gap: 8px;
+                            align-items: center;
+                          "
+                        >
+                          <span style="font-size: 18px">💅</span>
+                          <div>
+                            <div style="font-size: 10px; font-weight: 700">Press-on · Valentine's Day</div>
+                            <div style="font-size: 9px; color: #888">par Pressies</div>
+                            <div style="font-size: 10px; font-weight: 800; color: var(--pink); margin-top: 2px">
+                              À partir de 18€
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          style="
+                            background: #f5f5f7;
+                            border-radius: 10px;
+                            padding: 9px;
+                            display: flex;
+                            gap: 8px;
+                            align-items: center;
+                          "
+                        >
+                          <span style="font-size: 18px">🎂</span>
+                          <div>
+                            <div style="font-size: 10px; font-weight: 700">Layer Cake · Happy Birthday</div>
+                            <div style="font-size: 9px; color: #888">par YummyCake</div>
+                            <div style="font-size: 10px; font-weight: 800; color: var(--pink); margin-top: 2px">
+                              À partir de 50€
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          style="
+                            background: #f5f5f7;
+                            border-radius: 10px;
+                            padding: 9px;
+                            display: flex;
+                            gap: 8px;
+                            align-items: center;
+                          "
+                        >
+                          <span style="font-size: 18px">🧴</span>
+                          <div>
+                            <div style="font-size: 10px; font-weight: 700">Kit nettoyage de cils</div>
+                            <div style="font-size: 9px; color: #888">par MLashes</div>
+                            <div style="font-size: 10px; font-weight: 800; color: var(--pink); margin-top: 2px">
+                              12€
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="s-cta" type="button">Voir la marketplace →</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </section>
-
-<style>
-.pricing-final {
-  padding: 30px 20px 8px;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-.pricing-title {
-  margin: 0;
-  font-size: 32px;
-  line-height: 1.02;
-  font-weight: 800;
-  letter-spacing: -0.055em;
-  color: #111111;
-}
-
-.pricing-title span {
-  color: #ee4b93;
-}
-
-.pricing-sub {
-  margin: 14px 0 24px;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #7f7f88;
-  font-weight: 500;
-}
-
-.pricing-card {
-  background: #ffffff;
-  border-radius: 30px;
-  padding: 22px 16px 20px;
-  box-shadow: 0 14px 34px rgba(26, 21, 31, 0.07);
-}
-
-.pricing-card-title {
-  margin: 0 0 18px;
-  text-align: center;
-  font-size: 20px;
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: #111111;
-}
-
-.pricing-slider-wrap {
-  margin-bottom: 14px;
-}
-
-.pricing-range-final {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  margin: 0;
-  background: transparent;
-}
-
-.pricing-range-final::-webkit-slider-runnable-track {
-  height: 6px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #eadffd 0%, #dccbfd 100%);
-}
-
-.pricing-range-final::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: none;
-  background: #9b7cf2;
-  box-shadow: 0 8px 18px rgba(155, 124, 242, 0.32);
-  margin-top: -8px;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.pricing-range-final::-webkit-slider-thumb:hover {
-  transform: scale(1.04);
-}
-
-.pricing-range-final::-moz-range-track {
-  height: 6px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #eadffd 0%, #dccbfd 100%);
-}
-
-.pricing-range-final::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: none;
-  background: #9b7cf2;
-  box-shadow: 0 8px 18px rgba(155, 124, 242, 0.32);
-  cursor: pointer;
-}
-
-.pricing-thresholds-final {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  margin-top: 12px;
-  text-align: center;
-  font-size: 10px;
-  line-height: 1.2;
-  font-weight: 700;
-  color: #b3b3bc;
-}
-
-.pricing-thresholds-final span {
-  display: block;
-  white-space: nowrap;
-}
-
-.pricing-big-price {
-  text-align: center;
-  margin-top: 16px;
-  font-size: 46px;
-  line-height: 0.95;
-  letter-spacing: -0.06em;
-  font-weight: 800;
-  color: #ee4b93;
-  transition: all 0.22s ease;
-}
-
-.pricing-small-note {
-  text-align: center;
-  margin-top: 8px;
-  margin-bottom: 22px;
-  font-size: 14px;
-  line-height: 1.3;
-  font-weight: 600;
-  color: #8b8b94;
-}
-
-.pricing-table-final {
-  border-top: 1px solid #ededf2;
-}
-
-.pricing-row-final {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 16px 0;
-  border-bottom: 1px solid #ededf2;
-  border-radius: 18px;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.pricing-row-final:last-child {
-  border-bottom: none;
-}
-
-.pricing-row-final span:first-child {
-  font-size: 14px;
-  line-height: 1.3;
-  font-weight: 700;
-  color: #4e4e56;
-}
-
-.pricing-row-final span:last-child {
-  font-size: 14px;
-  line-height: 1.3;
-  font-weight: 800;
-  color: #111111;
-  white-space: nowrap;
-}
-
-.pricing-row-final.active {
-  background: rgba(238, 75, 147, 0.08);
-  padding: 16px 12px;
-  margin: 6px 0;
-  border-bottom: none;
-  transform: translateY(-1px);
-}
-
-.pricing-row-final.active span:first-child,
-.pricing-row-final.active span:last-child {
-  color: #ee4b93;
-}
-
-.pricing-store-below {
-  margin-top: 6px;
-  padding-top: 22px;
-  border-top: 1px solid #ededf2;
-}
-
-.pricing-store-below .store-buttons {
-  margin-top: 0;
-}
-
-@media (max-width: 390px) {
-  .pricing-title {
-    font-size: 28px;
-  }
-
-  .pricing-thresholds-final {
-    font-size: 9px;
-  }
-
-  .pricing-big-price {
-    font-size: 40px;
-  }
-
-  .pricing-row-final span:first-child,
-  .pricing-row-final span:last-child {
-    font-size: 13px;
-  }
-}
-</style>
-
-<script>
-(function () {
-  const pricingRangeFinal = document.getElementById("pricingRangeFinal");
-  const pricingBigPriceFinal = document.getElementById("pricingBigPriceFinal");
-  const pricingRowsFinal = document.querySelectorAll(".pricing-row-final");
-
-  const pricingDataFinal = [
-    { label: "< 5 clientes", price: "9,99€ / mois" },
-    { label: "< 15 clientes", price: "19,99€ / mois" },
-    { label: "< 35 clientes", price: "59,99€ / mois" },
-    { label: "< 50 clientes", price: "99,99€ / mois" },
-    { label: "< 100 clientes", price: "149,99€ / mois" },
-    { label: "< 250 clientes", price: "279,99€ / mois" },
-    { label: "+ 250 clientes", price: "329,99€ / mois" }
-  ];
-
-  function renderPricingFinal(index) {
-    const current = pricingDataFinal[index];
-    pricingBigPriceFinal.textContent = current.price;
-
-    pricingRowsFinal.forEach((row, i) => {
-      row.classList.remove("active");
-      row.children[0].textContent = pricingDataFinal[i].label;
-      row.children[1].textContent = pricingDataFinal[i].price;
-    });
-
-    pricingRowsFinal[index].classList.add("active");
-    pricingRowsFinal[index].children[0].textContent = current.label + " ✦";
-  }
-
-  pricingRangeFinal.addEventListener("input", function () {
-    renderPricingFinal(Number(this.value));
-  });
-
-  renderPricingFinal(Number(pricingRangeFinal.value));
-})();
-</script>
-
-        <section class="card form-card" id="waitlist-section">
-          <div class="arrow-glow"></div>
-
-          <h2 class="form-title">
-            Rejoindre<br />
-            <span class="accent-pink">l’aventure</span>
-          </h2>
-
-          <form id="waitlistForm">
-            <div class="form-group">
-              <label class="form-label" for="lastName">Nom</label>
-              <input class="field" id="lastName" name="lastName" type="text" placeholder="Dupont" required />
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="firstName">Prénom</label>
-              <input class="field" id="firstName" name="firstName" type="text" placeholder="Julie" required />
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="role">Je suis *</label>
-              <select class="select" id="role" name="role" required>
-                <option value="">Sélectionner votre rôle</option>
-                <option value="prestataire">Prestataire indépendant(e)</option>
-                <option value="client">Client(e)</option>
-                <option value="partenaire">Partenaire</option>
-                <option value="autre">Autre</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="prestationCategory">Catégorie de prestation</label>
-              <select class="select" id="prestationCategory" name="prestationCategory" required>
-                <option value="">Sélectionner une catégorie</option>
-                <option value="coiffure">Coiffure</option>
-                <option value="barbering">Barbier / Barbering</option>
-                <option value="onglerie">Onglerie</option>
-                <option value="maquillage">Maquillage</option>
-                <option value="esthetique">Esthétique</option>
-                <option value="soins-visage-corps">Soins visage & corps</option>
-                <option value="massage">Massage & bien-être</option>
-                <option value="tatouage">Tatouage</option>
-                <option value="piercing">Piercing</option>
-                <option value="toilettage">Toilettage animaux</option>
-                <option value="photo-video">Photo / Vidéo</option>
-                <option value="coaching">Coaching</option>
-                <option value="cake-design">Cake design</option>
-                <option value="layer-cake">Layer Cake</option>
-                <option value="traiteur-evenementiel">Traiteur évènementiel</option>
-                <option value="autre-categorie">Autre catégorie</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="email">Email</label>
-              <input class="field" id="email" name="email" type="email" placeholder="je@exemple.com" required />
-            </div>
-
-            <label class="consent">
-              <input id="consent" name="consent" type="checkbox" required />
-              <span class="consent-text">
-                J’accepte d’être recontacté(e) par l’équipe de l’application
-              </span>
-            </label>
-
-            <button class="btn btn-primary" type="submit">
-              S’inscrire à la liste d’attente
-            </button>
-
-            <div class="submit-feedback" id="formFeedback"></div>
-          </form>
-        </section>
-
-        <section class="footer-block">
-          <h2 class="footer-title">
-            Disponible<br />
-            prochainement sur<br />
-            iOS &amp; Android
-          </h2>
-
-          <div class="store-buttons">
-            <a class="store-btn" id="appStoreBtn" href="#" target="_blank" rel="noopener">
-              <span class="store-icon"></span>
-              <span>App Store</span>
-            </a>
-
-            <a class="store-btn" id="googlePlayBtn" href="#" target="_blank" rel="noopener">
-              <span class="store-icon">▶</span>
-              <span>Google Play</span>
-            </a>
+          <div class="feat-controls">
+            <button type="button" class="fc-btn" onclick="moveFeat(-1)" aria-label="Slide précédente">←</button>
+            <button type="button" class="fc-btn" onclick="moveFeat(1)" aria-label="Slide suivante">→</button>
+            <div class="fc-dots" id="fcDots"></div>
+            <div class="fc-count" id="fcCount">1 / 6</div>
           </div>
+        </div>
 
-          <div class="tiny-note">
-            Liens modifiables plus tard avec les URLs officielles.
+        <!-- TON MÉTIER -->
+        <div class="sec" id="discover-section">
+          <div class="sec-label">Ton univers</div>
+          <h2 class="sec-title" id="mTitle">Ton métier est<br /><em>le bienvenu ici.</em></h2>
+          <p class="sec-sub" id="mSub" style="margin-bottom: 0">
+            Clique sur ton métier — SEAVEN se personnalise pour toi.
+          </p>
+          <div class="ticker-outer"><div class="ticker" id="ticker"></div></div>
+          <div class="m-reveal" id="mReveal"></div>
+        </div>
+
+        <!-- TARIFS -->
+        <div class="sec" id="pricing-section">
+          <div class="sec-label">Tarifs</div>
+          <h2 class="sec-title">Un abonnement<br /><em>adapté à ta clientèle.</em></h2>
+          <p class="sec-sub">Un tarif juste, qui évolue avec ton activité.</p>
+          <div class="tarif-wrap">
+            <div class="t-q">Combien de clientes prends-tu en moyenne par mois ?</div>
+            <input type="range" min="0" max="6" step="1" value="2" id="tSlider" oninput="updateTarif(this.value)" />
+            <div class="t-labels">
+              <span>&lt;5</span><span>&lt;15</span><span>&lt;35</span><span>&lt;50</span><span>&lt;100</span><span>&lt;250</span><span>+250</span>
+            </div>
+            <div class="t-box">
+              <div id="tPop"></div>
+              <div class="t-nb" id="tNb"></div>
+              <div class="t-price" id="tPrice"></div>
+              <div style="font-size: 13px; color: #666; margin-top: 8px">par mois · toutes fonctionnalités incluses</div>
+              <div class="t-feats" id="tFeats"></div>
+            </div>
           </div>
-        </section>
+        </div>
+
+        <!-- LISTE D'ATTENTE -->
+        <div class="sec" id="waitlist">
+          <div style="text-align: center; margin-bottom: 40px">
+            <div class="sec-label">Liste d'attente</div>
+            <h2 class="sec-title">Rejoins la liste<br /><em>d'attente SEAVEN.</em></h2>
+            <p class="sec-sub" style="margin: 0 auto; max-width: 440px">
+              Lancement le <strong>21 septembre 2026</strong>. Inscris-toi maintenant pour être parmi les premières.
+            </p>
+          </div>
+          <div class="form-wrap" id="formWrap">
+            <div class="fg">
+              <div class="ff">
+                <label class="fl" for="fPre">Prénom</label><input class="fi" type="text" placeholder="Sassa" id="fPre" />
+              </div>
+              <div class="ff">
+                <label class="fl" for="fNom">Nom</label><input class="fi" type="text" placeholder="Dupont" id="fNom" />
+              </div>
+              <div class="ff full">
+                <label class="fl" for="fEmail">Email</label>
+                <input class="fi" type="email" placeholder="sassa@email.com" id="fEmail" />
+              </div>
+              <div class="ff full">
+                <label class="fl" for="fMetier">Ton métier</label>
+                <select class="fi" id="fMetier" onchange="updateEst()">
+                  <option value="">Choisir mon métier…</option>
+                  <option>Prothésiste ongulaire</option>
+                  <option>Nail artist</option>
+                  <option>Technicienne de cils</option>
+                  <option>Brow artist</option>
+                  <option>Coiffeur·se</option>
+                  <option>Barbier</option>
+                  <option>Tresseuse</option>
+                  <option>Esthéticienne</option>
+                  <option>Masseuse</option>
+                  <option>Tatoueur·se</option>
+                  <option>Perceur·se</option>
+                  <option>Blanchiment dentaire</option>
+                  <option>Cake designer</option>
+                  <option>Maquilleuse</option>
+                  <option>Créatrice broderie</option>
+                  <option>Plasma pen</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+              <div class="ff full">
+                <label class="fl" for="fClientes">Clientes / mois en moyenne</label>
+                <select class="fi" id="fClientes" onchange="updateEst()">
+                  <option value="">Choisir…</option>
+                  <option value="0">Moins de 5</option>
+                  <option value="1">5 à 15</option>
+                  <option value="2">15 à 35</option>
+                  <option value="3">35 à 50</option>
+                  <option value="4">50 à 100</option>
+                  <option value="5">100 à 250</option>
+                  <option value="6">Plus de 250</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-est" id="formEst">
+              <div class="fe-l">✦ Ton abonnement estimé</div>
+              <div class="fe-p" id="formP"></div>
+            </div>
+            <button type="button" class="btn-submit" onclick="submitForm()">Rejoindre la liste d'attente →</button>
+            <p class="f-notice">🔒 Gratuit · Aucune carte bancaire · Lancement 21 septembre 2026</p>
+          </div>
+        </div>
+
+        <footer>
+          <div class="f-logo">
+            <svg width="26" height="26" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+              <ellipse cx="40" cy="52" rx="7" ry="13" fill="#2A9D8F" />
+              <ellipse cx="40" cy="28" rx="6" ry="11" fill="#D4B030" />
+              <ellipse cx="40" cy="24" rx="5" ry="6" fill="#1A6ABF" />
+              <ellipse cx="40" cy="22" rx="2.5" ry="3" fill="#5DD8F8" />
+              <ellipse cx="26" cy="34" rx="5.5" ry="10" fill="#D4B030" transform="rotate(-28 26 34)" />
+              <ellipse cx="24" cy="29" rx="4" ry="5.5" fill="#1A6ABF" transform="rotate(-28 24 29)" />
+              <ellipse cx="54" cy="34" rx="5.5" ry="10" fill="#D4B030" transform="rotate(28 54 34)" />
+              <ellipse cx="56" cy="29" rx="4" ry="5.5" fill="#1A6ABF" transform="rotate(28 56 29)" />
+              <ellipse cx="15" cy="42" rx="4.5" ry="9" fill="#D4B030" transform="rotate(-50 15 42)" />
+              <ellipse cx="65" cy="42" rx="4.5" ry="9" fill="#D4B030" transform="rotate(50 65 42)" />
+            </svg>
+            SEAVEN
+          </div>
+          <div class="f-sub">One App · One Place · All in One — © 2026</div>
+        </footer>
+        <div class="grad-bar"></div>
 
       </div>
     </main>
   </div>
 
   <script>
-    const APP_LINKS = {
-      waitlistAnchor: "#waitlist-section",
-      discoverAnchor: "#estimate-section",
-      appStore: "#",
-      googlePlay: "#",
-      apk: "#",
-      deepLink: "#",
-      formEndpoint: ""
-    };
+function scroll2(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
-    const topWaitlistButtons = document.querySelectorAll('[data-link="waitlist"]');
-    const discoverButtons = document.querySelectorAll('[data-link="discover"]');
+document.querySelectorAll('[data-link="waitlist"]').forEach((btn) => {
+  btn.addEventListener("click", () => scroll2("waitlist"));
+});
+document.querySelectorAll('[data-link="discover"]').forEach((btn) => {
+  btn.addEventListener("click", () => scroll2("discover-section"));
+});
 
-    topWaitlistButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelector(APP_LINKS.waitlistAnchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
+// ── CAROUSEL ──
+const slides = document.querySelectorAll(".feat-slide");
+const ft = document.getElementById("ft");
+const dotsEl = document.getElementById("fcDots");
+let cur = 0;
+const N = slides.length;
+slides.forEach((_, i) => {
+  const d = document.createElement("div");
+  d.className = "fc-dot" + (i === 0 ? " on" : "");
+  d.onclick = () => goFeat(i);
+  dotsEl.appendChild(d);
+});
+function goFeat(n) {
+  cur = ((n % N) + N) % N;
+  ft.style.transform = `translateX(calc(-${cur} * 100%))`;
+  document.querySelectorAll(".fc-dot").forEach((d, i) => d.classList.toggle("on", i === cur));
+  document.getElementById("fcCount").textContent = `${cur + 1} / ${N}`;
+}
+function moveFeat(d) {
+  goFeat(cur + d);
+}
 
-    discoverButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelector(APP_LINKS.discoverAnchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
+// ── TARIFS ──
+const tarifs = [
+  { nb: "Moins de 5 clientes / mois", price: "9,99", pop: false, feats: ["Agenda", "Réservations", "Paiements", "Messagerie"] },
+  { nb: "Moins de 15 clientes / mois", price: "19,99", pop: false, feats: ["Agenda", "Réservations", "Paiements", "Messagerie", "Portfolio"] },
+  { nb: "Moins de 35 clientes / mois", price: "59,99", pop: true, feats: ["Tout inclus", "IA DMs", "Stock auto", "Marketplace", "Modèles"] },
+  { nb: "Moins de 50 clientes / mois", price: "99,99", pop: false, feats: ["Tout inclus", "IA avancée", "Stats", "Marketplace Pro"] },
+  { nb: "Moins de 100 clientes / mois", price: "149,99", pop: false, feats: ["Tout inclus", "IA avancée", "Stats", "Support prioritaire"] },
+  { nb: "Moins de 250 clientes / mois", price: "279,99", pop: false, feats: ["Tout inclus", "Multi-profils", "IA avancée", "Manager dédié"] },
+  { nb: "Plus de 250 clientes / mois", price: "329,99", pop: false, feats: ["Tout inclus", "Enterprise", "IA avancée", "Manager dédié", "API"] }
+];
+function updateTarif(v) {
+  const t = tarifs[v];
+  document.getElementById("tPop").innerHTML = t.pop ? '<div class="t-pop">✦ Le plus populaire</div>' : "";
+  document.getElementById("tNb").textContent = t.nb;
+  document.getElementById("tPrice").innerHTML = t.price + " <sub>€ / mois</sub>";
+  document.getElementById("tFeats").innerHTML = t.feats.map((f) => `<div class="tf">✓ ${f}</div>`).join("");
+}
+updateTarif(2);
 
-    const calculateNowBtn = document.getElementById("calculateNowBtn");
-    calculateNowBtn?.addEventListener("click", () => {
-      document.getElementById("calculator-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => {
-        document.getElementById("pricing-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 500);
-    });
+// ── MÉTIERS ──
+const metiers = [
+  { icon: "💅", name: "Prothésiste ongulaire", count: 342, feats: [{ icon: "🤖", n: "IA calcule le prix", d: "L'IA analyse la photo du nail art et décompose le tarif automatiquement." }, { icon: "📸", n: "Portfolio inspi", d: "Publie tes réalisations, crée ton portfolio de poses pour inspirer tes clientes." }, { icon: "📦", n: "Stock gel & produits", d: "Gestion automatique de ton stock après chaque pose." }] },
+  { icon: "🎨", name: "Nail artist", count: 178, feats: [{ icon: "🤖", n: "IA analyse le design", d: "L'IA décompose le prix d'un nail art complexe selon tes tarifs." }, { icon: "🛍️", n: "Boutique press-on", d: "Vends tes capsules et kits press-on directement depuis ton profil." }, { icon: "🎯", n: "Modèles shootings", d: "Trouve des modèles pour tester de nouveaux designs." }] },
+  { icon: "👁️", name: "Technicienne de cils", count: 215, feats: [{ icon: "⏰", n: "Réveil intelligent", d: "Calcul de ton heure de départ selon la pose et le trajet." }, { icon: "💬", n: "Messagerie centralisée", d: "Instagram, WhatsApp et SMS dans une seule messagerie." }, { icon: "📅", n: "Agenda intelligent", d: "Gestion des poses, remplissages et retraits." }] },
+  { icon: "✏️", name: "Brow artist", count: 134, feats: [{ icon: "🤖", n: "IA répond aux DMs", d: "Microblading, lift, tarifs — l'IA gère les questions automatiquement." }, { icon: "🎯", n: "Recherche de modèles", d: "Trouve des modèles pour formations ou tests de techniques." }, { icon: "📸", n: "Portfolio before/after", d: "Publie tes transformations avant/après sur ton profil." }] },
+  { icon: "✂️", name: "Coiffeur·se", count: 289, feats: [{ icon: "📅", n: "Agenda colorations", d: "Gère tes RDV coupe, couleur et balayage avec les durées adaptées." }, { icon: "💬", n: "Rappels automatiques", d: "SEAVEN envoie des rappels 24h avant chaque RDV." }, { icon: "🏪", n: "Vends tes produits", d: "Shampooings, masques et soins directement depuis ton profil." }] },
+  { icon: "🪒", name: "Barbier", count: 156, feats: [{ icon: "⚡", n: "Créneaux en live", d: "Affiche tes créneaux disponibles en temps réel." }, { icon: "💳", n: "Paiements intégrés", d: "Reçois les paiements dans l'app. Zéro caisse." }, { icon: "📍", n: "Visible sur la carte", d: "Ton barbershop apparaît sur la carte SEAVEN." }] },
+  { icon: "🪢", name: "Tresseuse", count: 98, feats: [{ icon: "⏰", n: "Durées longues gérées", d: "Les tresses prennent du temps — SEAVEN bloque les bons créneaux." }, { icon: "🎯", n: "Modèles à domicile", d: "Trouve des modèles pour tes formations box braids." }, { icon: "📸", n: "Portfolio de tresses", d: "Publie tes réalisations et inspire de nouvelles clientes." }] },
+  { icon: "🧖", name: "Esthéticienne", count: 267, feats: [{ icon: "🤖", n: "IA répond aux questions", d: "Soins disponibles, prix, durée — l'IA gère les demandes." }, { icon: "📦", n: "Stock produits soin", d: "Suivi automatique de tes produits après chaque prestation." }, { icon: "🏠", n: "Prestations à domicile", d: "Propose tes soins à domicile directement sur SEAVEN." }] },
+  { icon: "🌿", name: "Masseuse", count: 143, feats: [{ icon: "🏠", n: "Massages à domicile", d: "Propose des massages à domicile depuis SEAVEN." }, { icon: "⏰", n: "Réveil intelligent", d: "Calcul précis de l'heure de départ selon le trajet et la séance." }, { icon: "💬", n: "Zéro WhatsApp pro", d: "Plus besoin de jongler entre Instagram et WhatsApp." }] },
+  { icon: "🖋️", name: "Tatoueur·se", count: 112, feats: [{ icon: "📅", n: "Flash et séances longues", d: "Gère tes flash disponibles et tes séances multi-heures." }, { icon: "🎯", n: "Modèles pour élèves", d: "Trouve des modèles pour tes élèves en formation." }, { icon: "📸", n: "Portfolio tatouages", d: "Publie tes réalisations et construis ta réputation." }] },
+  { icon: "🦷", name: "Blanchiment dentaire", count: 76, feats: [{ icon: "✦", n: "Exclusif SEAVEN", d: "Tu es le seul métier sans plateforme dédiée. SEAVEN change ça." }, { icon: "📍", n: "Visible sur la carte", d: "Tes clientes te trouvent à domicile ou en institut." }, { icon: "🤖", n: "IA répond aux DMs", d: "Questions sur le protocole, la durée, le prix — l'IA répond." }] },
+  { icon: "🎂", name: "Cake designer", count: 89, feats: [{ icon: "🛍️", n: "Commandes personnalisées", d: "Reçois des commandes avec détails directement dans l'app." }, { icon: "✦", n: "Exclusif SEAVEN", d: "Aucune autre plateforme n'accueille les cake designers." }, { icon: "📸", n: "Vitrine de créations", d: "Publie tes layer cakes et bento cakes pour attirer des commandes." }] },
+  { icon: "💄", name: "Maquilleuse", count: 167, feats: [{ icon: "🏠", n: "Mariée à domicile", d: "Propose tes prestations mariée et soirée sur SEAVEN." }, { icon: "🤖", n: "IA répond aux demandes", d: "Disponibilités, tarifs, durée — l'IA gère les DMs." }, { icon: "📅", n: "Planning événementiel", d: "Gère plusieurs clientes le même jour facilement." }] },
+  { icon: "🧵", name: "Créatrice broderie", count: 54, feats: [{ icon: "🛍️", n: "Boutique sur mesure", d: "Reçois des commandes broderie personnalisées dans l'app." }, { icon: "✦", n: "Exclusif SEAVEN", d: "Les créatrices broderie n'ont pas de plateforme dédiée." }, { icon: "📸", n: "Portfolio créations", d: "Publie tes broderies et inspire de nouvelles clientes." }] },
+  { icon: "⚡", name: "Plasma pen", count: 62, feats: [{ icon: "🤖", n: "IA explique le soin", d: "Contre-indications, résultats — l'IA informe tes clientes." }, { icon: "✦", n: "Exclusif SEAVEN", d: "Un des rares métiers absent des autres plateformes." }, { icon: "📅", n: "Suivi post-soin", d: "Programme des rappels automatiques de suivi." }] }
+];
+const ticker = document.getElementById("ticker");
+[...metiers, ...metiers].forEach((m) => {
+  const c = document.createElement("div");
+  c.className = "m-chip";
+  c.innerHTML = `<span>${m.icon}</span>${m.name}`;
+  c.onclick = () => selMetier(m);
+  ticker.appendChild(c);
+});
+function selMetier(m) {
+  document.querySelectorAll(".m-chip").forEach((c) => c.classList.toggle("on", c.textContent.trim().includes(m.name)));
+  document.getElementById("mTitle").innerHTML = `SEAVEN pour<br>les <em>${m.name}s</em>`;
+  document.getElementById("mSub").textContent = "Voilà ce que SEAVEN peut faire pour toi.";
+  const rev = document.getElementById("mReveal");
+  rev.className = "m-reveal show";
+  const safeName = m.name.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+  rev.innerHTML = `
+<div class="mr-card">
+<div class="mr-head"><div class="mr-icon">${m.icon}</div><div><div class="mr-name">${m.name}</div><div class="mr-sub">SEAVEN est fait pour toi.</div></div></div>
+<div class="mr-feats">${m.feats.map((f) => `<div class="mrf"><div class="mrf-icon">${f.icon}</div><div class="mrf-name">${f.n}</div><div class="mrf-desc">${f.d}</div></div>`).join("")}</div>
+<div class="mr-bottom"><div class="mr-comm"><div class="mr-comm-n">${m.count}</div><div class="mr-comm-l">${m.name}s déjà inscrits</div></div><button type="button" class="mr-cta-btn" onclick="scroll2('waitlist');document.getElementById('fMetier').value='${safeName}';">Rejoindre →</button></div>
+</div>`;
+  const sel = document.getElementById("fMetier");
+  for (const o of sel.options) {
+    if (o.value === m.name || o.textContent.trim() === m.name) {
+      sel.value = o.value || m.name;
+      break;
+    }
+  }
+}
 
-    document.getElementById("appStoreBtn").href = APP_LINKS.appStore;
-    document.getElementById("googlePlayBtn").href = APP_LINKS.googlePlay;
-    document.getElementById("pricingAppStoreBtn").href = APP_LINKS.appStore;
-    document.getElementById("pricingGooglePlayBtn").href = APP_LINKS.googlePlay;
+// ── ESTIMATE ──
+function updateEst() {
+  const v = document.getElementById("fClientes").value;
+  if (v === "") {
+    document.getElementById("formEst").style.display = "none";
+    return;
+  }
+  document.getElementById("formP").textContent = tarifs[parseInt(v, 10)].price + " € / mois";
+  document.getElementById("formEst").style.display = "flex";
+}
 
-    const waitlistForm = document.getElementById("waitlistForm");
-    const formFeedback = document.getElementById("formFeedback");
+// ── SUBMIT ──
+function submitForm() {
+  const p = document.getElementById("fPre").value;
+  const n = document.getElementById("fNom").value;
+  const e = document.getElementById("fEmail").value;
+  const m = document.getElementById("fMetier").value;
+  if (!p || !n || !e || !m) {
+    alert("Merci de remplir tous les champs 🙏");
+    return;
+  }
+  document.getElementById("formWrap").innerHTML =
+    `<div style="text-align:center;padding:56px 20px;"><div style="font-size:56px;margin-bottom:20px;">🦚</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;margin-bottom:10px;">Tu es sur la liste !</div><div style="font-size:15px;color:var(--mid);line-height:1.7;">Merci ${p} — on t'envoie un email le 21 septembre<br>quand SEAVEN est prêt pour toi. 🎉</div></div>`;
+}
 
-    waitlistForm?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      if (!waitlistForm.checkValidity()) {
-        waitlistForm.reportValidity();
-        return;
-      }
-
-      const formData = new FormData(waitlistForm);
-      const payload = Object.fromEntries(formData.entries());
-
-      if (!APP_LINKS.formEndpoint) {
-        formFeedback.style.display = "block";
-        formFeedback.classList.remove("error");
-        formFeedback.textContent =
-          "Formulaire prêt. Ajoute ton endpoint (ex. Formspree) dans APP_LINKS.formEndpoint pour recevoir les inscriptions.";
-        return;
-      }
-
-      try {
-        const response = await fetch(APP_LINKS.formEndpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-          throw new Error("Échec de l’envoi");
-        }
-
-        waitlistForm.reset();
-        formFeedback.style.display = "block";
-        formFeedback.classList.remove("error");
-        formFeedback.textContent = "Inscription envoyée avec succès.";
-      } catch (error) {
-        formFeedback.style.display = "block";
-        formFeedback.classList.add("error");
-        formFeedback.textContent = "Impossible d’envoyer le formulaire pour le moment.";
-      }
-    });
   </script>
 </body>
 </html>
