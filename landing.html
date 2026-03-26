@@ -338,8 +338,8 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   z-index:0;
   pointer-events:none;
   overflow:hidden;
-  /* Dégradé discret si la vidéo charge encore — pas de bloc noir */
-  background:linear-gradient(160deg,#252030 0%,#1a1622 45%,#15121a 100%);
+  /* Fond neutre (blanc cassé) si la vidéo charge encore — pas de voilet/rosé */
+  background:var(--bg);
 }
 .hero-bg-video{
   position:absolute;
@@ -374,11 +374,12 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   inset:0;
   z-index:1;
   pointer-events:none;
-  background:linear-gradient(180deg,rgba(18,12,28,.32) 0%,rgba(12,10,22,.44) 100%);
+  /* Voile neutre (noir) pour lisibilité du texte — pas de mélange violet/rosé */
+  background:linear-gradient(180deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,.42) 100%);
   transition:background .55s ease;
 }
 .hero.hero--video-focus .hero-bg-overlay{
-  background:linear-gradient(180deg,rgba(8,6,14,.08) 0%,rgba(10,8,18,.18) 100%);
+  background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.22) 100%);
 }
 .hero-inner{
   position:relative;
