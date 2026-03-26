@@ -317,9 +317,10 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .grad-bar{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--mint),var(--yellow));}
 
 /* HERO */
-.hero{position:relative;isolation:isolate;overflow:hidden;text-align:center;min-height:100vh;min-height:100dvh;max-width:860px;margin:0 auto;min-width:0;width:100%;box-sizing:border-box;padding:0;}
-.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;}
-.hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}
+.hero{--hero-bg-scale:.88;position:relative;isolation:isolate;overflow:hidden;text-align:center;min-height:100vh;min-height:100dvh;max-width:860px;margin:0 auto;min-width:0;width:100%;box-sizing:border-box;padding:0;}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#0a0a10;}
+/* Réduit visuellement l’animation (zoom out CSS) sans changer le fichier vidéo — ajuster --hero-bg-scale (0.8–1). */
+.hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(var(--hero-bg-scale,.88));transform-origin:center center;will-change:transform;}
 .hero-bg-overlay{position:absolute;inset:0;z-index:1;background:rgba(12,12,18,.42);}
 .hero-inner{position:relative;z-index:2;padding:28px max(16px,env(safe-area-inset-left)) 44px max(16px,env(safe-area-inset-right));}
 .hero-launch{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;color:rgba(255,255,255,.92);margin-bottom:28px;}
@@ -394,14 +395,14 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .comparatif-wrap{max-width:760px;margin:28px auto 0;}
 .comparatif-wrap{width:100%;overflow-x:hidden;}
 .cmp-kicker{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
-.cmp-title{text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,7vw,44px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;margin-bottom:10px;}
-.cmp-sub{text-align:center;color:var(--mid);font-size:15px;line-height:1.6;margin-bottom:16px;}
+.cmp-title{text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,7vw,44px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;margin-bottom:10px;color:var(--purple);background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cmp-sub{text-align:center;color:#5a52a0;font-size:15px;line-height:1.6;margin-bottom:16px;font-weight:600;}
 
-/* Sélecteur concurrent style maquette */
-.cmp-selector{display:flex;align-items:center;gap:0;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 10px 22px rgba(0,0,0,.06);margin-bottom:14px;}
-.cmp-selector-left{flex:1;min-width:0;padding:12px 14px;font-weight:900;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-0.03em;font-size:18px;color:#1b1b22;}
-.cmp-selector-divider{width:1px;align-self:stretch;background:var(--border);}
-.cmp-selector-right{flex:1;min-width:0;position:relative;}
+/* Sélecteur concurrent — overflow visible pour ne pas clipper le menu (était hidden) */
+.cmp-selector{display:flex;align-items:stretch;gap:0;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:visible;box-shadow:0 10px 22px rgba(0,0,0,.06);margin-bottom:14px;position:relative;z-index:40;}
+.cmp-selector-left{flex:1;min-width:0;padding:12px 14px;font-weight:900;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-0.03em;font-size:18px;color:#1b1b22;border-radius:16px 0 0 16px;overflow:hidden;}
+.cmp-selector-divider{width:1px;align-self:stretch;background:var(--border);flex-shrink:0;}
+.cmp-selector-right{flex:1;min-width:0;position:relative;border-radius:0 16px 16px 0;overflow:visible;}
 .cmp-selector-btn{
   width:100%;
   display:flex;
@@ -421,15 +422,15 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-menu{
   position:absolute;
   top:calc(100% + 8px);
-  right:10px;
-  left:10px;
+  right:0;
+  left:0;
   background:#fff;
   border:1px solid var(--border);
   border-radius:16px;
   box-shadow:0 18px 40px rgba(0,0,0,.12);
   overflow:hidden;
   display:none;
-  z-index:20;
+  z-index:50;
 }
 .cmp-menu.open{display:block;}
 .cmp-opt{width:100%;border:none;background:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:800;color:#1b1b22;cursor:pointer;}
@@ -463,6 +464,8 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-ico.no{color:#fff;background:#e2546f;border-radius:999px;padding:3px;}
 .cmp-ico.warn{color:#fff;background:#f0c04a;border-radius:999px;padding:3px;}
 .cmp-txt{font-size:12px;line-height:1.35;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
+.cmp-cell{min-width:0;flex:1;}
+.cmp-warn-hint{font-size:10px;font-weight:700;color:#8a6d1a;margin-top:3px;line-height:1.25;letter-spacing:.01em;}
 
 /* Animation changement concurrent (léger) */
 .cmp-card.is-swapping{animation:cmpFade .18s ease;}
@@ -1606,29 +1609,29 @@ const CMP_FEATURES = [
   "Messagerie interne"
 ];
 const CMP_STATUS = { ok: "ok", no: "no", warn: "warn" };
+/** Libellé court (bouton) + titre colonne — clé = data-cmp */
 const CMP_COMPETITORS = {
-  planity: { name: "PLANITY", icon: "planity" },
-  fresha: { name: "FRESHA", icon: "fresha" },
-  treatwell: { name: "TREATWELL", icon: "treatwell" },
-  booksy: { name: "BOOKSY", icon: "booksy" },
-  insta_tools: { name: "INSTA+EXCEL+WHATSAPP", icon: "tools" }
+  planity: { name: "PLANITY", shortLabel: "Planity", icon: "planity" },
+  fresha: { name: "FRESHA", shortLabel: "Fresha", icon: "fresha" },
+  treatwell: { name: "TREATWELL", shortLabel: "Treatwell", icon: "treatwell" },
+  booksy: { name: "BOOKSY", shortLabel: "Booksy", icon: "booksy" },
+  insta_tools: { name: "INSTA+EXCEL+WHATSAPP", shortLabel: "Insta+Excel+WhatsApp", icon: "insta" }
 };
+/** Données alignées sur le tableau de référence (12 lignes × concurrents). */
 const CMP_DATA = {
-  // SEAVEN est full ok sur ces 12 features
-  seaven: Object.fromEntries(CMP_FEATURES.map((f) => [f, CMP_STATUS.ok])),
   planity: {
     "Réservation en ligne": CMP_STATUS.ok,
     "Plateforme façon réseau social": CMP_STATUS.no,
     "Feed (photos / vidéos)": CMP_STATUS.no,
     "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.warn,
     "Comptabilité avancée": CMP_STATUS.no,
     "Créneaux d’urgence": CMP_STATUS.warn,
     "Blacklist intelligente": CMP_STATUS.no,
     "Parrainage": CMP_STATUS.no,
     "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
     "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.no
+    "Messagerie interne": CMP_STATUS.ok
   },
   fresha: {
     "Réservation en ligne": CMP_STATUS.ok,
@@ -1636,55 +1639,76 @@ const CMP_DATA = {
     "Feed (photos / vidéos)": CMP_STATUS.no,
     "Marketplace intégrée": CMP_STATUS.no,
     "Abonnement selon volume clients": CMP_STATUS.no,
-    "Comptabilité avancée": CMP_STATUS.warn,
-    "Créneaux d’urgence": CMP_STATUS.ok,
-    "Blacklist intelligente": CMP_STATUS.no,
-    "Parrainage": CMP_STATUS.ok,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.warn
-  },
-  treatwell: {
-    "Réservation en ligne": CMP_STATUS.ok,
-    "Plateforme façon réseau social": CMP_STATUS.no,
-    "Feed (photos / vidéos)": CMP_STATUS.no,
-    "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.no,
-    "Comptabilité avancée": CMP_STATUS.no,
-    "Créneaux d’urgence": CMP_STATUS.no,
-    "Blacklist intelligente": CMP_STATUS.no,
-    "Parrainage": CMP_STATUS.no,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.no
-  },
-  booksy: {
-    "Réservation en ligne": CMP_STATUS.ok,
-    "Plateforme façon réseau social": CMP_STATUS.no,
-    "Feed (photos / vidéos)": CMP_STATUS.no,
-    "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.no,
     "Comptabilité avancée": CMP_STATUS.no,
     "Créneaux d’urgence": CMP_STATUS.warn,
     "Blacklist intelligente": CMP_STATUS.no,
     "Parrainage": CMP_STATUS.no,
     "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
     "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.warn
+    "Messagerie interne": CMP_STATUS.ok
+  },
+  treatwell: {
+    "Réservation en ligne": CMP_STATUS.ok,
+    "Plateforme façon réseau social": CMP_STATUS.no,
+    "Feed (photos / vidéos)": CMP_STATUS.no,
+    "Marketplace intégrée": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.warn,
+    "Comptabilité avancée": CMP_STATUS.no,
+    "Créneaux d’urgence": CMP_STATUS.warn,
+    "Blacklist intelligente": CMP_STATUS.no,
+    "Parrainage": CMP_STATUS.no,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.ok
+  },
+  booksy: {
+    "Réservation en ligne": CMP_STATUS.ok,
+    "Plateforme façon réseau social": CMP_STATUS.no,
+    "Feed (photos / vidéos)": CMP_STATUS.no,
+    "Marketplace intégrée": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.warn,
+    "Comptabilité avancée": CMP_STATUS.no,
+    "Créneaux d’urgence": CMP_STATUS.warn,
+    "Blacklist intelligente": CMP_STATUS.no,
+    "Parrainage": CMP_STATUS.no,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.warn,
+    "Messagerie interne": CMP_STATUS.ok
   },
   insta_tools: {
-    "Réservation en ligne": CMP_STATUS.no,
-    "Plateforme façon réseau social": CMP_STATUS.warn,
-    "Feed (photos / vidéos)": CMP_STATUS.ok,
+    "Réservation en ligne": CMP_STATUS.ok,
+    "Plateforme façon réseau social": CMP_STATUS.no,
+    "Feed (photos / vidéos)": CMP_STATUS.warn,
     "Marketplace intégrée": CMP_STATUS.no,
     "Abonnement selon volume clients": CMP_STATUS.no,
     "Comptabilité avancée": CMP_STATUS.no,
     "Créneaux d’urgence": CMP_STATUS.no,
     "Blacklist intelligente": CMP_STATUS.no,
     "Parrainage": CMP_STATUS.no,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.no,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
     "Paiement intégré": CMP_STATUS.warn,
     "Messagerie interne": CMP_STATUS.no
+  }
+};
+/** Sous-texte pour les statuts jaunes (partiel / parfois / limité). */
+const CMP_WARN_HINTS = {
+  planity: {
+    "Abonnement selon volume clients": "Partiel",
+    "Créneaux d’urgence": "Partiel"
+  },
+  fresha: { "Créneaux d’urgence": "Partiel" },
+  treatwell: {
+    "Abonnement selon volume clients": "Partiel",
+    "Créneaux d’urgence": "Parfois"
+  },
+  booksy: {
+    "Abonnement selon volume clients": "Partiel",
+    "Créneaux d’urgence": "Parfois",
+    "Paiement intégré": "Limité"
+  },
+  insta_tools: {
+    "Feed (photos / vidéos)": "Partiel",
+    "Paiement intégré": "Limité"
   }
 };
 function cmpIconSvg(kind) {
@@ -1706,9 +1730,20 @@ function cmpRightBadgeSvg(iconKey) {
       return `<path d="M8 6h8v12H8V6Z" stroke="currentColor" stroke-width="1.8"/><path d="M10 9h4M10 12h4M10 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
     case "booksy":
       return `<path d="M9 7h6v10H9V7Z" stroke="currentColor" stroke-width="1.8"/><path d="M9 10h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
+    case "insta":
+      return `<path d="M7 8h10M7 12h10M7 16h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
     default:
       return `<path d="M7 8h10M7 12h10M7 16h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
   }
+}
+function cmpRowLeftHtml(f) {
+  return `<div class="cmp-row">${cmpIconSvg(CMP_STATUS.ok)}<div class="cmp-cell"><div class="cmp-txt">${f}</div></div></div>`;
+}
+function cmpRowRightHtml(f, status, compKey) {
+  const st = status || CMP_STATUS.no;
+  const hint = st === CMP_STATUS.warn && CMP_WARN_HINTS[compKey] && CMP_WARN_HINTS[compKey][f];
+  const hintHtml = hint ? `<div class="cmp-warn-hint">${hint}</div>` : "";
+  return `<div class="cmp-row">${cmpIconSvg(st)}<div class="cmp-cell"><div class="cmp-txt">${f}</div>${hintHtml}</div></div>`;
 }
 function renderComparatif(key) {
   const left = document.getElementById("cmpLeft");
@@ -1720,13 +1755,12 @@ function renderComparatif(key) {
   const c = CMP_COMPETITORS[key] || CMP_COMPETITORS.planity;
   const data = CMP_DATA[key] || CMP_DATA.planity;
 
-  // petite animation smooth au swap
   rightCard.classList.remove("is-swapping");
   void rightCard.offsetWidth;
   rightCard.classList.add("is-swapping");
 
-  left.innerHTML = CMP_FEATURES.map((f) => `<div class="cmp-row">${cmpIconSvg(CMP_STATUS.ok)}<div class="cmp-txt">${f}</div></div>`).join("");
-  right.innerHTML = CMP_FEATURES.map((f) => `<div class="cmp-row">${cmpIconSvg(data[f] || CMP_STATUS.no)}<div class="cmp-txt">${f}</div></div>`).join("");
+  left.innerHTML = CMP_FEATURES.map((f) => cmpRowLeftHtml(f)).join("");
+  right.innerHTML = CMP_FEATURES.map((f) => cmpRowRightHtml(f, data[f], key)).join("");
   rightTitle.textContent = c.name;
   rightIcon.innerHTML = cmpRightBadgeSvg(c.icon);
 }
@@ -1743,7 +1777,8 @@ function cmpOpenMenu() {
   cmpMenu.classList.add("open");
   cmpSelectBtn.setAttribute("aria-expanded", "true");
 }
-cmpSelectBtn?.addEventListener("click", () => {
+cmpSelectBtn?.addEventListener("click", (e) => {
+  e.stopPropagation();
   if (!cmpMenu) return;
   const open = cmpMenu.classList.contains("open");
   open ? cmpCloseMenu() : cmpOpenMenu();
@@ -1757,13 +1792,15 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") cmpCloseMenu();
 });
 document.querySelectorAll(".cmp-opt").forEach((btn) => {
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
     const key = btn.dataset.cmp;
+    if (!key || !CMP_COMPETITORS[key]) return;
     document.querySelectorAll(".cmp-opt").forEach((el) => {
       el.classList.toggle("active", el === btn);
       el.setAttribute("aria-selected", el === btn ? "true" : "false");
     });
-    if (cmpSelectLabel) cmpSelectLabel.textContent = btn.textContent.trim();
+    if (cmpSelectLabel) cmpSelectLabel.textContent = CMP_COMPETITORS[key].shortLabel;
     renderComparatif(key);
     cmpCloseMenu();
   });
