@@ -668,7 +668,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
           </p>
           <div class="hero-motion-slot">
             <div class="hero-motion-wrap">
-              <video id="motion-video" class="motion-video-player" controls playsinline preload="metadata" aria-label="Vidéo motion design">
+              <video id="motion-video" class="motion-video-player" autoplay muted loop playsinline preload="auto" aria-label="Vidéo motion design">
                 <source src="./assets/Seaven.mp4" type="video/mp4" />
                 Ton navigateur ne supporte pas la lecture vidéo.
               </video>
@@ -1380,6 +1380,18 @@ document.getElementById("accessPasswordToggle")?.addEventListener("click", () =>
   btn.setAttribute("aria-pressed", String(!visible));
   btn.setAttribute("aria-label", visible ? "Afficher le mot de passe" : "Masquer le mot de passe");
   input.focus();
+});
+
+// Fallback lecture auto pour certains navigateurs mobiles.
+window.addEventListener("load", () => {
+  const motionVideo = document.getElementById("motion-video");
+  if (!motionVideo) return;
+  const tryPlay = () => {
+    const p = motionVideo.play();
+    if (p && typeof p.catch === "function") p.catch(() => {});
+  };
+  tryPlay();
+  motionVideo.addEventListener("canplay", tryPlay, { once: true });
 });
 
 document.querySelectorAll('[data-link="waitlist"]').forEach((btn) => {
