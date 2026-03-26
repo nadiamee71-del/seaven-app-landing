@@ -347,7 +347,15 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .motion-video-placeholder{aspect-ratio:16/9;width:100%;max-width:100%;border-radius:18px;border:2px dashed var(--border);background:linear-gradient(145deg,rgba(232,99,140,.07),rgba(168,125,200,.09));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px 12px;text-align:center;box-sizing:border-box;}
 .motion-video-label{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(14px,3.8vw,17px);color:var(--black);}
 .motion-video-hint{font-size:12px;color:var(--mid);max-width:300px;line-height:1.45;}
-.motion-video-player{width:100%;max-width:100%;display:block;border-radius:18px;background:#000;}
+.motion-video-player{
+  width:min(100%,320px);
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  margin:0 auto;
+  border-radius:18px;
+  background:#000;
+}
 .hero-stats{display:flex;gap:0;justify-content:center;margin-top:64px;border:1px solid var(--border);border-radius:20px;overflow:hidden;max-width:100%;width:100%;margin-left:auto;margin-right:auto;box-sizing:border-box;}
 .stat{flex:1;min-width:0;padding:14px 6px;text-align:center;border-right:1px solid var(--border);}
 .stat:last-child{border-right:none;}
@@ -1534,8 +1542,7 @@ function renderComparatif(platform) {
     const state = matrix[txt] || "non";
     const icon = state === "oui" ? "V" : "X";
     const cls = state === "oui" ? "ok" : "no";
-    const suffix = state === "partiel" ? " (partiel)" : "";
-    return `<div class="cmp-row"><span class="cmp-ico ${cls}">${icon}</span><span class="cmp-txt">${txt}${suffix}</span></div>`;
+    return `<div class="cmp-row"><span class="cmp-ico ${cls}">${icon}</span><span class="cmp-txt">${txt}</span></div>`;
   }).join("");
   rightTitle.textContent = platform.toUpperCase();
   rightIcon.textContent = competitorIcons[platform] || "◉";
