@@ -362,6 +362,54 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .sec-title em{font-style:normal;color:var(--pink);}
 .sec-sub{font-size:16px;color:var(--mid);line-height:1.7;max-width:min(500px,100%);overflow-wrap:anywhere;}
 
+/* Couleurs d'accent par section demandées */
+#features .sec-label, #features .sec-title em { color: var(--purple); }
+#discover-section .sec-label, #discover-section .sec-title em { color: var(--mint); }
+#pricing-section .sec-label, #pricing-section .sec-title em { color: var(--blue); }
+#waitlist .sec-label, #waitlist .sec-title em { color: var(--yellow); }
+#waitlist .btn-submit {
+  background: linear-gradient(135deg, var(--pink), var(--yellow));
+}
+
+/* Bloc parrainage */
+.parrainage-wrap{max-width:640px;margin:28px auto 0;background:var(--light);border:1px solid var(--border);border-radius:26px;padding:clamp(20px,5vw,30px);}
+.parrainage-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(22px,5vw,36px);line-height:1.08;letter-spacing:-0.03em;font-weight:800;margin-bottom:10px;}
+.parrainage-title em{font-style:normal;color:var(--pink);}
+.parrainage-sub{font-size:16px;color:var(--mid);line-height:1.65;margin-bottom:14px;}
+.parrainage-list{display:grid;gap:8px;margin-bottom:18px;}
+.parrainage-item{font-size:15px;color:var(--black);font-weight:600;}
+.parrainage-item::before{content:"✓ ";color:var(--mint);font-weight:800;}
+.parrainage-calc{background:#fff;border:1px solid var(--border);border-radius:20px;padding:16px;}
+.parrainage-calc-title{font-size:22px;line-height:1.15;font-weight:800;letter-spacing:-0.03em;margin-bottom:12px;}
+.parrainage-range{margin-bottom:10px;}
+.parrainage-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--mid);font-weight:700;margin-bottom:12px;}
+.parrainage-values{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.pv-box{background:var(--light);border:1px solid var(--border);border-radius:14px;padding:10px 12px;}
+.pv-label{font-size:11px;color:var(--mid);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.pv-value{font-size:24px;font-weight:800;letter-spacing:-0.03em;}
+.parrainage-examples{display:flex;justify-content:space-between;gap:8px;font-size:14px;color:var(--mid);font-weight:700;margin-bottom:14px;}
+.parrainage-btn{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;border-radius:999px;padding:14px 18px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;}
+.parrainage-note{text-align:center;font-size:11px;color:var(--mid);margin-top:10px;line-height:1.45;}
+
+/* Bloc comparatif */
+.comparatif-wrap{max-width:700px;margin:28px auto 0;background:var(--light);border:1px solid var(--border);border-radius:26px;padding:clamp(20px,5vw,30px);}
+.comparatif-head{display:grid;gap:10px;margin-bottom:16px;}
+.comparatif-select{width:100%;max-width:280px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:14px;}
+.diff-list{display:grid;gap:8px;}
+.diff-item{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 12px;}
+.diff-item .tag{font-size:11px;font-weight:800;border-radius:999px;padding:3px 8px;white-space:nowrap;margin-top:1px;}
+.tag-ok{background:#eefaf3;color:#2f9f73;}
+.tag-no{background:#fff1f3;color:#d14369;}
+.diff-text{font-size:13px;line-height:1.45;color:var(--black);font-weight:600;}
+
+/* Code d'accès */
+.access-gate{position:fixed;inset:0;background:#fff;z-index:12000;display:flex;align-items:center;justify-content:center;padding:20px;}
+.access-gate.hidden{display:none;}
+.access-card{width:100%;max-width:360px;background:var(--light);border:1px solid var(--border);border-radius:20px;padding:20px;}
+.access-title{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.03em;margin-bottom:8px;}
+.access-sub{font-size:14px;color:var(--mid);line-height:1.55;margin-bottom:14px;}
+.access-error{margin-top:10px;font-size:12px;font-weight:700;color:#d14369;display:none;}
+
 /* FEATURES CAROUSEL — card claire */
 .feat-outer{background:#fff;padding:0 max(16px,env(safe-area-inset-left)) 40px max(16px,env(safe-area-inset-right));max-width:min(100%,380px);margin:0 auto;min-width:0;box-sizing:border-box;}
 main .mobile-shell .stack > .hero + .feat-outer{margin-top:-6px;}
@@ -522,11 +570,24 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 .i-screen{padding:30px 8px 10px;gap:5px;}
 .s-hd{font-size:7px;}
 .s-title{font-size:10px;}
+.parrainage-values{grid-template-columns:1fr;}
+.parrainage-examples{font-size:12px;}
 }
 
   </style>
 </head>
 <body>
+<div id="accessGate" class="access-gate">
+  <div class="access-card">
+    <div class="access-title">SEAVEN</div>
+    <p class="access-sub">Accès protégé. Entre le mot de passe pour afficher la landing.</p>
+    <input class="fi" type="password" id="accessPassword" placeholder="Mot de passe" />
+    <button type="button" class="btn-submit" style="margin-top:12px" onclick="unlockLanding()">Entrer</button>
+    <div id="accessError" class="access-error">Mot de passe incorrect.</div>
+  </div>
+</div>
+
+<div id="landingRoot" style="display:none">
 <div class="grad-bar"></div>
 
   <div class="page">
@@ -1008,15 +1069,67 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
           </div>
         </div>
 
+        <!-- PARRAINAGE -->
+        <div class="sec" id="parrainage-section">
+          <div class="parrainage-wrap">
+            <h2 class="parrainage-title">Gagne de l’argent avec <em>SEAVEN</em></h2>
+            <p class="parrainage-sub">Parraine tes consœurs et confrères et gagne 25€ à chaque inscription.</p>
+            <div class="parrainage-list">
+              <div class="parrainage-item">Jusqu’à 30 parrainages par an</div>
+              <div class="parrainage-item">Argent réel, encaissable</div>
+              <div class="parrainage-item">Sans effort, juste en partageant ton lien</div>
+            </div>
+            <div class="parrainage-calc">
+              <div class="parrainage-calc-title">Combien de personnes peux-tu parrainer ?</div>
+              <input class="parrainage-range" type="range" min="1" max="30" step="1" value="15" id="refSlider" oninput="updateReferral(this.value)" />
+              <div class="parrainage-scale"><span>1</span><span>15</span><span>30</span></div>
+              <div class="parrainage-values">
+                <div class="pv-box">
+                  <div class="pv-label">Nombre sélectionné</div>
+                  <div class="pv-value" id="refCount">15</div>
+                </div>
+                <div class="pv-box">
+                  <div class="pv-label">Montant total gagné</div>
+                  <div class="pv-value" id="refGain">375€</div>
+                </div>
+              </div>
+              <div class="parrainage-examples">
+                <span>1 → 25€</span>
+                <span>15 → 375€</span>
+                <span>30 → 750€</span>
+              </div>
+              <button type="button" class="parrainage-btn" onclick="scroll2('waitlist')">Parrainer et gagner de l’argent</button>
+              <div class="parrainage-note">Sous conditions : parrainage validé après activation et 3 mois d’abonnement</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPARATIF -->
+        <div class="sec" id="comparatif-section">
+          <div class="comparatif-wrap">
+            <h2 class="sec-title" style="margin-bottom:12px">Comparatif des plateformes</h2>
+            <div class="comparatif-head">
+              <label class="fl" for="platformSelect">Plateforme à comparer</label>
+              <select id="platformSelect" class="comparatif-select" onchange="renderComparatif(this.value)">
+                <option value="Planity">Planity</option>
+                <option value="Fresha">Fresha</option>
+                <option value="Booksy">Booksy</option>
+                <option value="Treatwell">Treatwell</option>
+                <option value="Instagram">Instagram</option>
+              </select>
+            </div>
+            <div id="comparatifDiffs" class="diff-list"></div>
+          </div>
+        </div>
+
         <!-- LISTE D'ATTENTE -->
         <div class="sec" id="waitlist">
           <div style="text-align: center; margin-bottom: 26px">
             <div class="sec-label">Liste d'attente</div>
-            <h2 class="sec-title">Rejoins la liste<br /><em>d'attente SEAVEN.</em></h2>
+            <h2 class="sec-title">Fais partie des premiers sur SEAVEN<br /><em>Débloque 30 jours offerts</em></h2>
             <p class="sec-sub" style="margin: 0 auto; max-width: 440px">
-              Lancement le <strong>21 septembre 2026</strong>. Inscris-toi maintenant pour faire partie des
-              <strong>premiers</strong> et <strong>bénéficier</strong> de <strong>14 jours offerts</strong> pour tester
-              dès l’ouverture.
+              Accès anticipé à l’application, avantages réservés aux premiers utilisateurs et temps de test prolongé.
+              Tu reçois ton accès <strong>2 à 3 jours avant</strong> l’ouverture générale.
             </p>
           </div>
           <div class="form-wrap" id="formWrap">
@@ -1086,7 +1199,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
             </div>
             <button type="button" class="btn-submit" onclick="submitForm()">Rejoindre la liste d'attente →</button>
             <p class="f-notice">
-              🔒 Gratuit · Aucune carte bancaire · <strong>14 jours offerts</strong><br />
+              🔒 Gratuit · Aucune carte bancaire · <strong>30 jours offerts</strong><br />
               Lancement 21 septembre 2026
             </p>
           </div>
@@ -1162,11 +1275,31 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
       <button type="button" class="parrain-modal-cta" id="parrainModalCta">Rejoindre la liste d’attente</button>
     </div>
   </div>
+  </div>
 
   <script>
 function scroll2(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
+
+const ACCESS_PASSWORD = "SEAVEN2026";
+function unlockLanding() {
+  const pwd = document.getElementById("accessPassword");
+  const gate = document.getElementById("accessGate");
+  const root = document.getElementById("landingRoot");
+  const err = document.getElementById("accessError");
+  if (!pwd || !gate || !root || !err) return;
+  if (pwd.value === ACCESS_PASSWORD) {
+    gate.classList.add("hidden");
+    root.style.display = "";
+    err.style.display = "none";
+    return;
+  }
+  err.style.display = "block";
+}
+document.getElementById("accessPassword")?.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") unlockLanding();
+});
 
 document.querySelectorAll('[data-link="waitlist"]').forEach((btn) => {
   btn.addEventListener("click", () => scroll2("waitlist"));
@@ -1252,6 +1385,81 @@ function updateTarif(v) {
   document.getElementById("tFeats").innerHTML = t.feats.map((f) => `<div class="tf">✓ ${f}</div>`).join("");
 }
 updateTarif(2);
+
+function updateReferral(v) {
+  const count = parseInt(v, 10);
+  const gain = count * 25;
+  const c = document.getElementById("refCount");
+  const g = document.getElementById("refGain");
+  if (c) c.textContent = String(count);
+  if (g) g.textContent = `${gain}€`;
+}
+updateReferral(15);
+
+const featureCatalog = [
+  "Réservation en ligne",
+  "Lien réservation sans app",
+  "0% commission",
+  "Abonnement selon volume clientes",
+  "Abonnement groupé institut",
+  "Réseau social intégré",
+  "Feed algorithmique",
+  "Stories",
+  "Réveil intelligent",
+  "Chatbot intelligent (RAG)",
+  "Fichier cliente ultra-détaillé",
+  "Tailles capsules / mapping cils",
+  "Journal de séance",
+  "Suivi stocks automatique",
+  "Prix de revient par prestation",
+  "ROI visible",
+  "Conditions de réservation signées",
+  "Marketplace intégrée",
+  "Créneaux d’urgence",
+  "Cartes de fidélité",
+  "Blacklist inter-prestataires",
+  "Modèle (formation/contenu/test)",
+  "Objectif mensuel IA",
+  "Statistiques & finances complètes",
+  "Planning coloré",
+  "Marketing intégré (SMS/email)",
+  "Messages automatiques",
+  "À domicile dédié",
+  "Promotions dédiées",
+  "Parrainage",
+  "Mode jour/nuit",
+  "Tout en français"
+];
+const platformData = {
+  SEAVEN: Object.fromEntries(featureCatalog.map((f) => [f, "oui"])),
+  Planity: {
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "oui","Mode jour/nuit": "oui","Tout en français": "oui"
+  },
+  Fresha: {
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "partiel","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "partiel","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "oui","Planning coloré": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+  },
+  Booksy: {
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "oui","Tout en français": "oui"
+  },
+  Treatwell: {
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré": "non","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+  },
+  Instagram: {
+    "Réservation en ligne": "non","Lien réservation sans app": "non","0% commission": "oui","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "partiel","Feed algorithmique": "oui","Stories": "oui","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré": "non","Marketing intégré (SMS/email)": "non","Messages automatiques": "non","À domicile dédié": "non","Promotions dédiées": "non","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+  }
+};
+function renderComparatif(platform) {
+  const target = document.getElementById("comparatifDiffs");
+  if (!target || !platformData[platform]) return;
+  const rows = featureCatalog.filter((f) => platformData[platform][f] !== "oui");
+  target.innerHTML = rows.map((f) => {
+    const v = platformData[platform][f];
+    const label = v === "partiel" ? "Partiel" : "Absent";
+    const cls = v === "partiel" ? "tag-no" : "tag-no";
+    return `<div class="diff-item"><span class="tag tag-ok">SEAVEN</span><span class="tag ${cls}">${platform}: ${label}</span><div class="diff-text">${f}</div></div>`;
+  }).join("");
+}
+renderComparatif("Planity");
 
 // ── MÉTIERS ──
 const metiers = [
