@@ -347,6 +347,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .motion-video-placeholder{aspect-ratio:16/9;width:100%;max-width:100%;border-radius:18px;border:2px dashed var(--border);background:linear-gradient(145deg,rgba(232,99,140,.07),rgba(168,125,200,.09));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px 12px;text-align:center;box-sizing:border-box;}
 .motion-video-label{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(14px,3.8vw,17px);color:var(--black);}
 .motion-video-hint{font-size:12px;color:var(--mid);max-width:300px;line-height:1.45;}
+.motion-video-player{width:100%;max-width:100%;display:block;border-radius:18px;background:#000;}
 .hero-stats{display:flex;gap:0;justify-content:center;margin-top:64px;border:1px solid var(--border);border-radius:20px;overflow:hidden;max-width:100%;width:100%;margin-left:auto;margin-right:auto;box-sizing:border-box;}
 .stat{flex:1;min-width:0;padding:14px 6px;text-align:center;border-right:1px solid var(--border);}
 .stat:last-child{border-right:none;}
@@ -659,10 +660,10 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
           </p>
           <div class="hero-motion-slot">
             <div class="hero-motion-wrap">
-              <div class="motion-video-placeholder" id="motion-video" aria-label="Emplacement vidéo motion design">
-                <p class="motion-video-label">Vidéo motion design</p>
-                <p class="motion-video-hint">Intègre ici ton MP4 ou un embed (remplace ce bloc).</p>
-              </div>
+              <video id="motion-video" class="motion-video-player" controls playsinline preload="metadata" aria-label="Vidéo motion design">
+                <source src="./assets/Seaven.mp4" type="video/mp4" />
+                Ton navigateur ne supporte pas la lecture vidéo.
+              </video>
             </div>
           </div>
           <button class="btn-main" type="button" onclick="scroll2('waitlist')">
