@@ -316,13 +316,57 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 /* GRAD BAR */
 .grad-bar{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--mint),var(--yellow));}
 
-/* HERO */
-.hero{--hero-bg-scale:.88;position:relative;isolation:isolate;overflow:hidden;text-align:center;min-height:100vh;min-height:100dvh;max-width:860px;margin:0 auto;min-width:0;width:100%;box-sizing:border-box;padding:0;}
-.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#0a0a10;}
-/* Réduit visuellement l’animation (zoom out CSS) sans changer le fichier vidéo — ajuster --hero-bg-scale (0.8–1). */
-.hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(var(--hero-bg-scale,.88));transform-origin:center center;will-change:transform;}
-.hero-bg-overlay{position:absolute;inset:0;z-index:1;background:rgba(12,12,18,.42);}
-.hero-inner{position:relative;z-index:2;padding:28px max(16px,env(safe-area-inset-left)) 44px max(16px,env(safe-area-inset-right));}
+/* HERO — vidéo en vrai fond (cover, sans scale ni cadre noir) */
+.hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  text-align:center;
+  min-height:100vh;
+  min-height:100dvh;
+  width:100vw;
+  max-width:none;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  min-width:0;
+  box-sizing:border-box;
+  padding:0;
+}
+.hero-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+  /* Dégradé discret si la vidéo charge encore — pas de bloc noir */
+  background:linear-gradient(160deg,#252030 0%,#1a1622 45%,#15121a 100%);
+}
+.hero-bg-video{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  min-width:100%;
+  min-height:100%;
+  object-fit:cover;
+  object-position:center center;
+}
+.hero-bg-overlay{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(18,12,28,.32) 0%,rgba(12,10,22,.44) 100%);
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+  max-width:min(560px,100%);
+  margin-left:auto;
+  margin-right:auto;
+  padding:28px max(16px,env(safe-area-inset-left)) 44px max(16px,env(safe-area-inset-right));
+}
 .hero-launch{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;color:rgba(255,255,255,.92);margin-bottom:28px;}
 .hero-launch span{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;}
 .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,8.5vw,72px);font-weight:800;line-height:1.05;letter-spacing:-0.04em;margin-bottom:22px;overflow-wrap:anywhere;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.25);}
