@@ -430,27 +430,45 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 /* Bloc comparatif */
 .comparatif-wrap{max-width:760px;margin:28px auto 0;}
 .comparatif-wrap{width:100%;overflow-x:hidden;}
-.cmp-kicker{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
-.cmp-title{text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,7vw,44px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;margin-bottom:8px;}
-.cmp-title em{font-style:normal;background:linear-gradient(135deg,var(--blue),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cmp-sub{text-align:center;color:var(--mid);font-size:16px;line-height:1.6;margin-bottom:16px;}
+.cmp-kicker{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
+.cmp-title{text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,7vw,44px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;margin-bottom:10px;}
+.cmp-sub{text-align:center;color:var(--mid);font-size:15px;line-height:1.6;margin-bottom:16px;}
+
+/* Onglets swipe */
 .cmp-switch{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;padding:6px;background:#fff;border:1px solid var(--border);border-radius:999px;margin-bottom:14px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .cmp-switch::-webkit-scrollbar{display:none;}
 .cmp-pill{border:1px solid transparent;background:transparent;color:#444;font-size:14px;font-weight:700;border-radius:999px;padding:9px 12px;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:6px;flex:0 0 auto;}
-.cmp-pill.active{border-color:transparent;box-shadow:0 4px 12px rgba(74,144,217,.22);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;}
-.cmp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;width:100%;}
-.cmp-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:12px 10px;min-width:0;}
-.cmp-card.seaven{border-color:rgba(168,125,200,.35);}
-.cmp-card-title{display:flex;align-items:center;justify-content:center;gap:8px;font-size:22px;line-height:1;margin-bottom:6px;}
-.cmp-card-name{text-align:center;font-size:22px;letter-spacing:-0.04em;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;margin-bottom:8px;}
+.cmp-pill.active{border-color:transparent;box-shadow:0 10px 22px rgba(74,144,217,.16);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;}
+
+/* 2 colonnes mobile (toujours visibles) */
+.cmp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;width:100%;}
+.cmp-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:12px 10px;min-width:0;box-shadow:0 10px 24px rgba(0,0,0,.06);}
+.cmp-card.seaven{border-color:rgba(168,125,200,.35);box-shadow:0 10px 24px rgba(168,125,200,.10);}
+.cmp-card-head{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+.cmp-badge{
+  width:32px;height:32px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(168,125,200,.14),rgba(74,144,217,.10));
+  border:1px solid rgba(168,125,200,.18);
+}
+.cmp-badge.alt{
+  background:linear-gradient(135deg,rgba(74,144,217,.12),rgba(255,202,40,.10));
+  border:1px solid rgba(74,144,217,.16);
+}
+.cmp-card-name{text-align:center;font-size:20px;letter-spacing:-0.04em;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;line-height:1.1;}
+.cmp-card-sub{text-align:center;font-size:11px;color:var(--mid);font-weight:700;margin-top:2px;}
 .cmp-divider{height:1px;background:var(--border);margin:0 0 8px;}
-.cmp-list{max-height:56vh;overflow-y:auto;overflow-x:hidden;padding-right:2px;-webkit-overflow-scrolling:touch;}
-.cmp-row{display:flex;align-items:flex-start;gap:6px;padding:8px 0;border-bottom:1px solid #f0f0f3;min-width:0;}
+.cmp-list{max-height:52vh;overflow-y:auto;overflow-x:hidden;padding-right:2px;-webkit-overflow-scrolling:touch;}
+.cmp-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid #f0f0f3;min-width:0;}
 .cmp-row:last-child{border-bottom:none;}
-.cmp-ico{font-size:13px;line-height:1.2;margin-top:1px;font-weight:800;flex:0 0 auto;}
+.cmp-ico{width:18px;height:18px;flex:0 0 auto;margin-top:1px;}
 .cmp-ico.ok{color:#2f9f73;}
 .cmp-ico.no{color:#d14369;}
-.cmp-txt{font-size:11px;line-height:1.35;font-weight:700;color:#21212a;overflow-wrap:anywhere;}
+.cmp-ico.warn{color:#C8960A;}
+.cmp-txt{font-size:12px;line-height:1.35;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
+
+/* Animation changement concurrent (léger) */
+.cmp-card.is-swapping{animation:cmpFade .18s ease;}
+@keyframes cmpFade{from{opacity:.72;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
 .cmp-end{text-align:center;margin-top:16px;}
 .cmp-end-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,7vw,42px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;}
 .cmp-end-title em{font-style:normal;background:linear-gradient(135deg,var(--blue),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -1195,25 +1213,43 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
         <div class="sec" id="comparatif-section">
           <div class="comparatif-wrap">
             <div class="cmp-kicker">Comparatif</div>
-            <h2 class="cmp-title">Pourquoi SEAVEN bat<br /><em>les autres plateformes ?</em></h2>
+            <h2 class="cmp-title">SEAVEN bat les autres plateformes ?</h2>
             <p class="cmp-sub">Choisis un concurrent pour voir la différence.</p>
             <div class="cmp-switch" id="cmpSwitch">
-              <button type="button" class="cmp-pill active" data-cmp="Planity">◉ Planity</button>
-              <button type="button" class="cmp-pill" data-cmp="Fresha">◉ Fresha</button>
-              <button type="button" class="cmp-pill" data-cmp="Booksy">◉ Booksy</button>
-              <button type="button" class="cmp-pill" data-cmp="Treatwell">◉ Treatwell</button>
-              <button type="button" class="cmp-pill" data-cmp="Instagram">◉ Instagram</button>
+              <button type="button" class="cmp-pill active" data-cmp="planity">Planity</button>
+              <button type="button" class="cmp-pill" data-cmp="fresha">Fresha</button>
+              <button type="button" class="cmp-pill" data-cmp="treatwell">Treatwell</button>
+              <button type="button" class="cmp-pill" data-cmp="booksy">Booksy</button>
+              <button type="button" class="cmp-pill" data-cmp="insta_tools">Insta+Excel+WhatsApp</button>
             </div>
             <div class="cmp-grid">
               <div class="cmp-card seaven">
-                <div class="cmp-card-title">🦚</div>
-                <div class="cmp-card-name">SEAVEN</div>
+                <div class="cmp-card-head">
+                  <div class="cmp-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" style="width:18px;height:18px">
+                      <path d="M12 3c3.8 0 6.9 3 6.9 6.8 0 5.1-3.9 10.4-6.9 11.4-3-1-6.9-6.3-6.9-11.4C5.1 6 8.2 3 12 3Z" stroke="currentColor" stroke-width="1.8"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="cmp-card-name">SEAVEN</div>
+                    <div class="cmp-card-sub">Toutes les features</div>
+                  </div>
+                </div>
                 <div class="cmp-divider"></div>
                 <div id="cmpLeft" class="cmp-list"></div>
               </div>
-              <div class="cmp-card">
-                <div class="cmp-card-title" id="cmpRightIcon">◉</div>
-                <div class="cmp-card-name" id="cmpRightTitle">PLANITY</div>
+              <div class="cmp-card" id="cmpRightCard">
+                <div class="cmp-card-head">
+                  <div class="cmp-badge alt" aria-hidden="true">
+                    <svg id="cmpRightIcon" viewBox="0 0 24 24" fill="none" style="width:18px;height:18px">
+                      <path d="M7 6h10v12H7V6Z" stroke="currentColor" stroke-width="1.8" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="cmp-card-name" id="cmpRightTitle">PLANITY</div>
+                    <div class="cmp-card-sub">Comparé à SEAVEN</div>
+                  </div>
+                </div>
                 <div class="cmp-divider"></div>
                 <div id="cmpRight" class="cmp-list"></div>
               </div>
@@ -1536,75 +1572,144 @@ function updateReferral(v) {
 }
 updateReferral(15);
 
-const comparatifFeatures = [
+const CMP_FEATURES = [
   "Réservation en ligne",
-  "Lien réservation sans app",
-  "0% commission",
-  "Abonnement selon volume clientes",
-  "Abonnement groupé institut",
-  "Réseau social intégré",
-  "Feed algorithmique",
-  "Stories",
-  "Réveil intelligent",
-  "Chatbot intelligent (RAG)",
-  "Fichier cliente ultra-détaillé",
-  "Tailles capsules / mapping cils",
-  "Journal de séance",
-  "Suivi stocks automatique",
-  "Prix de revient par prestation",
-  "ROI de la plateforme visible",
-  "Conditions de réservation signées",
+  "Plateforme façon réseau social",
+  "Feed (photos / vidéos)",
   "Marketplace intégrée",
+  "Abonnement selon volume clients",
+  "Comptabilité avancée",
   "Créneaux d’urgence",
-  "Cartes de fidélité",
-  "Blacklist inter-prestataires",
-  "Modèle (formation/contenu/test)",
-  "Objectif mensuel IA",
-  "Statistiques & finances complètes",
-  "Planning coloré par prestation",
-  "Marketing intégré (SMS/email)",
-  "Messages automatiques",
-  "À domicile dédié",
-  "Promotions dédiées",
+  "Blacklist intelligente",
   "Parrainage",
-  "Mode jour/nuit",
-  "Tout en français"
+  "Rappels automatiques (SMS / email)",
+  "Paiement intégré",
+  "Messagerie interne"
 ];
-const comparatifMatrix = {
-  SEAVEN: Object.fromEntries(comparatifFeatures.map((f) => [f, "oui"])),
-  Planity: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "partiel","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré par prestation": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+const CMP_STATUS = { ok: "ok", no: "no", warn: "warn" };
+const CMP_COMPETITORS = {
+  planity: { name: "PLANITY", icon: "planity" },
+  fresha: { name: "FRESHA", icon: "fresha" },
+  treatwell: { name: "TREATWELL", icon: "treatwell" },
+  booksy: { name: "BOOKSY", icon: "booksy" },
+  insta_tools: { name: "INSTA+EXCEL+WHATSAPP", icon: "tools" }
+};
+const CMP_DATA = {
+  // SEAVEN est full ok sur ces 12 features
+  seaven: Object.fromEntries(CMP_FEATURES.map((f) => [f, CMP_STATUS.ok])),
+  planity: {
+    "Réservation en ligne": CMP_STATUS.ok,
+    "Plateforme façon réseau social": CMP_STATUS.no,
+    "Feed (photos / vidéos)": CMP_STATUS.no,
+    "Marketplace intégrée": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.no,
+    "Comptabilité avancée": CMP_STATUS.no,
+    "Créneaux d’urgence": CMP_STATUS.warn,
+    "Blacklist intelligente": CMP_STATUS.no,
+    "Parrainage": CMP_STATUS.no,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.no
   },
-  Fresha: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "partiel","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "oui","Planning coloré par prestation": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "oui","Mode jour/nuit": "oui","Tout en français": "oui"
+  fresha: {
+    "Réservation en ligne": CMP_STATUS.ok,
+    "Plateforme façon réseau social": CMP_STATUS.no,
+    "Feed (photos / vidéos)": CMP_STATUS.no,
+    "Marketplace intégrée": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.no,
+    "Comptabilité avancée": CMP_STATUS.warn,
+    "Créneaux d’urgence": CMP_STATUS.ok,
+    "Blacklist intelligente": CMP_STATUS.no,
+    "Parrainage": CMP_STATUS.ok,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.warn
   },
-  Booksy: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "partiel","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré par prestation": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "oui","Tout en français": "oui"
+  treatwell: {
+    "Réservation en ligne": CMP_STATUS.ok,
+    "Plateforme façon réseau social": CMP_STATUS.no,
+    "Feed (photos / vidéos)": CMP_STATUS.no,
+    "Marketplace intégrée": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.no,
+    "Comptabilité avancée": CMP_STATUS.no,
+    "Créneaux d’urgence": CMP_STATUS.no,
+    "Blacklist intelligente": CMP_STATUS.no,
+    "Parrainage": CMP_STATUS.no,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.no
   },
-  Treatwell: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré par prestation": "non","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+  booksy: {
+    "Réservation en ligne": CMP_STATUS.ok,
+    "Plateforme façon réseau social": CMP_STATUS.no,
+    "Feed (photos / vidéos)": CMP_STATUS.no,
+    "Marketplace intégrée": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.no,
+    "Comptabilité avancée": CMP_STATUS.no,
+    "Créneaux d’urgence": CMP_STATUS.warn,
+    "Blacklist intelligente": CMP_STATUS.no,
+    "Parrainage": CMP_STATUS.no,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.warn
   },
-  Instagram: {
-    "Réservation en ligne": "non","Lien réservation sans app": "non","0% commission": "oui","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "partiel","Feed algorithmique": "oui","Stories": "oui","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré par prestation": "non","Marketing intégré (SMS/email)": "non","Messages automatiques": "non","À domicile dédié": "non","Promotions dédiées": "non","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+  insta_tools: {
+    "Réservation en ligne": CMP_STATUS.no,
+    "Plateforme façon réseau social": CMP_STATUS.warn,
+    "Feed (photos / vidéos)": CMP_STATUS.ok,
+    "Marketplace intégrée": CMP_STATUS.no,
+    "Abonnement selon volume clients": CMP_STATUS.no,
+    "Comptabilité avancée": CMP_STATUS.no,
+    "Créneaux d’urgence": CMP_STATUS.no,
+    "Blacklist intelligente": CMP_STATUS.no,
+    "Parrainage": CMP_STATUS.no,
+    "Rappels automatiques (SMS / email)": CMP_STATUS.no,
+    "Paiement intégré": CMP_STATUS.warn,
+    "Messagerie interne": CMP_STATUS.no
   }
 };
-const competitorIcons = { Planity: "◉", Fresha: "◉", Booksy: "◉", Treatwell: "◉", Instagram: "◎" };
-function renderComparatif(platform) {
+function cmpIconSvg(kind) {
+  if (kind === CMP_STATUS.ok) {
+    return `<svg class="cmp-ico ok" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+  if (kind === CMP_STATUS.warn) {
+    return `<svg class="cmp-ico warn" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 22 20H2L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 17.6h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>`;
+  }
+  return `<svg class="cmp-ico no" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+}
+function cmpRightBadgeSvg(iconKey) {
+  switch (iconKey) {
+    case "planity":
+      return `<path d="M7 6h10v12H7V6Z" stroke="currentColor" stroke-width="1.8" />`;
+    case "fresha":
+      return `<path d="M8 7h8M8 12h8M8 17h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
+    case "treatwell":
+      return `<path d="M8 6h8v12H8V6Z" stroke="currentColor" stroke-width="1.8"/><path d="M10 9h4M10 12h4M10 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
+    case "booksy":
+      return `<path d="M9 7h6v10H9V7Z" stroke="currentColor" stroke-width="1.8"/><path d="M9 10h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
+    default:
+      return `<path d="M7 8h10M7 12h10M7 16h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
+  }
+}
+function renderComparatif(key) {
   const left = document.getElementById("cmpLeft");
   const right = document.getElementById("cmpRight");
   const rightTitle = document.getElementById("cmpRightTitle");
   const rightIcon = document.getElementById("cmpRightIcon");
-  if (!left || !right || !rightTitle || !rightIcon) return;
-  const matrix = comparatifMatrix[platform] || comparatifMatrix.Planity;
-  left.innerHTML = comparatifFeatures.map((txt) => `<div class="cmp-row"><span class="cmp-ico ok">V</span><span class="cmp-txt">${txt}</span></div>`).join("");
-  right.innerHTML = comparatifFeatures.map((txt) => {
-    const state = matrix[txt] || "non";
-    const icon = state === "oui" ? "V" : "X";
-    const cls = state === "oui" ? "ok" : "no";
-    return `<div class="cmp-row"><span class="cmp-ico ${cls}">${icon}</span><span class="cmp-txt">${txt}</span></div>`;
-  }).join("");
-  rightTitle.textContent = platform.toUpperCase();
-  rightIcon.textContent = competitorIcons[platform] || "◉";
+  const rightCard = document.getElementById("cmpRightCard");
+  if (!left || !right || !rightTitle || !rightIcon || !rightCard) return;
+  const c = CMP_COMPETITORS[key] || CMP_COMPETITORS.planity;
+  const data = CMP_DATA[key] || CMP_DATA.planity;
+
+  // petite animation smooth au swap
+  rightCard.classList.remove("is-swapping");
+  void rightCard.offsetWidth;
+  rightCard.classList.add("is-swapping");
+
+  left.innerHTML = CMP_FEATURES.map((f) => `<div class="cmp-row">${cmpIconSvg(CMP_STATUS.ok)}<div class="cmp-txt">${f}</div></div>`).join("");
+  right.innerHTML = CMP_FEATURES.map((f) => `<div class="cmp-row">${cmpIconSvg(data[f] || CMP_STATUS.no)}<div class="cmp-txt">${f}</div></div>`).join("");
+  rightTitle.textContent = c.name;
+  rightIcon.innerHTML = cmpRightBadgeSvg(c.icon);
 }
 document.querySelectorAll(".cmp-pill").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -1613,7 +1718,7 @@ document.querySelectorAll(".cmp-pill").forEach((btn) => {
     renderComparatif(btn.dataset.cmp);
   });
 });
-renderComparatif("Planity");
+renderComparatif("planity");
 
 // ── MÉTIERS ──
 const metiers = [
