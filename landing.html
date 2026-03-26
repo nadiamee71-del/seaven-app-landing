@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>SEAVEN — Liste d'attente</title>
   <meta name="description" content="Le réseau social de réservation et de vente pour les indépendants." />
 
@@ -46,6 +46,7 @@
       overflow-x: hidden;
       overflow-x: clip;
       max-width: 100%;
+      width: 100%;
     }
     body {
       margin: 0;
@@ -57,6 +58,8 @@
       overflow-x: hidden;
       overflow-x: clip;
       max-width: 100%;
+      width: 100%;
+      min-width: 0;
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
@@ -67,8 +70,8 @@
       max-width: 100%;
       display: flex;
       justify-content: center;
-      padding: 18px max(8px, env(safe-area-inset-left)) max(36px, env(safe-area-inset-bottom))
-        max(8px, env(safe-area-inset-right));
+      padding: 18px max(16px, env(safe-area-inset-left)) max(36px, env(safe-area-inset-bottom))
+        max(16px, env(safe-area-inset-right));
       overflow-x: hidden;
       overflow-x: clip;
       box-sizing: border-box;
@@ -310,13 +313,14 @@
 --black:#1A1A1A;--dark:#1C1C1E;--mid:#6B6B6B;--light:#F5F5F7;--border:#E8E8E8;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip;max-width:100%;}
-body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflow-x:hidden;overflow-x:clip;max-width:100%;-webkit-text-size-adjust:100%;}
+html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip;max-width:100%;width:100%;-webkit-text-size-adjust:100%;}
+body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflow-x:hidden;overflow-x:clip;max-width:100%;width:100%;min-width:0;-webkit-text-size-adjust:100%;}
+#landingRoot{width:100%;max-width:100%;min-width:0;overflow-x:hidden;overflow-x:clip;}
 .topbar .brand{flex:0 1 auto;}
 /* GRAD BAR */
 .grad-bar{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--mint),var(--yellow));}
 
-/* HERO — vidéo en vrai fond (cover, sans scale ni cadre noir) */
+/* HERO — pas de 100vw (scroll horizontal iOS) : 100% du parent */
 .hero{
   position:relative;
   isolation:isolate;
@@ -324,10 +328,10 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   text-align:center;
   min-height:100vh;
   min-height:100dvh;
-  width:100vw;
-  max-width:none;
-  margin-left:calc(50% - 50vw);
-  margin-right:calc(50% - 50vw);
+  width:100%;
+  max-width:100%;
+  margin-left:0;
+  margin-right:0;
   min-width:0;
   box-sizing:border-box;
   padding:0;
@@ -352,22 +356,18 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   object-fit:cover;
   object-position:center center;
 }
-/* Source portrait → plein écran façon paysage (rotation 90°, cover) */
+/* Source portrait : cover dans le cadre (pas de rotation 100vh → évite débordement latéral iPhone) */
 .hero-bg-video.is-portrait{
-  inset:auto;
-  width:100vh;
-  height:100vw;
-  min-width:unset;
-  min-height:unset;
-  max-width:none;
-  max-height:none;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%) rotate(90deg);
-  transform-origin:center center;
-}
-@supports (height:100dvh){
-  .hero-bg-video.is-portrait{width:100dvh;}
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+  min-width:0;
+  min-height:0;
+  object-fit:cover;
+  object-position:center center;
+  transform:none;
 }
 .hero-bg-overlay{
   position:absolute;
@@ -471,9 +471,9 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .comparatif-wrap{max-width:760px;margin:28px auto 0;}
 .comparatif-wrap{width:100%;overflow-x:hidden;}
 .cmp-kicker{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
-.cmp-title{text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,7vw,44px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;margin-bottom:10px;color:var(--text);}
+.cmp-title{text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,7vw,44px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;margin-bottom:10px;color:var(--text);overflow-wrap:anywhere;}
 .cmp-title em{font-style:normal;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cmp-sub{text-align:center;color:#5a52a0;font-size:15px;line-height:1.6;margin-bottom:16px;font-weight:600;}
+.cmp-sub{text-align:center;color:#5a52a0;font-size:15px;line-height:1.6;margin-bottom:16px;font-weight:600;overflow-wrap:anywhere;}
 
 /* Sélecteur concurrent — overflow visible pour ne pas clipper le menu (était hidden) */
 .cmp-selector{display:flex;align-items:stretch;gap:0;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:visible;box-shadow:0 10px 22px rgba(0,0,0,.06);margin-bottom:14px;position:relative;z-index:40;}
@@ -710,8 +710,11 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-di
 @media(max-width:700px){
 .feat-slide{padding:10px 8px;gap:10px;}
 .fg{grid-template-columns:1fr;}
-.hero-inner{padding:22px max(10px,env(safe-area-inset-left)) 48px max(10px,env(safe-area-inset-right));}
-.sec,.feat-outer{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));}
+.hero-inner{padding:22px max(16px,env(safe-area-inset-left)) 48px max(16px,env(safe-area-inset-right));}
+.sec,.feat-outer{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));}
+.comparatif-wrap{width:100%;min-width:0;max-width:100%;}
+.cmp-grid{min-width:0;}
+.cmp-selector{max-width:100%;min-width:0;}
 footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env(safe-area-inset-left)) 24px max(12px,env(safe-area-inset-right));}
 .feat-controls{flex-wrap:wrap;row-gap:10px;max-width:100%;justify-content:center;}
 .fc-count{margin-left:0;}
