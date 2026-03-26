@@ -664,6 +664,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 .btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;border-radius:28px;padding:17px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:transform .2s,box-shadow .2s;box-sizing:border-box;}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(232,99,140,.35);}
 .f-notice{text-align:center;font-size:11px;color:var(--mid);margin-top:12px;line-height:1.55;}
+.f-geo-hint{font-size:11px;color:var(--mid);margin:6px 0 0;font-weight:600;line-height:1.4;}
 
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;margin-top:22px;}
@@ -1330,7 +1331,14 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               </div>
               <div class="ff full">
                 <label class="fl" for="fEmail">Email</label>
-                <input class="fi" type="email" placeholder="sassa@email.com" id="fEmail" />
+                <input class="fi" type="email" placeholder="sassa@email.com" id="fEmail" autocomplete="email" />
+              </div>
+              <div class="ff full">
+                <label class="fl" for="fVille">Ville</label>
+                <input class="fi" type="text" placeholder="ex. Lyon" id="fVille" name="ville" autocomplete="address-level2" />
+                <p class="f-geo-hint">Pays détecté automatiquement (pas besoin de le saisir).</p>
+                <input type="hidden" id="fPays" name="pays" value="" />
+                <input type="hidden" id="fPaysCode" name="pays_code" value="" />
               </div>
               <div class="ff full">
                 <label class="fl" for="fPlateforme">Quelle plateforme utilises-tu ?</label>
@@ -1874,17 +1882,49 @@ function updateEst() {
   document.getElementById("formEst").style.display = "flex";
 }
 
+// ── Géolocalisation pays (IP, sans saisie utilisateur) — pour envoi avec ville + pays
+async function fetchGeoCountry() {
+  try {
+    const r = await fetch("https://get.geojs.io/v1/ip/geo.json", { cache: "no-store" });
+    if (!r.ok) return;
+    const d = await r.json();
+    const elP = document.getElementById("fPays");
+    const elC = document.getElementById("fPaysCode");
+    if (elP && d.country) elP.value = String(d.country).trim();
+    if (elC && d.country_code) elC.value = String(d.country_code).trim().toUpperCase();
+  } catch (_) {}
+}
+document.addEventListener("DOMContentLoaded", () => {
+  fetchGeoCountry();
+});
+
 // ── SUBMIT ──
-function submitForm() {
-  const p = document.getElementById("fPre").value;
-  const n = document.getElementById("fNom").value;
-  const e = document.getElementById("fEmail").value;
+async function submitForm() {
+  await fetchGeoCountry();
+  const p = document.getElementById("fPre").value.trim();
+  const n = document.getElementById("fNom").value.trim();
+  const e = document.getElementById("fEmail").value.trim();
+  const ville = document.getElementById("fVille").value.trim();
   const pl = document.getElementById("fPlateforme").value;
   const m = document.getElementById("fMetier").value;
-  if (!p || !n || !e || !pl || !m) {
+  const pays = document.getElementById("fPays").value.trim();
+  const paysCode = document.getElementById("fPaysCode").value.trim();
+  if (!p || !n || !e || !ville || !pl || !m) {
     alert("Merci de remplir tous les champs 🙏");
     return;
   }
+  const waitlistPayload = {
+    prenom: p,
+    nom: n,
+    email: e,
+    ville,
+    pays: pays || null,
+    pays_code: paysCode || null,
+    plateforme: pl,
+    metier: m,
+    clientes_par_mois: document.getElementById("fClientes").value || null
+  };
+  window.dispatchEvent(new CustomEvent("seaven:waitlist", { detail: waitlistPayload }));
   document.getElementById("formWrap").innerHTML =
     `<div style="text-align:center;padding:56px 20px;"><div style="font-size:56px;margin-bottom:20px;">🦚</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;margin-bottom:10px;">Tu es sur la liste !</div><div style="font-size:15px;color:var(--mid);line-height:1.7;">Merci ${p} — on t'envoie un email le 21 septembre<br>quand SEAVEN est prêt pour toi. 🎉</div></div>`;
 }
