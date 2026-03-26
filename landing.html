@@ -392,15 +392,30 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .parrainage-note{text-align:center;font-size:11px;color:var(--mid);margin-top:10px;line-height:1.45;}
 
 /* Bloc comparatif */
-.comparatif-wrap{max-width:700px;margin:28px auto 0;background:var(--light);border:1px solid var(--border);border-radius:26px;padding:clamp(20px,5vw,30px);}
-.comparatif-head{display:grid;gap:10px;margin-bottom:16px;}
-.comparatif-select{width:100%;max-width:280px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:14px;}
-.diff-list{display:grid;gap:8px;}
-.diff-item{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 12px;}
-.diff-item .tag{font-size:11px;font-weight:800;border-radius:999px;padding:3px 8px;white-space:nowrap;margin-top:1px;}
-.tag-ok{background:#eefaf3;color:#2f9f73;}
-.tag-no{background:#fff1f3;color:#d14369;}
-.diff-text{font-size:13px;line-height:1.45;color:var(--black);font-weight:600;}
+.comparatif-wrap{max-width:760px;margin:28px auto 0;}
+.cmp-kicker{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
+.cmp-title{text-align:center;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,7vw,44px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;margin-bottom:8px;}
+.cmp-title em{font-style:normal;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cmp-sub{text-align:center;color:var(--mid);font-size:16px;line-height:1.6;margin-bottom:16px;}
+.cmp-switch{display:flex;gap:8px;overflow-x:auto;padding:6px;background:#fff;border:1px solid var(--border);border-radius:999px;margin-bottom:14px;}
+.cmp-pill{border:1px solid transparent;background:transparent;color:#444;font-size:14px;font-weight:700;border-radius:999px;padding:9px 12px;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.cmp-pill.active{border-color:rgba(168,125,200,.45);box-shadow:0 4px 12px rgba(168,125,200,.18);background:#fff;}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cmp-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:16px 14px;}
+.cmp-card.seaven{border-color:rgba(168,125,200,.35);}
+.cmp-card-title{display:flex;align-items:center;justify-content:center;gap:8px;font-size:30px;line-height:1;margin-bottom:8px;}
+.cmp-card-name{text-align:center;font-size:34px;letter-spacing:-0.04em;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;margin-bottom:10px;}
+.cmp-divider{height:1px;background:var(--border);margin:0 0 8px;}
+.cmp-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid #f0f0f3;}
+.cmp-row:last-child{border-bottom:none;}
+.cmp-ico{font-size:15px;line-height:1.2;margin-top:1px;font-weight:800;}
+.cmp-ico.ok{color:#2f9f73;}
+.cmp-ico.no{color:#d14369;}
+.cmp-txt{font-size:14px;line-height:1.45;font-weight:700;color:#21212a;}
+.cmp-end{text-align:center;margin-top:16px;}
+.cmp-end-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,7vw,42px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;}
+.cmp-end-title em{font-style:normal;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cmp-end .btn-submit{max-width:300px;margin:12px auto 0;background:linear-gradient(135deg,var(--pink),var(--yellow));}
 
 /* Code d'accès */
 .access-gate{position:fixed;inset:0;background:#fff;z-index:12000;display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -572,6 +587,9 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 .s-title{font-size:10px;}
 .parrainage-values{grid-template-columns:1fr;}
 .parrainage-examples{font-size:12px;}
+.cmp-grid{grid-template-columns:1fr;}
+.cmp-card-name{font-size:30px;}
+.cmp-row{padding:8px 0;}
 }
 
   </style>
@@ -1107,18 +1125,34 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
         <!-- COMPARATIF -->
         <div class="sec" id="comparatif-section">
           <div class="comparatif-wrap">
-            <h2 class="sec-title" style="margin-bottom:12px">Comparatif des plateformes</h2>
-            <div class="comparatif-head">
-              <label class="fl" for="platformSelect">Plateforme à comparer</label>
-              <select id="platformSelect" class="comparatif-select" onchange="renderComparatif(this.value)">
-                <option value="Planity">Planity</option>
-                <option value="Fresha">Fresha</option>
-                <option value="Booksy">Booksy</option>
-                <option value="Treatwell">Treatwell</option>
-                <option value="Instagram">Instagram</option>
-              </select>
+            <div class="cmp-kicker">Comparatif</div>
+            <h2 class="cmp-title">Pourquoi SEAVEN bat<br /><em>les autres plateformes ?</em></h2>
+            <p class="cmp-sub">Choisis un concurrent pour voir la différence.</p>
+            <div class="cmp-switch" id="cmpSwitch">
+              <button type="button" class="cmp-pill active" data-cmp="Planity">◉ Planity</button>
+              <button type="button" class="cmp-pill" data-cmp="Fresha">◉ Fresha</button>
+              <button type="button" class="cmp-pill" data-cmp="Booksy">◉ Booksy</button>
+              <button type="button" class="cmp-pill" data-cmp="Treatwell">◉ Treatwell</button>
+              <button type="button" class="cmp-pill" data-cmp="Instagram">◉ Instagram</button>
             </div>
-            <div id="comparatifDiffs" class="diff-list"></div>
+            <div class="cmp-grid">
+              <div class="cmp-card seaven">
+                <div class="cmp-card-title">🦚</div>
+                <div class="cmp-card-name">SEAVEN</div>
+                <div class="cmp-divider"></div>
+                <div id="cmpLeft"></div>
+              </div>
+              <div class="cmp-card">
+                <div class="cmp-card-title" id="cmpRightIcon">◉</div>
+                <div class="cmp-card-name" id="cmpRightTitle">PLANITY</div>
+                <div class="cmp-divider"></div>
+                <div id="cmpRight"></div>
+              </div>
+            </div>
+            <div class="cmp-end">
+              <div class="cmp-end-title">Tout ce dont tu as besoin.<br /><em>Sans rien en plus.</em></div>
+              <button type="button" class="btn-submit" onclick="scroll2('waitlist')">Rejoindre la liste d'attente →</button>
+            </div>
           </div>
         </div>
 
@@ -1396,7 +1430,7 @@ function updateReferral(v) {
 }
 updateReferral(15);
 
-const featureCatalog = [
+const comparatifFeatures = [
   "Réservation en ligne",
   "Lien réservation sans app",
   "0% commission",
@@ -1412,7 +1446,7 @@ const featureCatalog = [
   "Journal de séance",
   "Suivi stocks automatique",
   "Prix de revient par prestation",
-  "ROI visible",
+  "ROI de la plateforme visible",
   "Conditions de réservation signées",
   "Marketplace intégrée",
   "Créneaux d’urgence",
@@ -1421,7 +1455,7 @@ const featureCatalog = [
   "Modèle (formation/contenu/test)",
   "Objectif mensuel IA",
   "Statistiques & finances complètes",
-  "Planning coloré",
+  "Planning coloré par prestation",
   "Marketing intégré (SMS/email)",
   "Messages automatiques",
   "À domicile dédié",
@@ -1430,35 +1464,50 @@ const featureCatalog = [
   "Mode jour/nuit",
   "Tout en français"
 ];
-const platformData = {
-  SEAVEN: Object.fromEntries(featureCatalog.map((f) => [f, "oui"])),
+const comparatifMatrix = {
+  SEAVEN: Object.fromEntries(comparatifFeatures.map((f) => [f, "oui"])),
   Planity: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "oui","Mode jour/nuit": "oui","Tout en français": "oui"
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "partiel","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré par prestation": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
   },
   Fresha: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "partiel","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "partiel","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "oui","Planning coloré": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "partiel","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "oui","Planning coloré par prestation": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "oui","Mode jour/nuit": "oui","Tout en français": "oui"
   },
   Booksy: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "oui","Tout en français": "oui"
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "partiel","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "partiel","Cartes de fidélité": "oui","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "partiel","Planning coloré par prestation": "oui","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "oui","Tout en français": "oui"
   },
   Treatwell: {
-    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré": "non","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+    "Réservation en ligne": "oui","Lien réservation sans app": "oui","0% commission": "non","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "non","Feed algorithmique": "non","Stories": "non","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré par prestation": "non","Marketing intégré (SMS/email)": "oui","Messages automatiques": "oui","À domicile dédié": "oui","Promotions dédiées": "oui","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
   },
   Instagram: {
-    "Réservation en ligne": "non","Lien réservation sans app": "non","0% commission": "oui","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "partiel","Feed algorithmique": "oui","Stories": "oui","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré": "non","Marketing intégré (SMS/email)": "non","Messages automatiques": "non","À domicile dédié": "non","Promotions dédiées": "non","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
+    "Réservation en ligne": "non","Lien réservation sans app": "non","0% commission": "oui","Abonnement selon volume clientes": "non","Abonnement groupé institut": "non","Réseau social intégré": "partiel","Feed algorithmique": "oui","Stories": "oui","Réveil intelligent": "non","Chatbot intelligent (RAG)": "non","Fichier cliente ultra-détaillé": "non","Tailles capsules / mapping cils": "non","Journal de séance": "non","Suivi stocks automatique": "non","Prix de revient par prestation": "non","ROI de la plateforme visible": "non","Conditions de réservation signées": "non","Marketplace intégrée": "non","Créneaux d’urgence": "non","Cartes de fidélité": "non","Blacklist inter-prestataires": "non","Modèle (formation/contenu/test)": "non","Objectif mensuel IA": "non","Statistiques & finances complètes": "non","Planning coloré par prestation": "non","Marketing intégré (SMS/email)": "non","Messages automatiques": "non","À domicile dédié": "non","Promotions dédiées": "non","Parrainage": "non","Mode jour/nuit": "non","Tout en français": "oui"
   }
 };
+const competitorIcons = { Planity: "◉", Fresha: "◉", Booksy: "◉", Treatwell: "◉", Instagram: "◎" };
 function renderComparatif(platform) {
-  const target = document.getElementById("comparatifDiffs");
-  if (!target || !platformData[platform]) return;
-  const rows = featureCatalog.filter((f) => platformData[platform][f] !== "oui");
-  target.innerHTML = rows.map((f) => {
-    const v = platformData[platform][f];
-    const label = v === "partiel" ? "Partiel" : "Absent";
-    const cls = v === "partiel" ? "tag-no" : "tag-no";
-    return `<div class="diff-item"><span class="tag tag-ok">SEAVEN</span><span class="tag ${cls}">${platform}: ${label}</span><div class="diff-text">${f}</div></div>`;
+  const left = document.getElementById("cmpLeft");
+  const right = document.getElementById("cmpRight");
+  const rightTitle = document.getElementById("cmpRightTitle");
+  const rightIcon = document.getElementById("cmpRightIcon");
+  if (!left || !right || !rightTitle || !rightIcon) return;
+  const matrix = comparatifMatrix[platform] || comparatifMatrix.Planity;
+  left.innerHTML = comparatifFeatures.map((txt) => `<div class="cmp-row"><span class="cmp-ico ok">✔</span><span class="cmp-txt">${txt}</span></div>`).join("");
+  right.innerHTML = comparatifFeatures.map((txt) => {
+    const state = matrix[txt] || "non";
+    const icon = state === "oui" ? "✔" : state === "partiel" ? "◐" : "✖";
+    const cls = state === "oui" ? "ok" : "no";
+    const suffix = state === "partiel" ? " (partiel)" : "";
+    return `<div class="cmp-row"><span class="cmp-ico ${cls}">${icon}</span><span class="cmp-txt">${txt}${suffix}</span></div>`;
   }).join("");
+  rightTitle.textContent = platform.toUpperCase();
+  rightIcon.textContent = competitorIcons[platform] || "◉";
 }
+document.querySelectorAll(".cmp-pill").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".cmp-pill").forEach((el) => el.classList.remove("active"));
+    btn.classList.add("active");
+    renderComparatif(btn.dataset.cmp);
+  });
+});
 renderComparatif("Planity");
 
 // ── MÉTIERS ──
