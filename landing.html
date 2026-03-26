@@ -436,9 +436,10 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 }
 .access-pass-toggle:hover{background:#ececf2;color:#4b4b55;}
 .access-pass-toggle svg{width:18px;height:18px;display:block;}
-.access-pass-toggle .eye-off{display:none;}
-.access-pass-toggle.is-visible .eye-on{display:none;}
-.access-pass-toggle.is-visible .eye-off{display:block;}
+.access-pass-toggle .eye-on{display:none;}
+.access-pass-toggle .eye-off{display:block;}
+.access-pass-toggle.is-visible .eye-on{display:block;}
+.access-pass-toggle.is-visible .eye-off{display:none;}
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear{display:none;}
 
