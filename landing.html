@@ -402,7 +402,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-switch{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;padding:6px;background:#fff;border:1px solid var(--border);border-radius:999px;margin-bottom:14px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .cmp-switch::-webkit-scrollbar{display:none;}
 .cmp-pill{border:1px solid transparent;background:transparent;color:#444;font-size:14px;font-weight:700;border-radius:999px;padding:9px 12px;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:6px;flex:0 0 auto;}
-.cmp-pill.active{border-color:transparent;box-shadow:0 4px 12px rgba(74,144,217,.18);background:linear-gradient(135deg,var(--blue),var(--yellow));color:#fff;}
+.cmp-pill.active{border-color:transparent;box-shadow:0 4px 12px rgba(74,144,217,.22);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;}
 .cmp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;width:100%;}
 .cmp-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:12px 10px;min-width:0;}
 .cmp-card.seaven{border-color:rgba(168,125,200,.35);}
@@ -1076,11 +1076,6 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
             <div class="fc-dots" id="fcDots"></div>
             <div class="fc-count" id="fcCount">1 / 6</div>
           </div>
-          <div class="feat-parrain-wrap">
-            <button type="button" class="btn-parrain" id="btnParrain" aria-haspopup="dialog" aria-controls="parrainModal">
-              Parrainer
-            </button>
-          </div>
         </div>
 
         <!-- TON MÉTIER -->
@@ -1534,10 +1529,10 @@ function renderComparatif(platform) {
   const rightIcon = document.getElementById("cmpRightIcon");
   if (!left || !right || !rightTitle || !rightIcon) return;
   const matrix = comparatifMatrix[platform] || comparatifMatrix.Planity;
-  left.innerHTML = comparatifFeatures.map((txt) => `<div class="cmp-row"><span class="cmp-ico ok">✔</span><span class="cmp-txt">${txt}</span></div>`).join("");
+  left.innerHTML = comparatifFeatures.map((txt) => `<div class="cmp-row"><span class="cmp-ico ok">V</span><span class="cmp-txt">${txt}</span></div>`).join("");
   right.innerHTML = comparatifFeatures.map((txt) => {
     const state = matrix[txt] || "non";
-    const icon = state === "oui" ? "✔" : state === "partiel" ? "◐" : "✖";
+    const icon = state === "oui" ? "V" : "X";
     const cls = state === "oui" ? "ok" : "no";
     const suffix = state === "partiel" ? " (partiel)" : "";
     return `<div class="cmp-row"><span class="cmp-ico ${cls}">${icon}</span><span class="cmp-txt">${txt}${suffix}</span></div>`;
