@@ -352,12 +352,33 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   object-fit:cover;
   object-position:center center;
 }
+/* Source portrait → plein écran façon paysage (rotation 90°, cover) */
+.hero-bg-video.is-portrait{
+  inset:auto;
+  width:100vh;
+  height:100vw;
+  min-width:unset;
+  min-height:unset;
+  max-width:none;
+  max-height:none;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) rotate(90deg);
+  transform-origin:center center;
+}
+@supports (height:100dvh){
+  .hero-bg-video.is-portrait{width:100dvh;}
+}
 .hero-bg-overlay{
   position:absolute;
   inset:0;
   z-index:1;
   pointer-events:none;
   background:linear-gradient(180deg,rgba(18,12,28,.32) 0%,rgba(12,10,22,.44) 100%);
+  transition:background .55s ease;
+}
+.hero.hero--video-focus .hero-bg-overlay{
+  background:linear-gradient(180deg,rgba(8,6,14,.08) 0%,rgba(10,8,18,.18) 100%);
 }
 .hero-inner{
   position:relative;
@@ -366,6 +387,16 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   margin-left:auto;
   margin-right:auto;
   padding:28px max(16px,env(safe-area-inset-left)) 44px max(16px,env(safe-area-inset-right));
+  transition:opacity .55s ease, transform .65s cubic-bezier(.4,0,.2,1);
+}
+.hero.hero--video-focus .hero-inner{
+  opacity:0;
+  transform:translateY(-min(12vh,120px));
+  pointer-events:none;
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-inner{transition:opacity .2s ease;}
+  .hero.hero--video-focus .hero-inner{transform:none;}
 }
 .hero-launch{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;color:rgba(255,255,255,.92);margin-bottom:28px;}
 .hero-launch span{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;}
@@ -1494,6 +1525,9 @@ function unlockLanding() {
     if (heroBg) {
       const p = heroBg.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
+      if (heroBg.videoWidth && heroBg.videoHeight) {
+        heroBg.classList.toggle("is-portrait", heroBg.videoWidth < heroBg.videoHeight);
+      }
     }
     return;
   }
@@ -1894,8 +1928,45 @@ async function fetchGeoCountry() {
     if (elC && d.country_code) elC.value = String(d.country_code).trim().toUpperCase();
   } catch (_) {}
 }
+function setupHeroBgVideoOrientation() {
+  const v = document.getElementById("hero-bg-video");
+  if (!v) return;
+  function apply() {
+    if (!v.videoWidth || !v.videoHeight) return;
+    v.classList.toggle("is-portrait", v.videoWidth < v.videoHeight);
+  }
+  v.addEventListener("loadedmetadata", apply);
+  if (v.readyState >= 1) apply();
+}
+function setupHeroVideoFocusOnScroll() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+  const inner = hero.querySelector(".hero-inner");
+  const threshold = 56;
+  let ticking = false;
+  function sync() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    const on = y >= threshold;
+    hero.classList.toggle("hero--video-focus", on);
+    if (inner) {
+      if (on) inner.setAttribute("aria-hidden", "true");
+      else inner.removeAttribute("aria-hidden");
+    }
+    ticking = false;
+  }
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(sync);
+      ticking = true;
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  sync();
+}
 document.addEventListener("DOMContentLoaded", () => {
   fetchGeoCountry();
+  setupHeroBgVideoOrientation();
+  setupHeroVideoFocusOnScroll();
 });
 
 // ── SUBMIT ──
