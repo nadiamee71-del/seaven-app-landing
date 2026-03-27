@@ -115,8 +115,10 @@
     }
     .brand { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
     .brand-logo {
-      width: 22px; height: 22px; border-radius: 8px; object-fit: cover;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08); background: #fff;
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      display: block;
     }
     .brand-name { font-size: 14px; font-weight: 700; letter-spacing: -0.02em; }
 
@@ -533,7 +535,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 #waitlist .sec-label, #waitlist .sec-title em { color: var(--yellow); }
 #waitlist .btn-submit {
   background: linear-gradient(135deg, #ffd54d, var(--yellow));
-  color:#1a1a1a;
+  color:#fff;
 }
 #waitlist .btn-submit:hover{box-shadow:0 12px 28px rgba(255,202,40,.35);}
 #pricing-section .btn-submit{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
@@ -842,6 +844,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;margin-top:22px;}
 .f-logo{display:flex;align-items:center;gap:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;}
+.f-logo-icon{width:20px;height:20px;object-fit:contain;display:block;}
 .f-sub{font-size:12px;color:var(--mid);line-height:1.2;}
 .f-social{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:4px;}
 .f-soc{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--light);border:1px solid var(--border);color:var(--black);transition:transform .2s,box-shadow .2s,border-color .2s;}
@@ -912,7 +915,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 
         <header class="topbar">
           <div class="brand">
-            <img class="brand-logo" src="./assets/seaven-logo.png" alt="Logo Seaven" />
+            <img class="brand-logo" src="./assets/logo-seaven-main.png" alt="Logo Seaven" />
             <div class="brand-name">Seaven</div>
           </div>
         </header>
@@ -1598,18 +1601,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 
         <footer>
           <div class="f-logo">
-            <svg width="26" height="26" viewBox="0 0 80 80" fill="none" aria-hidden="true">
-              <ellipse cx="40" cy="52" rx="7" ry="13" fill="#2A9D8F" />
-              <ellipse cx="40" cy="28" rx="6" ry="11" fill="#D4B030" />
-              <ellipse cx="40" cy="24" rx="5" ry="6" fill="#1A6ABF" />
-              <ellipse cx="40" cy="22" rx="2.5" ry="3" fill="#5DD8F8" />
-              <ellipse cx="26" cy="34" rx="5.5" ry="10" fill="#D4B030" transform="rotate(-28 26 34)" />
-              <ellipse cx="24" cy="29" rx="4" ry="5.5" fill="#1A6ABF" transform="rotate(-28 24 29)" />
-              <ellipse cx="54" cy="34" rx="5.5" ry="10" fill="#D4B030" transform="rotate(28 54 34)" />
-              <ellipse cx="56" cy="29" rx="4" ry="5.5" fill="#1A6ABF" transform="rotate(28 56 29)" />
-              <ellipse cx="15" cy="42" rx="4.5" ry="9" fill="#D4B030" transform="rotate(-50 15 42)" />
-              <ellipse cx="65" cy="42" rx="4.5" ry="9" fill="#D4B030" transform="rotate(50 65 42)" />
-            </svg>
+            <img class="f-logo-icon" src="./assets/logo-seaven-feather.png" alt="Logo plume Seaven" />
             SEAVEN
           </div>
           <div class="f-social" aria-label="Réseaux sociaux et contact">
