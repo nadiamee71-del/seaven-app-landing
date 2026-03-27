@@ -614,13 +614,13 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:10px 10px 12px;min-width:0;box-shadow:0 10px 24px rgba(0,0,0,.06);}
 .cmp-card.seaven{border-color:rgba(168,125,200,.35);box-shadow:0 10px 24px rgba(168,125,200,.10);}
 .cmp-list{max-height:none;overflow:visible;overflow-x:visible;padding-right:0;-webkit-overflow-scrolling:touch;}
-.cmp-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid #f0f0f3;min-width:0;}
+.cmp-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f0f0f3;min-width:0;}
 .cmp-row:last-child{border-bottom:none;}
 .cmp-ico{width:20px;height:20px;flex:0 0 auto;margin-top:0;}
 .cmp-ico.ok{color:#fff;background:#46b07a;border-radius:999px;padding:3px;}
 .cmp-ico.no{color:#fff;background:#e2546f;border-radius:999px;padding:3px;}
 .cmp-ico.warn{color:#fff;background:#f0c04a;border-radius:999px;padding:3px;}
-.cmp-txt{font-size:14px;line-height:1.45;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
+.cmp-txt{font-size:12px;line-height:1.35;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
 .cmp-cell{min-width:0;flex:1;}
 .cmp-warn-hint{font-size:10px;font-weight:700;color:#8a6d1a;margin-top:3px;line-height:1.25;letter-spacing:.01em;}
 
@@ -726,12 +726,12 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 
 /* MÉTIERS — petites cartes, défilement manuel + effet */
 .m-metiers-wrap{display:flex;align-items:center;gap:4px;margin:22px 0 26px;max-width:100%;min-width:0;}
-.m-nav-btn{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--light);color:var(--black);font-size:18px;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s,background .2s;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.m-nav-btn{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:1px solid rgba(126,200,164,.45);background:#fff;color:var(--mint);font-size:18px;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,box-shadow .2s,background .2s;box-shadow:0 2px 10px rgba(0,0,0,.06);}
 .m-nav-btn:active{transform:scale(.92);}
-.m-nav-btn:hover{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border-color:transparent;box-shadow:0 6px 20px rgba(232,99,140,.35);}
-.m-cards-ribbon{flex:1;min-width:0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:10px 2px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.m-nav-btn:hover{background:linear-gradient(135deg,var(--mint),#6ebf9a);color:#fff;border-color:transparent;box-shadow:0 6px 20px rgba(126,200,164,.35);}
+.m-cards-ribbon{flex:1;min-width:0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:10px 2px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--mint) transparent;}
 .m-cards-ribbon::-webkit-scrollbar{height:5px;}
-.m-cards-ribbon::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:99px;}
+.m-cards-ribbon::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--mint),#6ebf9a);border-radius:99px;}
 .m-card{flex:0 0 auto;scroll-snap-align:start;width:min(92px,27vw);min-height:86px;padding:8px 6px;border-radius:16px;background:#fff;border:1.5px solid var(--border);cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 2px 12px rgba(0,0,0,.05);transition:transform .28s cubic-bezier(.34,1.45,.64,1),box-shadow .28s,border-color .28s;animation:mCardPop .55s cubic-bezier(.34,1.45,.64,1) both;-webkit-tap-highlight-color:transparent;}
 @keyframes mCardPop{0%{opacity:0;transform:translateY(14px) scale(.88)}100%{opacity:1;transform:translateY(0) scale(1)}}
 .m-card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 14px 32px rgba(232,99,140,.22);border-color:rgba(232,99,140,.35);}
@@ -765,7 +765,7 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 .tarif-wrap{max-width:640px;margin:28px auto 0;}
 .t-q{font-size:16px;font-weight:700;margin-bottom:18px;}
 input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;background:var(--border);outline:none;cursor:pointer;margin-bottom:8px;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#6ca8e3);cursor:pointer;box-shadow:0 3px 12px rgba(74,144,217,.35);}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));cursor:pointer;box-shadow:0 3px 12px rgba(232,99,140,.4);}
 .t-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--mid);font-weight:700;margin-bottom:28px;}
 .t-box{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:26px;padding:clamp(24px,6vw,36px);text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.04);}
 .t-pop{display:inline-block;font-size:10px;font-weight:700;padding:5px 14px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;margin-bottom:14px;}
@@ -1490,13 +1490,13 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                   <option>Fresha</option>
                   <option>Treatwell</option>
                   <option>Booksy</option>
-                  <option>Yara</option>
+                  <option value="Yara">Yara</option>
                   <option value="Autre">Autre</option>
                 </select>
               </div>
               <div class="ff full" id="fPlateformeAutreWrap" style="display:none">
                 <label class="fl" for="fPlateformeAutre">Précise ta plateforme</label>
-                <input class="fi" type="text" id="fPlateformeAutre" placeholder="Nom de la plateforme" />
+                <input class="fi" type="text" id="fPlateformeAutre" placeholder="Nom de la plateforme" autocomplete="off" disabled />
               </div>
               <div class="ff full">
                 <label class="fl" for="fMetier">Ton métier</label>
@@ -1982,9 +1982,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!plateforme || !autreWrap || !autreInput) return;
     const show = plateforme.value === "Autre";
     autreWrap.style.display = show ? "" : "none";
-    if (!show) autreInput.value = "";
+    autreInput.disabled = !show;
+    if (show) {
+      autreInput.readOnly = false;
+      autreInput.focus();
+    } else {
+      autreInput.value = "";
+    }
   }
   plateforme?.addEventListener("change", syncAutrePlateforme);
+  plateforme?.addEventListener("input", syncAutrePlateforme);
   syncAutrePlateforme();
   allFields.forEach((el) => {
     el.addEventListener("input", () => el.classList.remove("invalid"));
