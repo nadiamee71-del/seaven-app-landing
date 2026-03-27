@@ -818,6 +818,10 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-di
 .f-soc{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--light);border:1px solid var(--border);color:var(--black);transition:transform .2s,box-shadow .2s,border-color .2s;}
 .f-soc:hover{transform:translateY(-2px);border-color:rgba(232,99,140,.4);box-shadow:0 6px 16px rgba(232,99,140,.15);}
 .f-soc svg{width:18px;height:18px;display:block;}
+.f-legal{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:12px;font-weight:700;color:var(--mid);}
+.f-legal a{color:var(--mid);text-decoration:none;padding:2px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
+.f-legal a:hover{color:var(--purple);border-color:rgba(168,125,200,.5);}
+.f-legal-sep{opacity:.45;}
 
 @media(max-width:700px){
 .feat-slide{padding:10px 8px;gap:10px;}
@@ -1612,6 +1616,13 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                 />
               </svg>
             </a>
+          </div>
+          <div class="f-legal" aria-label="Liens légaux">
+            <a href="./mentions-legales.html">Mentions légales</a>
+            <span class="f-legal-sep">•</span>
+            <a href="./politique-confidentialite.html">Politique de confidentialité</a>
+            <span class="f-legal-sep">•</span>
+            <a href="./cookies.html">Cookies</a>
           </div>
           <div class="f-sub">One App · One Place · All in One — © 2026</div>
         </footer>
