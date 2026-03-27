@@ -532,8 +532,13 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 #pricing-section .sec-label, #pricing-section .sec-title em { color: var(--blue); }
 #waitlist .sec-label, #waitlist .sec-title em { color: var(--yellow); }
 #waitlist .btn-submit {
-  background: linear-gradient(135deg, var(--pink), var(--purple));
+  background: linear-gradient(135deg, #ffd54d, var(--yellow));
+  color:#1a1a1a;
 }
+#waitlist .btn-submit:hover{box-shadow:0 12px 28px rgba(255,202,40,.35);}
+#pricing-section .btn-submit{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
+#pricing-section .btn-submit:hover{box-shadow:0 12px 28px rgba(74,144,217,.3);}
+#pricing-section .t-pop{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 
 /* Bloc parrainage */
 .parrainage-wrap{max-width:640px;margin:28px auto 0;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:26px;padding:clamp(20px,5vw,30px);box-shadow:0 10px 30px rgba(0,0,0,.04);}
@@ -608,14 +613,14 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;width:100%;}
 .cmp-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:10px 10px 12px;min-width:0;box-shadow:0 10px 24px rgba(0,0,0,.06);}
 .cmp-card.seaven{border-color:rgba(168,125,200,.35);box-shadow:0 10px 24px rgba(168,125,200,.10);}
-.cmp-list{max-height:52vh;overflow-y:auto;overflow-x:hidden;padding-right:2px;-webkit-overflow-scrolling:touch;}
+.cmp-list{max-height:none;overflow:visible;overflow-x:visible;padding-right:0;-webkit-overflow-scrolling:touch;}
 .cmp-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid #f0f0f3;min-width:0;}
 .cmp-row:last-child{border-bottom:none;}
 .cmp-ico{width:20px;height:20px;flex:0 0 auto;margin-top:0;}
 .cmp-ico.ok{color:#fff;background:#46b07a;border-radius:999px;padding:3px;}
 .cmp-ico.no{color:#fff;background:#e2546f;border-radius:999px;padding:3px;}
 .cmp-ico.warn{color:#fff;background:#f0c04a;border-radius:999px;padding:3px;}
-.cmp-txt{font-size:12px;line-height:1.35;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
+.cmp-txt{font-size:14px;line-height:1.45;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
 .cmp-cell{min-width:0;flex:1;}
 .cmp-warn-hint{font-size:10px;font-weight:700;color:#8a6d1a;margin-top:3px;line-height:1.25;letter-spacing:.01em;}
 
@@ -624,8 +629,8 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 @keyframes cmpFade{from{opacity:.72;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
 .cmp-end{text-align:center;margin-top:16px;}
 .cmp-end-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,7vw,42px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;}
-.cmp-end-title em{font-style:normal;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cmp-end .btn-submit{max-width:300px;margin:12px auto 0;background:linear-gradient(135deg,var(--pink),var(--purple));}
+.cmp-end-title em{font-style:normal;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cmp-end .btn-submit{max-width:300px;margin:12px auto 0;background:linear-gradient(135deg,var(--purple),var(--blue));}
 
 /* Code d'accès */
 .access-gate{position:fixed;inset:0;background:#fff;z-index:12000;display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -716,7 +721,7 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 .fc-btn:hover{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border-color:transparent;}
 .fc-dots{display:flex;gap:6px;align-items:center;}
 .fc-dot{width:6px;height:6px;border-radius:3px;background:var(--border);cursor:pointer;transition:all .3s;}
-.fc-dot.on{width:22px;background:var(--pink);}
+.fc-dot.on{width:22px;background:var(--purple);}
 .fc-count{margin-left:auto;font-size:11px;font-weight:700;color:var(--mid);}
 
 /* MÉTIERS — petites cartes, défilement manuel + effet */
@@ -760,8 +765,8 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 .tarif-wrap{max-width:640px;margin:28px auto 0;}
 .t-q{font-size:16px;font-weight:700;margin-bottom:18px;}
 input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;background:var(--border);outline:none;cursor:pointer;margin-bottom:8px;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));cursor:pointer;box-shadow:0 3px 12px rgba(232,99,140,.4);}
-.t-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--mid);font-weight:600;margin-bottom:28px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#6ca8e3);cursor:pointer;box-shadow:0 3px 12px rgba(74,144,217,.35);}
+.t-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--mid);font-weight:700;margin-bottom:28px;}
 .t-box{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:26px;padding:clamp(24px,6vw,36px);text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.04);}
 .t-pop{display:inline-block;font-size:10px;font-weight:700;padding:5px 14px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;margin-bottom:14px;}
 .t-nb{font-size:14px;color:var(--mid);margin-bottom:10px;}
@@ -776,8 +781,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 .ff{display:flex;flex-direction:column;gap:5px;}
 .ff.full{grid-column:1/-1;}
 .fl{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;}
-.fi{width:100%;max-width:100%;min-width:0;box-sizing:border-box;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:13px 16px;font-size:14px;color:var(--black);font-family:'Manrope',sans-serif;outline:none;transition:border .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;box-shadow:0 10px 30px rgba(0,0,0,.04);}
-.fi:focus{border-color:var(--pink);}
+.fi{width:100%;max-width:100%;min-width:0;box-sizing:border-box;background:#fff;border:1px solid rgba(255,202,40,.55);border-radius:14px;padding:13px 16px;font-size:14px;color:var(--black);font-family:'Manrope',sans-serif;outline:none;transition:border .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;box-shadow:0 10px 30px rgba(0,0,0,.04);}
+.fi:focus{border-color:rgba(255,202,40,.95);box-shadow:0 0 0 2px rgba(255,202,40,.18),0 10px 30px rgba(0,0,0,.04);}
+.fi.invalid{border-color:var(--pink)!important;box-shadow:0 0 0 2px rgba(232,99,140,.14),0 10px 30px rgba(0,0,0,.04);}
 .form-est{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:15px 20px;margin-bottom:14px;display:none;align-items:center;justify-content:space-between;box-shadow:0 10px 30px rgba(0,0,0,.04);}
 .fe-l{font-size:13px;color:var(--mid);font-weight:600;}
 .fe-p{font-size:20px;font-weight:800;color:var(--pink);}
@@ -806,7 +812,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-di
 footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env(safe-area-inset-left)) 24px max(12px,env(safe-area-inset-right));}
 .feat-controls{flex-wrap:wrap;row-gap:10px;max-width:100%;justify-content:center;}
 .fc-count{margin-left:0;}
-.t-labels{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));font-size:6px;text-align:center;gap:1px;line-height:1.25;}
+.t-labels{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));font-size:11px;text-align:center;gap:4px;line-height:1.25;}
 .form-est{flex-wrap:wrap;gap:8px;}
 .fe-p{width:100%;text-align:right;}
 .iphone{width:min(152px,68vw);height:calc(min(152px,68vw)*1.98);border-width:4px;border-radius:26px;}
@@ -817,7 +823,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 .parrainage-values{grid-template-columns:1fr;}
 .parrainage-examples{font-size:12px;}
 .cmp-sub{font-size:14px;}
-.cmp-list{max-height:52vh;}
+.cmp-list{max-height:none;}
 }
 
   </style>
@@ -1460,14 +1466,14 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
           <div class="form-wrap" id="formWrap">
             <div class="fg">
               <div class="ff">
-                <label class="fl" for="fPre">Prénom</label><input class="fi" type="text" placeholder="Sassa" id="fPre" />
+                <label class="fl" for="fPre">Prénom</label><input class="fi" type="text" placeholder="Julie" id="fPre" />
               </div>
               <div class="ff">
                 <label class="fl" for="fNom">Nom</label><input class="fi" type="text" placeholder="Dupont" id="fNom" />
               </div>
               <div class="ff full">
                 <label class="fl" for="fEmail">Email</label>
-                <input class="fi" type="email" placeholder="sassa@email.com" id="fEmail" autocomplete="email" />
+                <input class="fi" type="email" placeholder="julie@email.com" id="fEmail" autocomplete="email" />
               </div>
               <div class="ff full">
                 <label class="fl" for="fVille">Ville</label>
@@ -1480,13 +1486,17 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                 <label class="fl" for="fPlateforme">Quelle plateforme utilises-tu ?</label>
                 <select class="fi" id="fPlateforme">
                   <option value="">Choisir…</option>
-                  <option>Instagram</option>
-                  <option>TikTok</option>
-                  <option>Facebook</option>
-                  <option>WhatsApp Business</option>
-                  <option>Site web / réservation en ligne</option>
-                  <option>Autre</option>
+                  <option>Planity</option>
+                  <option>Fresha</option>
+                  <option>Treatwell</option>
+                  <option>Booksy</option>
+                  <option>Yara</option>
+                  <option value="Autre">Autre</option>
                 </select>
+              </div>
+              <div class="ff full" id="fPlateformeAutreWrap" style="display:none">
+                <label class="fl" for="fPlateformeAutre">Précise ta plateforme</label>
+                <input class="fi" type="text" id="fPlateformeAutre" placeholder="Nom de la plateforme" />
               </div>
               <div class="ff full">
                 <label class="fl" for="fMetier">Ton métier</label>
@@ -1622,7 +1632,9 @@ function unlockLanding() {
   const root = document.getElementById("landingRoot");
   const err = document.getElementById("accessError");
   if (!pwd || !gate || !root || !err) return;
-  if (pwd.value === ACCESS_PASSWORD) {
+  // TODO: remettre vérification mot de passe en production
+  const allowAccess = true;
+  if (allowAccess) {
     gate.classList.add("hidden");
     root.style.display = "";
     err.style.display = "none";
@@ -1962,20 +1974,54 @@ async function fetchGeoCountry() {
 }
 document.addEventListener("DOMContentLoaded", () => {
   fetchGeoCountry();
+  const plateforme = document.getElementById("fPlateforme");
+  const autreWrap = document.getElementById("fPlateformeAutreWrap");
+  const autreInput = document.getElementById("fPlateformeAutre");
+  const allFields = document.querySelectorAll(".fi");
+  function syncAutrePlateforme() {
+    if (!plateforme || !autreWrap || !autreInput) return;
+    const show = plateforme.value === "Autre";
+    autreWrap.style.display = show ? "" : "none";
+    if (!show) autreInput.value = "";
+  }
+  plateforme?.addEventListener("change", syncAutrePlateforme);
+  syncAutrePlateforme();
+  allFields.forEach((el) => {
+    el.addEventListener("input", () => el.classList.remove("invalid"));
+    el.addEventListener("change", () => el.classList.remove("invalid"));
+  });
 });
 
 // ── SUBMIT ──
 async function submitForm() {
   await fetchGeoCountry();
-  const p = document.getElementById("fPre").value.trim();
-  const n = document.getElementById("fNom").value.trim();
-  const e = document.getElementById("fEmail").value.trim();
-  const ville = document.getElementById("fVille").value.trim();
-  const pl = document.getElementById("fPlateforme").value;
-  const m = document.getElementById("fMetier").value;
+  const preEl = document.getElementById("fPre");
+  const nomEl = document.getElementById("fNom");
+  const emailEl = document.getElementById("fEmail");
+  const villeEl = document.getElementById("fVille");
+  const plateformeEl = document.getElementById("fPlateforme");
+  const autrePlateformeEl = document.getElementById("fPlateformeAutre");
+  const metierEl = document.getElementById("fMetier");
+  const p = preEl.value.trim();
+  const n = nomEl.value.trim();
+  const e = emailEl.value.trim();
+  const ville = villeEl.value.trim();
+  const pl = plateformeEl.value;
+  const autrePl = autrePlateformeEl ? autrePlateformeEl.value.trim() : "";
+  const m = metierEl.value;
   const pays = document.getElementById("fPays").value.trim();
   const paysCode = document.getElementById("fPaysCode").value.trim();
-  if (!p || !n || !e || !ville || !pl || !m) {
+  [preEl, nomEl, emailEl, villeEl, plateformeEl, metierEl, autrePlateformeEl].forEach((el) => el?.classList.remove("invalid"));
+  const invalids = [];
+  if (!p) invalids.push(preEl);
+  if (!n) invalids.push(nomEl);
+  if (!e) invalids.push(emailEl);
+  if (!ville) invalids.push(villeEl);
+  if (!pl) invalids.push(plateformeEl);
+  if (pl === "Autre" && !autrePl) invalids.push(autrePlateformeEl);
+  if (!m) invalids.push(metierEl);
+  if (invalids.length) {
+    invalids.forEach((el) => el?.classList.add("invalid"));
     alert("Merci de remplir tous les champs 🙏");
     return;
   }
@@ -1986,7 +2032,7 @@ async function submitForm() {
     ville,
     pays: pays || null,
     pays_code: paysCode || null,
-    plateforme: pl,
+    plateforme: pl === "Autre" ? autrePl : pl,
     metier: m,
     clientes_par_mois: document.getElementById("fClientes").value || null
   };
