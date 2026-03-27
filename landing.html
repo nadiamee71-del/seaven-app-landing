@@ -604,11 +604,12 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   background:linear-gradient(135deg,rgba(168,125,200,.10),rgba(74,144,217,.08));
   border:none;
   cursor:pointer;
-  font-size:14px;
+  font-size:18px;
   font-weight:900;
   color:#1b1b22;
+  text-transform:uppercase;
 }
-.cmp-selector-btn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cmp-selector-btn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.03em;}
 .cmp-caret{width:18px;height:18px;flex:0 0 auto;color:#52525e;}
 .cmp-menu{
   position:absolute;
@@ -624,7 +625,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   z-index:50;
 }
 .cmp-menu.open{display:block;}
-.cmp-opt{width:100%;border:none;background:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;color:#1b1b22;cursor:pointer;}
+.cmp-opt{width:100%;border:none;background:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;font-size:18px;letter-spacing:-0.03em;text-transform:uppercase;color:#1b1b22;cursor:pointer;}
 .cmp-opt + .cmp-opt{border-top:1px solid #f0f0f3;}
 .cmp-opt:hover{background:#f7f7fb;}
 .cmp-check{width:18px;height:18px;color:var(--purple);opacity:0;}
@@ -670,8 +671,9 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-cell{min-width:0;flex:1;}
 .cmp-row--seaven{justify-content:space-between;gap:10px;}
 .cmp-row--seaven .cmp-cell{padding-right:4px;}
-.cmp-row--competitor{justify-content:center;gap:0;}
-.cmp-row--competitor .cmp-ico{margin:0 auto;}
+.cmp-row--competitor{justify-content:space-between;gap:10px;}
+.cmp-row--competitor .cmp-ico{margin:0;}
+.cmp-cell-ghost{visibility:hidden;pointer-events:none;padding-right:4px;}
 .cmp-warn-hint{font-size:10px;font-weight:700;color:#8a6d1a;margin-top:3px;line-height:1.25;letter-spacing:.01em;}
 
 /* Animation changement concurrent (léger) */
@@ -1892,7 +1894,7 @@ function cmpRowLeftHtml(f) {
 }
 function cmpRowRightHtml(f, status, compKey) {
   const st = status || CMP_STATUS.no;
-  return `<div class="cmp-row cmp-row--competitor">${cmpIconSvg(st)}</div>`;
+  return `<div class="cmp-row cmp-row--competitor"><div class="cmp-cell cmp-cell-ghost"><div class="cmp-txt">${f}</div></div>${cmpIconSvg(st)}</div>`;
 }
 function cmpStatusFor(compKey, feature) {
   const baseStatus = CMP_COMPETITOR_BASE[feature];
