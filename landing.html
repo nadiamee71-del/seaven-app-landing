@@ -735,8 +735,8 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 .dark-screen .s-cta{background:white;color:#1A1A1A;}
 /* carousel controls */
 .feat-controls{display:flex;align-items:center;gap:10px;margin-top:16px;max-width:min(100%,380px);margin-left:auto;margin-right:auto;}
-.fc-btn{width:36px;height:36px;border-radius:50%;background:var(--light);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--black);transition:all .2s;flex-shrink:0;}
-.fc-btn:hover{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border-color:transparent;}
+.fc-btn{width:36px;height:36px;border-radius:50%;background:var(--light);border:1px solid rgba(168,125,200,.35);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--purple);transition:all .2s;flex-shrink:0;}
+.fc-btn:hover{background:linear-gradient(135deg,var(--purple),#8f66bc);color:white;border-color:transparent;}
 .fc-dots{display:flex;gap:6px;align-items:center;}
 .fc-dot{width:6px;height:6px;border-radius:3px;background:var(--border);cursor:pointer;transition:all .3s;}
 .fc-dot.on{width:22px;background:var(--purple);}
@@ -750,11 +750,11 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 .m-cards-ribbon{flex:1;min-width:0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:10px 2px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--mint) transparent;}
 .m-cards-ribbon::-webkit-scrollbar{height:5px;}
 .m-cards-ribbon::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--mint),#6ebf9a);border-radius:99px;}
-.m-card{flex:0 0 auto;scroll-snap-align:start;width:min(92px,27vw);min-height:86px;padding:8px 6px;border-radius:16px;background:#fff;border:1.5px solid var(--border);cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 2px 12px rgba(0,0,0,.05);transition:transform .28s cubic-bezier(.34,1.45,.64,1),box-shadow .28s,border-color .28s;animation:mCardPop .55s cubic-bezier(.34,1.45,.64,1) both;-webkit-tap-highlight-color:transparent;}
+.m-card{flex:0 0 auto;scroll-snap-align:start;width:min(92px,27vw);min-height:86px;padding:8px 6px;border-radius:16px;background:#fff;border:1.5px solid rgba(126,200,164,.55);cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 2px 12px rgba(0,0,0,.05);transition:transform .28s cubic-bezier(.34,1.45,.64,1),box-shadow .28s,border-color .28s;animation:mCardPop .55s cubic-bezier(.34,1.45,.64,1) both;-webkit-tap-highlight-color:transparent;}
 @keyframes mCardPop{0%{opacity:0;transform:translateY(14px) scale(.88)}100%{opacity:1;transform:translateY(0) scale(1)}}
-.m-card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 14px 32px rgba(232,99,140,.22);border-color:rgba(232,99,140,.35);}
+.m-card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 14px 32px rgba(126,200,164,.22);border-color:rgba(126,200,164,.75);}
 .m-card:active{transform:translateY(-2px) scale(.98);}
-.m-card.on{background:linear-gradient(135deg,rgba(232,99,140,.08),rgba(168,125,200,.12));border-color:var(--pink);box-shadow:0 8px 24px rgba(232,99,140,.2),0 0 0 1px rgba(232,99,140,.25) inset;}
+.m-card.on{background:#fff;border-color:var(--mint);box-shadow:0 8px 24px rgba(126,200,164,.2),0 0 0 1px rgba(126,200,164,.35) inset;}
 .m-card-ic{font-size:22px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.06));}
 .m-card-lab{font-size:8.5px;font-weight:800;line-height:1.2;color:var(--black);display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-height:3.6em;letter-spacing:-.02em;}
 .m-card.on .m-card-lab{color:var(--black);}
@@ -1512,7 +1512,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                   <option>Fresha</option>
                   <option>Treatwell</option>
                   <option>Booksy</option>
-                  <option value="Yara">Yara</option>
+                  <option value="Iara">Iara</option>
                   <option value="Autre">Autre</option>
                 </select>
                 <input class="fi" type="text" id="fPlateformeAutre" placeholder="Nom de la plateforme" autocomplete="off" style="display:none" />
