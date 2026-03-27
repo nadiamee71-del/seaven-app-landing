@@ -628,11 +628,36 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-opt.active .cmp-check{opacity:1;}
 
 /* 2 colonnes mobile (toujours visibles) */
-.cmp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;width:100%;}
-.cmp-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:10px 10px 12px;min-width:0;box-shadow:0 10px 24px rgba(0,0,0,.06);}
-.cmp-card.seaven{border-color:rgba(168,125,200,.35);box-shadow:0 10px 24px rgba(168,125,200,.10);}
+.cmp-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:10px;
+  width:100%;
+  perspective:1200px;
+}
+.cmp-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:10px 10px 12px;
+  min-width:0;
+  box-shadow:0 12px 28px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  transform:translateZ(0) rotateX(.35deg);
+}
+.cmp-card.seaven{
+  border-color:rgba(168,125,200,.35);
+  box-shadow:0 12px 28px rgba(168,125,200,.14), 0 2px 6px rgba(168,125,200,.08);
+}
 .cmp-list{max-height:none;overflow:visible;overflow-x:visible;padding-right:0;-webkit-overflow-scrolling:touch;}
-.cmp-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f0f0f3;min-width:0;}
+.cmp-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 0;
+  border-bottom:1px solid #f0f0f3;
+  min-width:0;
+  min-height:36px;
+}
 .cmp-row:last-child{border-bottom:none;}
 .cmp-ico{width:20px;height:20px;flex:0 0 auto;margin-top:0;border-radius:50%;}
 .cmp-ico.ok{color:#fff;background:#22c55e;}
@@ -640,6 +665,9 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-ico.warn{color:#fff;background:#f0c04a;border-radius:999px;padding:3px;}
 .cmp-txt{font-size:12px;line-height:1.35;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
 .cmp-cell{min-width:0;flex:1;}
+.cmp-row--seaven{justify-content:space-between;gap:10px;}
+.cmp-row--seaven .cmp-cell{padding-right:4px;}
+.cmp-row--competitor{justify-content:center;gap:0;}
 .cmp-warn-hint{font-size:10px;font-weight:700;color:#8a6d1a;margin-top:3px;line-height:1.25;letter-spacing:.01em;}
 
 /* Animation changement concurrent (léger) */
@@ -1841,13 +1869,11 @@ function cmpIconSvg(kind) {
   return `<svg class="cmp-ico no" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6.7 6.7 13.3 13.3M13.3 6.7l-6.6 6.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`;
 }
 function cmpRowLeftHtml(f) {
-  return `<div class="cmp-row">${cmpIconSvg(CMP_STATUS.ok)}<div class="cmp-cell"><div class="cmp-txt">${f}</div></div></div>`;
+  return `<div class="cmp-row cmp-row--seaven"><div class="cmp-cell"><div class="cmp-txt">${f}</div></div>${cmpIconSvg(CMP_STATUS.ok)}</div>`;
 }
 function cmpRowRightHtml(f, status, compKey) {
   const st = status || CMP_STATUS.no;
-  const hint = st === CMP_STATUS.warn && CMP_WARN_HINTS[compKey] && CMP_WARN_HINTS[compKey][f];
-  const hintHtml = hint ? `<div class="cmp-warn-hint">${hint}</div>` : "";
-  return `<div class="cmp-row">${cmpIconSvg(st)}<div class="cmp-cell"><div class="cmp-txt">${f}</div>${hintHtml}</div></div>`;
+  return `<div class="cmp-row cmp-row--competitor">${cmpIconSvg(st)}</div>`;
 }
 function renderComparatif(key) {
   const left = document.getElementById("cmpLeft");
