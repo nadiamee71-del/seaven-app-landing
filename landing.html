@@ -345,6 +345,19 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   /* Fond neutre (blanc cassé) si la vidéo charge encore — pas de voilet/rosé */
   background:var(--bg);
 }
+/* Zoom / dézoom lent sur la vidéo (Ken Burns) — conteneur rogne les bords */
+.hero-bg-zoom{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  transform-origin:center center;
+  will-change:transform;
+  animation:heroVidZoom 22s ease-in-out infinite alternate;
+}
+@keyframes heroVidZoom{
+  0%{transform:scale(1);}
+  100%{transform:scale(1.12);}
+}
 .hero-bg-video{
   position:absolute;
   inset:0;
@@ -398,6 +411,18 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 @media (prefers-reduced-motion:reduce){
   .hero-inner{transition:opacity .2s ease;}
   .hero.hero--video-focus .hero-inner{transform:none;}
+  .hero-bg-zoom{animation:none;transform:none;}
+  .hero-inner-fade{animation:none !important;opacity:1 !important;transform:none !important;max-height:none !important;}
+}
+/* Bloc titre + CTA : fondu et disparition (stats / note restent en dessous) */
+.hero-inner-fade{
+  overflow:hidden;
+  animation:heroTextFadeOut 16s cubic-bezier(.45,0,.2,1) forwards;
+}
+@keyframes heroTextFadeOut{
+  0%,48%{opacity:1;visibility:visible;transform:translateY(0);max-height:1200px;}
+  58%{opacity:0;transform:translateY(-20px);}
+  62%,100%{opacity:0;visibility:hidden;transform:translateY(-28px);max-height:0;margin:0;padding:0;pointer-events:none;}
 }
 .hero-launch{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;color:rgba(255,255,255,.92);margin-bottom:28px;}
 .hero-launch span{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;}
@@ -775,23 +800,26 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
         <!-- HERO -->
         <div class="hero">
           <div class="hero-bg" aria-hidden="true">
-            <video
-              id="hero-bg-video"
-              class="hero-bg-video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              disablepictureinpicture
-              disableremoteplayback
-              aria-hidden="true"
-            >
-              <source src="./assets/seaven-bg.mp4" type="video/mp4" />
-            </video>
+            <div class="hero-bg-zoom">
+              <video
+                id="hero-bg-video"
+                class="hero-bg-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                disablepictureinpicture
+                disableremoteplayback
+                aria-hidden="true"
+              >
+                <source src="./assets/seaven-bg.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div class="hero-bg-overlay"></div>
           </div>
           <div class="hero-inner">
+          <div class="hero-inner-fade">
           <div class="hero-launch"><span></span> Lancement le 21 septembre 2026</div>
           <h1>Tout ton business,<br /><em>dans une seule app.</em></h1>
           <p class="hero-sub">
@@ -809,6 +837,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               />
             </svg>
           </button>
+          </div>
           <p class="hero-note">🔒 Gratuit · Aucune carte bancaire requise</p>
           <div class="hero-stats">
             <div class="stat">
@@ -1322,8 +1351,8 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                       <path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </button>
-                  <button type="button" class="cmp-opt" data-cmp="insta_tools" role="option" aria-selected="false">
-                    <span>Insta+Excel+WhatsApp</span>
+                  <button type="button" class="cmp-opt" data-cmp="iara" role="option" aria-selected="false">
+                    <span>Iara</span>
                     <svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -1647,17 +1676,18 @@ function updateReferral(v) {
 }
 updateReferral(15);
 
+/** Tableau « SEAVEN vs concurrents » (réf. maquette mobile). */
 const CMP_FEATURES = [
   "Réservation en ligne",
-  "Plateforme façon réseau social",
+  "Réseau social avec feed & stories",
   "Feed (photos / vidéos)",
   "Marketplace intégrée",
   "Abonnement selon volume clients",
-  "Comptabilité avancée",
-  "Créneaux d’urgence",
+  "Comptabilité intelligente & automatisée",
+  "Créneaux d'urgence",
   "Blacklist intelligente",
-  "Parrainage",
-  "Rappels automatiques (SMS / email)",
+  "Parrainage (client & pro -> pro)",
+  "Rappels automatiques (SMS/email)",
   "Paiement intégré",
   "Messagerie interne"
 ];
@@ -1668,102 +1698,31 @@ const CMP_COMPETITORS = {
   fresha: { name: "FRESHA", shortLabel: "Fresha", icon: "fresha" },
   treatwell: { name: "TREATWELL", shortLabel: "Treatwell", icon: "treatwell" },
   booksy: { name: "BOOKSY", shortLabel: "Booksy", icon: "booksy" },
-  insta_tools: { name: "INSTA+EXCEL+WHATSAPP", shortLabel: "Insta+Excel+WhatsApp", icon: "insta" }
+  iara: { name: "IARA", shortLabel: "Iara", icon: "iara" }
 };
-/** Données alignées sur le tableau de référence (12 lignes × concurrents). */
+/** Fresha / Planity / Booksy / Treatwell : même grille. Iara : + messagerie interne. */
+const CMP_COMPETITOR_BASE = {
+  "Réservation en ligne": CMP_STATUS.ok,
+  "Réseau social avec feed & stories": CMP_STATUS.no,
+  "Feed (photos / vidéos)": CMP_STATUS.no,
+  "Marketplace intégrée": CMP_STATUS.no,
+  "Abonnement selon volume clients": CMP_STATUS.no,
+  "Comptabilité intelligente & automatisée": CMP_STATUS.no,
+  "Créneaux d'urgence": CMP_STATUS.no,
+  "Blacklist intelligente": CMP_STATUS.no,
+  "Parrainage (client & pro -> pro)": CMP_STATUS.no,
+  "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
+  "Paiement intégré": CMP_STATUS.ok,
+  "Messagerie interne": CMP_STATUS.no
+};
 const CMP_DATA = {
-  planity: {
-    "Réservation en ligne": CMP_STATUS.ok,
-    "Plateforme façon réseau social": CMP_STATUS.no,
-    "Feed (photos / vidéos)": CMP_STATUS.no,
-    "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.warn,
-    "Comptabilité avancée": CMP_STATUS.no,
-    "Créneaux d’urgence": CMP_STATUS.warn,
-    "Blacklist intelligente": CMP_STATUS.no,
-    "Parrainage": CMP_STATUS.no,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.ok
-  },
-  fresha: {
-    "Réservation en ligne": CMP_STATUS.ok,
-    "Plateforme façon réseau social": CMP_STATUS.no,
-    "Feed (photos / vidéos)": CMP_STATUS.no,
-    "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.no,
-    "Comptabilité avancée": CMP_STATUS.no,
-    "Créneaux d’urgence": CMP_STATUS.warn,
-    "Blacklist intelligente": CMP_STATUS.no,
-    "Parrainage": CMP_STATUS.no,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.ok
-  },
-  treatwell: {
-    "Réservation en ligne": CMP_STATUS.ok,
-    "Plateforme façon réseau social": CMP_STATUS.no,
-    "Feed (photos / vidéos)": CMP_STATUS.no,
-    "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.warn,
-    "Comptabilité avancée": CMP_STATUS.no,
-    "Créneaux d’urgence": CMP_STATUS.warn,
-    "Blacklist intelligente": CMP_STATUS.no,
-    "Parrainage": CMP_STATUS.no,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.ok
-  },
-  booksy: {
-    "Réservation en ligne": CMP_STATUS.ok,
-    "Plateforme façon réseau social": CMP_STATUS.no,
-    "Feed (photos / vidéos)": CMP_STATUS.no,
-    "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.warn,
-    "Comptabilité avancée": CMP_STATUS.no,
-    "Créneaux d’urgence": CMP_STATUS.warn,
-    "Blacklist intelligente": CMP_STATUS.no,
-    "Parrainage": CMP_STATUS.no,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.warn,
-    "Messagerie interne": CMP_STATUS.ok
-  },
-  insta_tools: {
-    "Réservation en ligne": CMP_STATUS.ok,
-    "Plateforme façon réseau social": CMP_STATUS.no,
-    "Feed (photos / vidéos)": CMP_STATUS.warn,
-    "Marketplace intégrée": CMP_STATUS.no,
-    "Abonnement selon volume clients": CMP_STATUS.no,
-    "Comptabilité avancée": CMP_STATUS.no,
-    "Créneaux d’urgence": CMP_STATUS.no,
-    "Blacklist intelligente": CMP_STATUS.no,
-    "Parrainage": CMP_STATUS.no,
-    "Rappels automatiques (SMS / email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.warn,
-    "Messagerie interne": CMP_STATUS.no
-  }
+  planity: { ...CMP_COMPETITOR_BASE },
+  fresha: { ...CMP_COMPETITOR_BASE },
+  treatwell: { ...CMP_COMPETITOR_BASE },
+  booksy: { ...CMP_COMPETITOR_BASE },
+  iara: { ...CMP_COMPETITOR_BASE, "Messagerie interne": CMP_STATUS.ok }
 };
-/** Sous-texte pour les statuts jaunes (partiel / parfois / limité). */
-const CMP_WARN_HINTS = {
-  planity: {
-    "Abonnement selon volume clients": "Partiel",
-    "Créneaux d’urgence": "Partiel"
-  },
-  fresha: { "Créneaux d’urgence": "Partiel" },
-  treatwell: {
-    "Abonnement selon volume clients": "Partiel",
-    "Créneaux d’urgence": "Parfois"
-  },
-  booksy: {
-    "Abonnement selon volume clients": "Partiel",
-    "Créneaux d’urgence": "Parfois",
-    "Paiement intégré": "Limité"
-  },
-  insta_tools: {
-    "Feed (photos / vidéos)": "Partiel",
-    "Paiement intégré": "Limité"
-  }
-};
+const CMP_WARN_HINTS = {};
 function cmpIconSvg(kind) {
   if (kind === CMP_STATUS.ok) {
     return `<svg class="cmp-ico ok" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8.1" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
