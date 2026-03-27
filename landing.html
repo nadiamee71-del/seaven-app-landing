@@ -115,10 +115,11 @@
     }
     .brand { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
     .brand-logo {
-      width: 24px;
-      height: 24px;
+      width: 30px;
+      height: 30px;
       object-fit: contain;
       display: block;
+      mix-blend-mode: screen;
     }
     .brand-name { font-size: 14px; font-weight: 700; letter-spacing: -0.02em; }
 
@@ -604,7 +605,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   border:none;
   cursor:pointer;
   font-size:14px;
-  font-weight:800;
+  font-weight:900;
   color:#1b1b22;
 }
 .cmp-selector-btn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -623,7 +624,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   z-index:50;
 }
 .cmp-menu.open{display:block;}
-.cmp-opt{width:100%;border:none;background:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:800;color:#1b1b22;cursor:pointer;}
+.cmp-opt{width:100%;border:none;background:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;color:#1b1b22;cursor:pointer;}
 .cmp-opt + .cmp-opt{border-top:1px solid #f0f0f3;}
 .cmp-opt:hover{background:#f7f7fb;}
 .cmp-check{width:18px;height:18px;color:var(--purple);opacity:0;}
@@ -844,7 +845,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;margin-top:22px;}
 .f-logo{display:flex;align-items:center;gap:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;}
-.f-logo-icon{width:20px;height:20px;object-fit:contain;display:block;}
+.f-logo-icon{width:24px;height:24px;object-fit:contain;display:block;mix-blend-mode:screen;}
 .f-sub{font-size:12px;color:var(--mid);line-height:1.2;}
 .f-social{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:4px;}
 .f-soc{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--light);border:1px solid var(--border);color:var(--black);transition:transform .2s,box-shadow .2s,border-color .2s;}
@@ -1845,11 +1846,36 @@ const CMP_COMPETITOR_BASE = {
   "Messagerie interne": CMP_STATUS.no
 };
 const CMP_DATA = {
-  planity: { ...CMP_COMPETITOR_BASE },
-  fresha: { ...CMP_COMPETITOR_BASE },
-  treatwell: { ...CMP_COMPETITOR_BASE },
-  booksy: { ...CMP_COMPETITOR_BASE },
-  iara: { ...CMP_COMPETITOR_BASE, "Messagerie interne": CMP_STATUS.ok }
+  planity: {
+    ...CMP_COMPETITOR_BASE,
+    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.no
+  },
+  fresha: {
+    ...CMP_COMPETITOR_BASE,
+    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.no
+  },
+  treatwell: {
+    ...CMP_COMPETITOR_BASE,
+    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.no
+  },
+  booksy: {
+    ...CMP_COMPETITOR_BASE,
+    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.no
+  },
+  iara: {
+    ...CMP_COMPETITOR_BASE,
+    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
+    "Paiement intégré": CMP_STATUS.ok,
+    "Messagerie interne": CMP_STATUS.ok
+  }
 };
 const CMP_WARN_HINTS = {};
 function cmpIconSvg(kind) {
