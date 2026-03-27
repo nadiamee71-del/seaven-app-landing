@@ -320,7 +320,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 /* GRAD BAR */
 .grad-bar{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--mint),var(--yellow));}
 
-/* HERO — vitrine immersive type Apple (fond clair, iPhone paysage, centré) */
+/* HERO — bloc texte puis mockup paysage (démo), type Apple */
 .hero{
   position:relative;
   isolation:isolate;
@@ -340,52 +340,83 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   position:relative;
   z-index:1;
   width:100%;
-  max-width:min(920px,100%);
+  max-width:min(640px,100%);
   margin:0 auto;
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:0 max(20px,env(safe-area-inset-left)) clamp(44px,9vw,100px) max(20px,env(safe-area-inset-right));
+  padding:clamp(8px,2vw,16px) max(20px,env(safe-area-inset-left)) clamp(40px,8vw,88px) max(20px,env(safe-area-inset-right));
   box-sizing:border-box;
+  gap:0;
 }
-/* Zone vidéo : min 80vh, téléphone centré verticalement + horizontalement */
-.hero-device-zone{
+.hero-copy-stack{
   width:100%;
-  min-height:80vh;
+  max-width:min(600px,100%);
   display:flex;
+  flex-direction:column;
   align-items:center;
-  justify-content:center;
-  padding:clamp(36px,8vw,88px) 0;
-  box-sizing:border-box;
+  text-align:center;
+  gap:0;
 }
 .hero-device-stage{
   width:100%;
   display:flex;
   justify-content:center;
   align-items:center;
+  margin-top:clamp(28px,6vw,48px);
+  padding:0 max(6px,env(safe-area-inset-left)) 4px max(6px,env(safe-area-inset-right));
+  box-sizing:border-box;
 }
 .hero-device-shell{
-  width:min(600px,90vw);
+  position:relative;
+  width:min(520px,88vw);
   max-width:100%;
   flex-shrink:0;
 }
+/* Boutons latéraux discrets (type iPhone paysage) */
+.hero-device-side{
+  position:absolute;
+  z-index:2;
+  pointer-events:none;
+  border-radius:3px;
+  background:linear-gradient(90deg,#3a3a3e,#2a2a2e);
+  box-shadow:0 0 0 1px rgba(0,0,0,.25) inset;
+}
+.hero-device-side--vol1{left:-2px;top:34%;width:3px;height:22px;}
+.hero-device-side--vol2{left:-2px;top:calc(34% + 30px);width:3px;height:22px;}
+.hero-device-side--power{right:-2px;top:38%;width:3px;height:42px;}
 .hero-device-frame{
   position:relative;
-  border-radius:44px;
-  padding:9px;
+  border-radius:40px;
+  padding:8px;
   box-sizing:border-box;
-  background:linear-gradient(155deg,rgba(58,58,64,.98) 0%,#1e1e22 40%,#0c0c0e 100%);
+  background:linear-gradient(160deg,#4a4a52 0%,#252528 35%,#121214 100%);
   box-shadow:
-    0 40px 90px rgba(0,0,0,.18),
-    0 16px 36px rgba(0,0,0,.1),
-    0 0 0 1px rgba(0,0,0,.06) inset,
-    0 0 80px rgba(168,125,200,.16);
+    0 28px 70px rgba(0,0,0,.16),
+    0 10px 28px rgba(0,0,0,.1),
+    0 0 0 1px rgba(255,255,255,.12) inset,
+    0 0 0 1px rgba(0,0,0,.35),
+    0 0 60px rgba(168,125,200,.12);
 }
-/* Écran paysage (~19,5:9), ratio réaliste, coins très arrondis */
+/* Dynamic Island au-dessus de la vidéo (démo type iPhone) */
+.hero-device-dynamic{
+  position:absolute;
+  top:9px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(28%,104px);
+  height:20px;
+  border-radius:999px;
+  background:#0a0a0a;
+  z-index:2;
+  pointer-events:none;
+  box-shadow:0 0 0 1px rgba(255,255,255,.1) inset;
+}
+/* Écran paysage 19,5:9 — vidéo cover, centrée */
 .hero-device-zoom{
   position:relative;
   width:100%;
-  border-radius:36px;
+  border-radius:32px;
   overflow:hidden;
   aspect-ratio:19.5/9;
   transform-origin:center center;
@@ -395,11 +426,12 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 }
 @keyframes heroDeviceKen{
   0%{transform:scale(1);}
-  100%{transform:scale(1.03);}
+  100%{transform:scale(1.025);}
 }
 .hero-device-video{
   position:absolute;
   inset:0;
+  z-index:1;
   display:block;
   width:100%;
   height:100%;
@@ -407,33 +439,17 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   object-position:center center;
 }
 @media (orientation:landscape) and (max-height:520px){
-  .hero-device-zone{
-    min-height:min(80vh,520px);
-    padding:max(16px,env(safe-area-inset-top)) 0 max(20px,env(safe-area-inset-bottom));
-  }
+  .hero-device-stage{margin-top:clamp(18px,4vw,28px);}
+  .hero-device-shell{width:min(400px,88vw);}
 }
-.hero-editorial{
-  width:100%;
-  max-width:min(680px,100%);
-  padding:0 4px;
-  margin:clamp(12px,4vw,40px) auto 0;
-}
-.hero-editorial-kicker{
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:rgba(0,0,0,.38);
-  margin-bottom:clamp(18px,4vw,28px);
-}
-.hero-launch{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:999px;padding:8px 18px;font-size:12px;font-weight:700;color:#1d1d1f;margin-bottom:clamp(22px,5vw,36px);}
+.hero-launch{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:999px;padding:8px 18px;font-size:12px;font-weight:700;color:#1d1d1f;margin:0 0 clamp(18px,4vw,26px);}
 .hero-launch span{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;}
-.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,7.2vw,64px);font-weight:800;line-height:1.04;letter-spacing:-0.045em;margin:0 0 clamp(20px,4vw,32px);overflow-wrap:anywhere;color:#1d1d1f;}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,6.5vw,52px);font-weight:800;line-height:1.08;letter-spacing:-0.045em;margin:0 0 clamp(14px,3vw,22px);overflow-wrap:anywhere;color:#1d1d1f;}
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:clamp(16px,2.4vw,20px);color:rgba(0,0,0,.58);max-width:560px;margin:0 auto;line-height:1.65;overflow-wrap:anywhere;font-weight:500;}
+.hero-sub{font-size:clamp(15px,2.2vw,19px);color:rgba(0,0,0,.58);max-width:520px;margin:0 auto;line-height:1.65;overflow-wrap:anywhere;font-weight:500;}
 .hero-cta-float{
-  margin-top:clamp(36px,7vw,64px);
-  margin-bottom:clamp(8px,2vw,16px);
+  margin-top:clamp(22px,5vw,36px);
+  margin-bottom:0;
   width:100%;
   display:flex;
   justify-content:center;
@@ -462,11 +478,11 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .hero-cta-pill:active{transform:translateY(-1px) scale(.995);}
 .btn-main{display:inline-flex;align-items:center;gap:8px;justify-content:center;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;border-radius:30px;padding:16px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:transform .2s,box-shadow .2s;max-width:100%;box-sizing:border-box;}
 .btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(232,99,140,.35);}
-.hero-note{font-size:12px;color:rgba(0,0,0,.45);margin-top:clamp(20px,4vw,28px);line-height:1.55;max-width:min(420px,100%);margin-left:auto;margin-right:auto;}
+.hero-note{font-size:12px;color:rgba(0,0,0,.45);margin-top:clamp(14px,3vw,20px);line-height:1.55;max-width:min(420px,100%);margin-left:auto;margin-right:auto;}
 @media (prefers-reduced-motion:reduce){
   .hero-device-zoom{animation:none;transform:none;}
 }
-.hero-extra-offers{margin-top:18px;padding-top:14px;border-top:1px solid rgba(0,0,0,.08);width:100%;max-width:min(400px,100%);margin-left:auto;margin-right:auto;display:flex;flex-direction:column;align-items:center;gap:0;box-sizing:border-box;}
+.hero-extra-offers{margin-top:clamp(14px,3vw,20px);padding-top:0;border-top:none;width:100%;max-width:min(400px,100%);margin-left:auto;margin-right:auto;display:flex;flex-direction:column;align-items:center;gap:0;box-sizing:border-box;}
 .hero-promo{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,rgba(232,99,140,.12),rgba(168,125,200,.14));border:1px solid rgba(232,99,140,.2);color:#1d1d1f;font-size:11px;font-weight:800;padding:8px 14px;border-radius:999px;margin:0;text-align:center;line-height:1.3;}
 .btn-parrain{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--pink);border:2px solid var(--pink);border-radius:30px;padding:12px 22px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;margin:0;max-width:100%;box-sizing:border-box;transition:transform .2s,background .2s,color .2s;}
 .btn-parrain:hover{background:rgba(232,99,140,.08);transform:translateY(-1px);}
@@ -481,7 +497,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .parrain-modal-body strong{color:var(--black);}
 .parrain-modal-cta{margin-top:18px;width:100%;border:none;border-radius:14px;padding:12px 16px;font-size:13px;font-weight:700;font-family:'Manrope',sans-serif;cursor:pointer;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;}
 .parrain-modal-cta:hover{opacity:.95;}
-.hero-stats{display:flex;gap:0;justify-content:center;margin-top:clamp(36px,7vw,56px);border:1px solid rgba(0,0,0,.08);border-radius:20px;overflow:hidden;max-width:100%;width:100%;margin-left:auto;margin-right:auto;box-sizing:border-box;background:rgba(0,0,0,.03);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.hero-stats{display:flex;gap:0;justify-content:center;margin-top:clamp(18px,4vw,28px);border:1px solid rgba(0,0,0,.08);border-radius:20px;overflow:hidden;max-width:100%;width:100%;margin-left:auto;margin-right:auto;box-sizing:border-box;background:rgba(0,0,0,.03);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
 .stat{flex:1;min-width:0;padding:14px 6px;text-align:center;border-right:1px solid rgba(0,0,0,.06);}
 .stat:last-child{border-right:none;}
 .stat-n{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(18px,5vw,28px);font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -830,72 +846,73 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
           </div>
         </header>
 
-        <!-- HERO — vitrine type Apple (fond clair, iPhone paysage) -->
+        <!-- HERO — texte d’abord, mockup paysage en démo (après promo) -->
         <div class="hero">
           <div class="hero-showcase-inner">
-            <div class="hero-device-zone">
-              <div class="hero-device-stage" aria-hidden="true">
-                <div class="hero-device-shell">
-                  <div class="hero-device-frame">
-                    <div class="hero-device-zoom">
-                      <video
-                        id="hero-bg-video"
-                        class="hero-device-video"
-                        autoplay
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                        disablepictureinpicture
-                        disableremoteplayback
-                        aria-hidden="true"
-                      >
-                        <source src="./assets/seaven-bg.mp4" type="video/mp4" />
-                      </video>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="hero-editorial">
-              <p class="hero-editorial-kicker">Démonstration produit</p>
+            <div class="hero-copy-stack">
               <div class="hero-launch"><span></span> Lancement le 21 septembre 2026</div>
               <h1>Tout ton business,<br /><em>dans une seule app.</em></h1>
               <p class="hero-sub">
                 Réservations, IA, stock, messagerie, marketplace — là où tout se passait avant sur Instagram.
               </p>
-            </div>
-            <div class="hero-cta-float">
-              <button type="button" class="hero-cta-pill" onclick="scroll2('waitlist')">
-                Rejoindre la liste d’attente
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-            <p class="hero-note">🔒 Gratuit · Aucune carte bancaire requise</p>
-            <div class="hero-stats">
-              <div class="stat">
-                <div class="stat-n">+20</div>
-                <div class="stat-l">métiers acceptés</div>
+              <div class="hero-cta-float">
+                <button type="button" class="hero-cta-pill" onclick="scroll2('waitlist')">
+                  Rejoindre la liste d’attente
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
               </div>
-              <div class="stat">
-                <div class="stat-n">0%</div>
-                <div class="stat-l">commission</div>
+              <p class="hero-note">🔒 Gratuit · Aucune carte bancaire requise</p>
+              <div class="hero-stats">
+                <div class="stat">
+                  <div class="stat-n">+20</div>
+                  <div class="stat-l">métiers acceptés</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-n">0%</div>
+                  <div class="stat-l">commission</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-n">1</div>
+                  <div class="stat-l">app pour tout</div>
+                </div>
               </div>
-              <div class="stat">
-                <div class="stat-n">1</div>
-                <div class="stat-l">app pour tout</div>
+              <div class="hero-extra-offers">
+                <div class="hero-promo" role="status">14 jours offerts à l’essai</div>
               </div>
             </div>
-            <div class="hero-extra-offers">
-              <div class="hero-promo" role="status">14 jours offerts à l’essai</div>
+            <div class="hero-device-stage" aria-hidden="true">
+              <div class="hero-device-shell">
+                <span class="hero-device-side hero-device-side--vol1"></span>
+                <span class="hero-device-side hero-device-side--vol2"></span>
+                <span class="hero-device-side hero-device-side--power"></span>
+                <div class="hero-device-frame">
+                  <div class="hero-device-zoom">
+                    <video
+                      id="hero-bg-video"
+                      class="hero-device-video"
+                      autoplay
+                      muted
+                      loop
+                      playsinline
+                      preload="metadata"
+                      disablepictureinpicture
+                      disableremoteplayback
+                      aria-hidden="true"
+                    >
+                      <source src="./assets/seaven-bg.mp4" type="video/mp4" />
+                    </video>
+                    <div class="hero-device-dynamic"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
