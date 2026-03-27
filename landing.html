@@ -551,6 +551,24 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .parrainage-calc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.04);}
 .parrainage-calc-title{font-size:22px;line-height:1.15;font-weight:800;letter-spacing:-0.03em;margin-bottom:12px;}
 .parrainage-range{margin-bottom:10px;}
+/* Curseur parrainage force en rose (meme teinte que le bouton) */
+#refSlider::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--pink),var(--purple)) !important;
+  box-shadow:0 3px 12px rgba(232,99,140,.4) !important;
+}
+#refSlider::-moz-range-thumb{
+  width:26px;
+  height:26px;
+  border:none;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  box-shadow:0 3px 12px rgba(232,99,140,.4);
+}
 .parrainage-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--mid);font-weight:700;margin-bottom:12px;}
 .parrainage-values{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .pv-box{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.04);}
@@ -1493,10 +1511,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                   <option value="Yara">Yara</option>
                   <option value="Autre">Autre</option>
                 </select>
-              </div>
-              <div class="ff full" id="fPlateformeAutreWrap" style="display:none">
-                <label class="fl" for="fPlateformeAutre">Précise ta plateforme</label>
-                <input class="fi" type="text" id="fPlateformeAutre" placeholder="Nom de la plateforme" autocomplete="off" disabled />
+                <input class="fi" type="text" id="fPlateformeAutre" placeholder="Nom de la plateforme" autocomplete="off" style="display:none" />
               </div>
               <div class="ff full">
                 <label class="fl" for="fMetier">Ton métier</label>
@@ -1520,10 +1535,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                   <option>Plasma pen</option>
                   <option>Autre</option>
                 </select>
-              </div>
-              <div class="ff full" id="fMetierAutreWrap" style="display:none">
-                <label class="fl" for="fMetierAutre">Précise ton métier</label>
-                <input class="fi" type="text" id="fMetierAutre" placeholder="Nom de ton métier" autocomplete="off" disabled />
+                <input class="fi" type="text" id="fMetierAutre" placeholder="Nom de ton métier" autocomplete="off" style="display:none" />
               </div>
               <div class="ff full">
                 <label class="fl" for="fClientes">Clientes / mois en moyenne</label>
@@ -1979,19 +1991,16 @@ async function fetchGeoCountry() {
 document.addEventListener("DOMContentLoaded", () => {
   fetchGeoCountry();
   const plateforme = document.getElementById("fPlateforme");
-  const autreWrap = document.getElementById("fPlateformeAutreWrap");
   const autreInput = document.getElementById("fPlateformeAutre");
   const metier = document.getElementById("fMetier");
-  const metierAutreWrap = document.getElementById("fMetierAutreWrap");
   const metierAutreInput = document.getElementById("fMetierAutre");
   const allFields = document.querySelectorAll(".fi");
   function syncAutrePlateforme() {
-    if (!plateforme || !autreWrap || !autreInput) return;
+    if (!plateforme || !autreInput) return;
     const show = plateforme.value === "Autre";
-    autreWrap.style.display = show ? "" : "none";
-    autreInput.disabled = !show;
+    plateforme.style.display = show ? "none" : "";
+    autreInput.style.display = show ? "" : "none";
     if (show) {
-      autreInput.readOnly = false;
       autreInput.focus();
     } else {
       autreInput.value = "";
@@ -2001,12 +2010,11 @@ document.addEventListener("DOMContentLoaded", () => {
   plateforme?.addEventListener("input", syncAutrePlateforme);
   syncAutrePlateforme();
   function syncAutreMetier() {
-    if (!metier || !metierAutreWrap || !metierAutreInput) return;
+    if (!metier || !metierAutreInput) return;
     const show = metier.value === "Autre";
-    metierAutreWrap.style.display = show ? "" : "none";
-    metierAutreInput.disabled = !show;
+    metier.style.display = show ? "none" : "";
+    metierAutreInput.style.display = show ? "" : "none";
     if (show) {
-      metierAutreInput.readOnly = false;
       metierAutreInput.focus();
     } else {
       metierAutreInput.value = "";
