@@ -653,21 +653,22 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   display:flex;
   align-items:center;
   gap:8px;
-  padding:8px 0;
+  padding:7px 0;
   border-bottom:1px solid #f0f0f3;
   min-width:0;
-  min-height:36px;
+  min-height:34px;
 }
 .cmp-row:last-child{border-bottom:none;}
 .cmp-ico{width:20px;height:20px;flex:0 0 auto;margin-top:0;border-radius:50%;}
 .cmp-ico.ok{color:#fff;background:#22c55e;}
 .cmp-ico.no{color:#fff;background:#ef4444;}
 .cmp-ico.warn{color:#fff;background:#f0c04a;border-radius:999px;padding:3px;}
-.cmp-txt{font-size:12px;line-height:1.35;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
+.cmp-txt{font-size:11px;line-height:1.3;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
 .cmp-cell{min-width:0;flex:1;}
 .cmp-row--seaven{justify-content:space-between;gap:10px;}
 .cmp-row--seaven .cmp-cell{padding-right:4px;}
 .cmp-row--competitor{justify-content:center;gap:0;}
+.cmp-row--competitor .cmp-ico{margin:0 auto;}
 .cmp-warn-hint{font-size:10px;font-weight:700;color:#8a6d1a;margin-top:3px;line-height:1.25;letter-spacing:.01em;}
 
 /* Animation changement concurrent (léger) */
@@ -1875,19 +1876,26 @@ function cmpRowRightHtml(f, status, compKey) {
   const st = status || CMP_STATUS.no;
   return `<div class="cmp-row cmp-row--competitor">${cmpIconSvg(st)}</div>`;
 }
+function cmpStatusFor(compKey, feature) {
+  const baseStatus = CMP_COMPETITOR_BASE[feature];
+  const competitorData = CMP_DATA[compKey] || CMP_DATA.planity;
+  if (Object.prototype.hasOwnProperty.call(competitorData, feature)) {
+    return competitorData[feature];
+  }
+  return baseStatus || CMP_STATUS.no;
+}
 function renderComparatif(key) {
   const left = document.getElementById("cmpLeft");
   const right = document.getElementById("cmpRight");
   const rightCard = document.getElementById("cmpRightCard");
   if (!left || !right || !rightCard) return;
-  const data = CMP_DATA[key] || CMP_DATA.planity;
 
   rightCard.classList.remove("is-swapping");
   void rightCard.offsetWidth;
   rightCard.classList.add("is-swapping");
 
   left.innerHTML = CMP_FEATURES.map((f) => cmpRowLeftHtml(f)).join("");
-  right.innerHTML = CMP_FEATURES.map((f) => cmpRowRightHtml(f, data[f], key)).join("");
+  right.innerHTML = CMP_FEATURES.map((f) => cmpRowRightHtml(f, cmpStatusFor(key, f), key)).join("");
 }
 const cmpSelectBtn = document.getElementById("cmpSelectBtn");
 const cmpMenu = document.getElementById("cmpMenu");
