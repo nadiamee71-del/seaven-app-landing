@@ -634,9 +634,9 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-list{max-height:none;overflow:visible;overflow-x:visible;padding-right:0;-webkit-overflow-scrolling:touch;}
 .cmp-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f0f0f3;min-width:0;}
 .cmp-row:last-child{border-bottom:none;}
-.cmp-ico{width:20px;height:20px;flex:0 0 auto;margin-top:0;}
-.cmp-ico.ok{color:#fff;background:#46b07a;border-radius:999px;padding:3px;}
-.cmp-ico.no{color:#fff;background:#e2546f;border-radius:999px;padding:3px;}
+.cmp-ico{width:20px;height:20px;flex:0 0 auto;margin-top:0;border-radius:50%;}
+.cmp-ico.ok{color:#fff;background:#22c55e;}
+.cmp-ico.no{color:#fff;background:#ef4444;}
 .cmp-ico.warn{color:#fff;background:#f0c04a;border-radius:999px;padding:3px;}
 .cmp-txt{font-size:12px;line-height:1.35;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
 .cmp-cell{min-width:0;flex:1;}
@@ -1833,12 +1833,12 @@ const CMP_DATA = {
 const CMP_WARN_HINTS = {};
 function cmpIconSvg(kind) {
   if (kind === CMP_STATUS.ok) {
-    return `<svg class="cmp-ico ok" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8.1" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    return `<svg class="cmp-ico ok" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 10.2 8.7 12.9 14 7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   }
   if (kind === CMP_STATUS.warn) {
     return `<svg class="cmp-ico warn" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 22 20H2L12 3Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M12 17.4h.01" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>`;
   }
-  return `<svg class="cmp-ico no" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+  return `<svg class="cmp-ico no" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6.7 6.7 13.3 13.3M13.3 6.7l-6.6 6.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`;
 }
 function cmpRowLeftHtml(f) {
   return `<div class="cmp-row">${cmpIconSvg(CMP_STATUS.ok)}<div class="cmp-cell"><div class="cmp-txt">${f}</div></div></div>`;
