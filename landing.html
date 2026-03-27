@@ -765,7 +765,7 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 .tarif-wrap{max-width:640px;margin:28px auto 0;}
 .t-q{font-size:16px;font-weight:700;margin-bottom:18px;}
 input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;background:var(--border);outline:none;cursor:pointer;margin-bottom:8px;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));cursor:pointer;box-shadow:0 3px 12px rgba(232,99,140,.4);}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#6ca8e3);cursor:pointer;box-shadow:0 3px 12px rgba(74,144,217,.35);}
 .t-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--mid);font-weight:700;margin-bottom:28px;}
 .t-box{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:26px;padding:clamp(24px,6vw,36px);text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.04);}
 .t-pop{display:inline-block;font-size:10px;font-weight:700;padding:5px 14px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;margin-bottom:14px;}
@@ -1521,6 +1521,10 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                   <option>Autre</option>
                 </select>
               </div>
+              <div class="ff full" id="fMetierAutreWrap" style="display:none">
+                <label class="fl" for="fMetierAutre">Précise ton métier</label>
+                <input class="fi" type="text" id="fMetierAutre" placeholder="Nom de ton métier" autocomplete="off" disabled />
+              </div>
               <div class="ff full">
                 <label class="fl" for="fClientes">Clientes / mois en moyenne</label>
                 <select class="fi" id="fClientes" onchange="updateEst()">
@@ -1977,6 +1981,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const plateforme = document.getElementById("fPlateforme");
   const autreWrap = document.getElementById("fPlateformeAutreWrap");
   const autreInput = document.getElementById("fPlateformeAutre");
+  const metier = document.getElementById("fMetier");
+  const metierAutreWrap = document.getElementById("fMetierAutreWrap");
+  const metierAutreInput = document.getElementById("fMetierAutre");
   const allFields = document.querySelectorAll(".fi");
   function syncAutrePlateforme() {
     if (!plateforme || !autreWrap || !autreInput) return;
@@ -1993,6 +2000,21 @@ document.addEventListener("DOMContentLoaded", () => {
   plateforme?.addEventListener("change", syncAutrePlateforme);
   plateforme?.addEventListener("input", syncAutrePlateforme);
   syncAutrePlateforme();
+  function syncAutreMetier() {
+    if (!metier || !metierAutreWrap || !metierAutreInput) return;
+    const show = metier.value === "Autre";
+    metierAutreWrap.style.display = show ? "" : "none";
+    metierAutreInput.disabled = !show;
+    if (show) {
+      metierAutreInput.readOnly = false;
+      metierAutreInput.focus();
+    } else {
+      metierAutreInput.value = "";
+    }
+  }
+  metier?.addEventListener("change", syncAutreMetier);
+  metier?.addEventListener("input", syncAutreMetier);
+  syncAutreMetier();
   allFields.forEach((el) => {
     el.addEventListener("input", () => el.classList.remove("invalid"));
     el.addEventListener("change", () => el.classList.remove("invalid"));
@@ -2009,6 +2031,7 @@ async function submitForm() {
   const plateformeEl = document.getElementById("fPlateforme");
   const autrePlateformeEl = document.getElementById("fPlateformeAutre");
   const metierEl = document.getElementById("fMetier");
+  const autreMetierEl = document.getElementById("fMetierAutre");
   const p = preEl.value.trim();
   const n = nomEl.value.trim();
   const e = emailEl.value.trim();
@@ -2016,9 +2039,10 @@ async function submitForm() {
   const pl = plateformeEl.value;
   const autrePl = autrePlateformeEl ? autrePlateformeEl.value.trim() : "";
   const m = metierEl.value;
+  const autreMetier = autreMetierEl ? autreMetierEl.value.trim() : "";
   const pays = document.getElementById("fPays").value.trim();
   const paysCode = document.getElementById("fPaysCode").value.trim();
-  [preEl, nomEl, emailEl, villeEl, plateformeEl, metierEl, autrePlateformeEl].forEach((el) => el?.classList.remove("invalid"));
+  [preEl, nomEl, emailEl, villeEl, plateformeEl, metierEl, autrePlateformeEl, autreMetierEl].forEach((el) => el?.classList.remove("invalid"));
   const invalids = [];
   if (!p) invalids.push(preEl);
   if (!n) invalids.push(nomEl);
@@ -2027,6 +2051,7 @@ async function submitForm() {
   if (!pl) invalids.push(plateformeEl);
   if (pl === "Autre" && !autrePl) invalids.push(autrePlateformeEl);
   if (!m) invalids.push(metierEl);
+  if (m === "Autre" && !autreMetier) invalids.push(autreMetierEl);
   if (invalids.length) {
     invalids.forEach((el) => el?.classList.add("invalid"));
     alert("Merci de remplir tous les champs 🙏");
@@ -2040,7 +2065,7 @@ async function submitForm() {
     pays: pays || null,
     pays_code: paysCode || null,
     plateforme: pl === "Autre" ? autrePl : pl,
-    metier: m,
+    metier: m === "Autre" ? autreMetier : m,
     clientes_par_mois: document.getElementById("fClientes").value || null
   };
   window.dispatchEvent(new CustomEvent("seaven:waitlist", { detail: waitlistPayload }));
