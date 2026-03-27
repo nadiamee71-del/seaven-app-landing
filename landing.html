@@ -352,11 +352,11 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   overflow:hidden;
   transform-origin:center center;
   will-change:transform;
-  animation:heroVidZoom 22s ease-in-out infinite alternate;
+  animation:zoomEffect 12s ease-in-out infinite alternate;
 }
-@keyframes heroVidZoom{
+@keyframes zoomEffect{
   0%{transform:scale(1);}
-  100%{transform:scale(1.12);}
+  100%{transform:scale(1.1);}
 }
 .hero-bg-video{
   position:absolute;
@@ -394,9 +394,106 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .hero.hero--video-focus .hero-bg-overlay{
   background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.22) 100%);
 }
+/* Textes animés type Apple au-dessus du voile (séquence, premium) */
+.hero-video-text-layer{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  box-sizing:border-box;
+  padding:max(20px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-left)) 0 max(18px,env(safe-area-inset-right));
+  padding-top:max(14vh,min(120px,22vw));
+}
+.hero-video-text-inner{
+  position:relative;
+  width:100%;
+  max-width:min(520px,100%);
+  min-height:4.5em;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.hero-vt-line{
+  position:absolute;
+  left:0;
+  right:0;
+  margin:0;
+  padding:0 4px;
+  box-sizing:border-box;
+  font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:clamp(14px,3.8vw,19px);
+  font-weight:600;
+  letter-spacing:-0.02em;
+  line-height:1.35;
+  color:rgba(255,255,255,.96);
+  text-shadow:0 2px 28px rgba(0,0,0,.45),0 1px 2px rgba(0,0,0,.25);
+  opacity:0;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+  animation-duration:54s;
+  will-change:opacity;
+}
+.hero-vt-line--1{animation-name:heroVt1;}
+.hero-vt-line--2{animation-name:heroVt2;}
+.hero-vt-line--3{animation-name:heroVt3;}
+.hero-vt-line--4{animation-name:heroVt4;}
+.hero-vt-line--5{animation-name:heroVt5;}
+.hero-vt-line--6{animation-name:heroVt6;}
+.hero-vt-line--7{animation-name:heroVt7;}
+.hero-vt-line--8{animation-name:heroVt8;}
+.hero-vt-line--9{animation-name:heroVt9;}
+@keyframes heroVt1{
+  0%,100%{opacity:0;}
+  1.111%,4.444%{opacity:1;}
+  5.556%,11.111%{opacity:0;}
+}
+@keyframes heroVt2{
+  0%,11.111%,100%{opacity:0;}
+  12.222%,15.556%{opacity:1;}
+  16.667%,22.222%{opacity:0;}
+}
+@keyframes heroVt3{
+  0%,22.222%,100%{opacity:0;}
+  23.333%,26.667%{opacity:1;}
+  27.778%,33.333%{opacity:0;}
+}
+@keyframes heroVt4{
+  0%,33.333%,100%{opacity:0;}
+  34.444%,37.778%{opacity:1;}
+  38.889%,44.444%{opacity:0;}
+}
+@keyframes heroVt5{
+  0%,44.444%,100%{opacity:0;}
+  45.556%,48.889%{opacity:1;}
+  50%,55.556%{opacity:0;}
+}
+@keyframes heroVt6{
+  0%,55.556%,100%{opacity:0;}
+  56.667%,60%{opacity:1;}
+  61.111%,66.667%{opacity:0;}
+}
+@keyframes heroVt7{
+  0%,66.667%,100%{opacity:0;}
+  67.778%,71.111%{opacity:1;}
+  72.222%,77.778%{opacity:0;}
+}
+@keyframes heroVt8{
+  0%,77.778%,100%{opacity:0;}
+  78.889%,82.222%{opacity:1;}
+  83.333%,88.889%{opacity:0;}
+}
+@keyframes heroVt9{
+  0%,88.889%,100%{opacity:0;}
+  90%,93.333%{opacity:1;}
+  94.444%,100%{opacity:0;}
+}
 .hero-inner{
   position:relative;
-  z-index:2;
+  z-index:3;
   max-width:min(560px,100%);
   margin-left:auto;
   margin-right:auto;
@@ -412,6 +509,8 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   .hero-inner{transition:opacity .2s ease;}
   .hero.hero--video-focus .hero-inner{transform:none;}
   .hero-bg-zoom{animation:none;transform:none;}
+  .hero-vt-line{animation:none !important;opacity:0 !important;}
+  .hero-vt-line--1{opacity:1 !important;}
   .hero-inner-fade{animation:none !important;opacity:1 !important;transform:none !important;max-height:none !important;}
 }
 /* Bloc titre + CTA : fondu et disparition (stats / note restent en dessous) */
@@ -817,6 +916,19 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               </video>
             </div>
             <div class="hero-bg-overlay"></div>
+          </div>
+          <div class="hero-video-text-layer" aria-hidden="true">
+            <div class="hero-video-text-inner">
+              <p class="hero-vt-line hero-vt-line--1">Lancement le 21 septembre 2026</p>
+              <p class="hero-vt-line hero-vt-line--2">Tout ton business, dans une seule app.</p>
+              <p class="hero-vt-line hero-vt-line--3">Réservations, IA, stock, messagerie, marketplace</p>
+              <p class="hero-vt-line hero-vt-line--4">+20 métiers acceptés</p>
+              <p class="hero-vt-line hero-vt-line--5">0% commission</p>
+              <p class="hero-vt-line hero-vt-line--6">1 app pour tout</p>
+              <p class="hero-vt-line hero-vt-line--7">14 jours offerts</p>
+              <p class="hero-vt-line hero-vt-line--8">🔒 Gratuit · Aucune carte bancaire requise</p>
+              <p class="hero-vt-line hero-vt-line--9">Rejoindre la liste d’attente</p>
+            </div>
           </div>
           <div class="hero-inner">
           <div class="hero-inner-fade">
