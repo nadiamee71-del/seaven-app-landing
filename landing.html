@@ -361,17 +361,6 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   text-align:center;
   gap:0;
 }
-.landing-app-video-sec{
-  width:100%;
-  max-width:min(640px,100%);
-  margin:0 auto;
-  padding:clamp(20px,4vw,40px) max(16px,env(safe-area-inset-left)) clamp(28px,5vw,48px) max(16px,env(safe-area-inset-right));
-  box-sizing:border-box;
-  background:
-    radial-gradient(ellipse 110% 70% at 50% 0%, rgba(168,125,200,.1) 0%, transparent 52%),
-    linear-gradient(180deg, #fafbff 0%, #fff 100%);
-}
-.landing-app-video-sec .hero-device-stage{margin-top:0;}
 .hero-device-stage{
   width:100%;
   display:flex;
@@ -555,6 +544,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 #waitlist .btn-submit:hover{box-shadow:0 12px 28px rgba(255,202,40,.35);}
 #pricing-section .btn-submit{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 #pricing-section .btn-submit:hover{box-shadow:0 12px 28px rgba(74,144,217,.3);}
+.tarif-demo-link{margin-top:clamp(20px,4vw,28px);text-align:center;}
 #pricing-section .t-pop{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 
 /* Bloc parrainage */
@@ -966,7 +956,6 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                 </button>
               </div>
               <p class="hero-note">🔒 Gratuit · Aucune carte bancaire requise</p>
-              <p class="hero-demo-link"><a href="./reservation-demo.html">Essayer la démo réservation interactive →</a></p>
               <div class="hero-stats">
                 <div class="stat">
                   <div class="stat-n">+20</div>
@@ -983,6 +972,32 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               </div>
               <div class="hero-extra-offers">
                 <div class="hero-promo" role="status">14 jours offerts à l’essai</div>
+              </div>
+            </div>
+            <div class="hero-device-stage" aria-hidden="true">
+              <div class="hero-device-shell">
+                <span class="hero-device-side hero-device-side--vol1"></span>
+                <span class="hero-device-side hero-device-side--vol2"></span>
+                <span class="hero-device-side hero-device-side--power"></span>
+                <div class="hero-device-frame">
+                  <div class="hero-device-zoom">
+                    <video
+                      id="hero-bg-video"
+                      class="hero-device-video"
+                      autoplay
+                      muted
+                      loop
+                      playsinline
+                      preload="metadata"
+                      disablepictureinpicture
+                      disableremoteplayback
+                      aria-hidden="true"
+                    >
+                      <source src="./assets/seaven-bg.mp4" type="video/mp4" />
+                    </video>
+                    <div class="hero-device-dynamic"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1400,36 +1415,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               <div style="font-size: 13px; color: #666; margin-top: 8px">par mois · toutes fonctionnalités incluses</div>
               <div class="t-feats" id="tFeats"></div>
             </div>
-          </div>
-        </div>
-
-        <!-- Vidéo app (après tarifs) -->
-        <div class="landing-app-video-sec" aria-hidden="true">
-          <div class="hero-device-stage">
-            <div class="hero-device-shell">
-              <span class="hero-device-side hero-device-side--vol1"></span>
-              <span class="hero-device-side hero-device-side--vol2"></span>
-              <span class="hero-device-side hero-device-side--power"></span>
-              <div class="hero-device-frame">
-                <div class="hero-device-zoom">
-                  <video
-                    id="hero-bg-video"
-                    class="hero-device-video"
-                    autoplay
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata"
-                    disablepictureinpicture
-                    disableremoteplayback
-                    aria-hidden="true"
-                  >
-                    <source src="./assets/seaven-bg.mp4" type="video/mp4" />
-                  </video>
-                  <div class="hero-device-dynamic"></div>
-                </div>
-              </div>
-            </div>
+            <p class="hero-demo-link tarif-demo-link"><a href="./reservation-demo.html">Essayer la démo réservation interactive →</a></p>
           </div>
         </div>
 
