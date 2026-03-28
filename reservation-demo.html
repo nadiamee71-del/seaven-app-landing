@@ -504,7 +504,7 @@
     }
     .demo-upload-preview {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
       border-radius: 10px;
       object-fit: cover;
@@ -1178,7 +1178,7 @@
         if (iaBox) iaBox.style.display = "none";
         if (placeholder) placeholder.style.display = "";
         if (preview) preview.style.display = "none";
-        if (uploadZone) { uploadZone.style.cursor = "pointer"; uploadZone.classList.remove("has-photo"); }
+        if (uploadZone) { uploadZone.style.cursor = "pointer"; uploadZone.classList.remove("has-photo"); uploadZone.style.height = ""; }
       } else {
         const photo = catPhotoMap[state.cat] || catPhotoMap["Ongles"];
         const tags = catIaTags[state.cat] || catIaTags["Ongles"];
@@ -1195,6 +1195,8 @@
 
     function doImportPhoto() {
       if (state.photoImported) return;
+      var zone = document.getElementById("uploadZone");
+      if (zone) zone.style.height = zone.offsetHeight + "px";
       state.photoImported = true;
       syncPhotoStep();
     }
