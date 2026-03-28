@@ -1114,6 +1114,60 @@
       pay: "Carte bancaire"
     };
 
+    const catProMap = {"Ongles":"Léa","Cils":"Nina","Blanchiment dentaire":"N'importe qui"};
+    const catPhotoMap = {
+      "Ongles":    {src:"./assets/ongle.png", name:"ongle.png"},
+      "Cils":      {src:"./assets/cil.png",   name:"cil.png"},
+      "Blanchiment dentaire": {src:"./assets/strass.png", name:"strass.png"}
+    };
+    const catIaTags = {
+      "Ongles": [
+        {text:"French manucure",cls:""},
+        {text:"Gel X",cls:"pink"},
+        {text:"Amande · M",cls:"mint"},
+        {text:"Nude + tips",cls:"orange"}
+      ],
+      "Cils": [
+        {text:"Volume russe",cls:""},
+        {text:"Courbure D",cls:"pink"},
+        {text:"Naturel · 0,15",cls:"mint"},
+        {text:"Pose complète",cls:"orange"}
+      ],
+      "Blanchiment dentaire": [
+        {text:"Blanchiment LED",cls:""},
+        {text:"+4 teintes",cls:"pink"},
+        {text:"Séance 45 min",cls:"mint"},
+        {text:"Sensibilité normale",cls:"orange"}
+      ]
+    };
+
+    function syncProForCat() {
+      const target = catProMap[state.cat] || "Léa";
+      state.pro = target;
+      document.querySelectorAll(".person-row").forEach((b) => {
+        b.classList.remove("selected");
+        b.querySelector(".radio-ui").textContent = "";
+      });
+      const match = document.querySelector('.person-row[data-pro="' + target + '"]');
+      if (match) {
+        match.classList.add("selected");
+        match.querySelector(".radio-ui").textContent = "✓";
+      }
+    }
+
+    function syncPhotoStep() {
+      const photo = catPhotoMap[state.cat] || catPhotoMap["Ongles"];
+      const tags = catIaTags[state.cat] || catIaTags["Ongles"];
+      const thumb = document.querySelector(".demo-upload-thumb");
+      const fname = document.querySelector(".demo-upload-filename");
+      const tagsEl = document.querySelector(".demo-ia-tags");
+      if (thumb) thumb.src = photo.src;
+      if (fname) fname.textContent = photo.name;
+      if (tagsEl) tagsEl.innerHTML = tags.map(function(t) {
+        return '<span class="demo-ia-tag' + (t.cls ? ' ' + t.cls : '') + '">' + t.text + '</span>';
+      }).join("");
+    }
+
     let step = 0;
     const track = document.getElementById("stepsTrack");
     const progressFill = document.getElementById("progressFill");
@@ -1226,12 +1280,14 @@
       } else {
         detail = `${state.blancType} · ${state.blancObjectif} · ${state.blancSensibilite}`;
       }
+      const photo = catPhotoMap[state.cat] || catPhotoMap["Ongles"];
       const rows = [
         ["Créneau", `${state.pro} · Mar. ${state.day} · ${state.slot}`],
-        ["Prestation", `${state.cat} — ${detail}`],
-        ["Référence", "1 photo · IA (démo)"]
+        ["Prestation", `${state.cat} — ${detail}`]
       ];
-      body.innerHTML = rows.map(([a, b]) => `<div class="recap-row"><span>${a}</span><strong>${b}</strong></div>`).join("");
+      let html = rows.map(([a, b]) => `<div class="recap-row"><span>${a}</span><strong>${b}</strong></div>`).join("");
+      html += `<div class="recap-row" style="align-items:center;padding:6px 0;"><span>Référence</span><div style="display:flex;align-items:center;gap:6px;"><img src="${photo.src}" width="28" height="28" style="border-radius:6px;object-fit:cover;border:1px solid #ececf1;" alt="" /><strong style="font-size:9px;">${photo.name}</strong></div></div>`;
+      body.innerHTML = html;
     }
 
     function confettiBurst() {
@@ -1307,6 +1363,7 @@
           insT.textContent = "Photo du sourire (optionnel)";
           insD.textContent = "Pour suivi des teintes avant / après — uniquement en démo.";
         }
+        syncPhotoStep();
       }
 
       if (step === 7) {
@@ -1366,6 +1423,8 @@
         btn.classList.add("selected");
         state.cat = btn.dataset.cat;
         syncPrefsBlocks();
+        syncProForCat();
+        syncPhotoStep();
         updateFooter();
       });
     });
@@ -1495,6 +1554,7 @@
     buildDays();
     buildSlots();
     syncPrefsBlocks();
+    syncPhotoStep();
     updateUI();
 
     window.addEventListener('message',function(e){
