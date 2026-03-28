@@ -62,12 +62,14 @@
     }
     .demo-title-brand {
       display: inline-block;
-      color: #121218;
-      background: rgba(255,255,255,.94);
-      padding: 6px 14px 8px;
-      border-radius: 12px;
-      margin-bottom: 6px;
-      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+      color: rgba(255, 255, 255, 0.95);
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      margin-bottom: 4px;
+      box-shadow: none;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
     .demo-title-grad {
       display: inline-block;
@@ -95,41 +97,6 @@
     .stage {
       max-width: 380px;
       margin: 0 auto;
-      position: relative;
-    }
-    .step-pill {
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink), var(--violet));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: "Bricolage Grotesque", sans-serif;
-      font-weight: 800;
-      font-size: 18px;
-      color: #fff;
-      box-shadow: 0 12px 32px rgba(238,75,147,.45);
-      z-index: 4;
-      transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
-    }
-    .step-pill.pulse { animation: pillPop .55s ease; }
-    .step-pill.step-tone-0 { background: linear-gradient(135deg, #e11d74, #fb7185); box-shadow: 0 12px 28px rgba(225, 29, 116, 0.42); }
-    .step-pill.step-tone-1 { background: linear-gradient(135deg, #7c3aed, #a78bfa); box-shadow: 0 12px 28px rgba(124, 58, 237, 0.38); }
-    .step-pill.step-tone-2 { background: linear-gradient(135deg, #9333ea, #c084fc); box-shadow: 0 12px 28px rgba(147, 51, 234, 0.36); }
-    .step-pill.step-tone-3 { background: linear-gradient(135deg, #ea580c, #fb923c); box-shadow: 0 12px 28px rgba(234, 88, 12, 0.38); }
-    .step-pill.step-tone-4 { background: linear-gradient(135deg, #4f46e5, #818cf8); box-shadow: 0 12px 28px rgba(79, 70, 229, 0.36); }
-    .step-pill.step-tone-5 { background: linear-gradient(135deg, #db2777, #9b7cf2); box-shadow: 0 12px 28px rgba(219, 39, 119, 0.32); }
-    .step-pill.step-tone-6 { background: linear-gradient(135deg, #6d28d9, #a855f7); box-shadow: 0 12px 28px rgba(109, 40, 217, 0.38); }
-    .step-pill.step-tone-7 { background: linear-gradient(135deg, #0d9488, #14b8a6); box-shadow: 0 12px 28px rgba(13, 148, 136, 0.4); }
-    @keyframes pillPop {
-      0% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.12); }
-      100% { transform: translateX(-50%) scale(1); }
     }
 
     .phone {
@@ -261,7 +228,6 @@
     @media (prefers-reduced-motion: reduce) {
       .steps-track { transition-duration: 0.01ms; }
       .progress-fill { transition-duration: 0.01ms; }
-      .step-pill.pulse { animation: none; }
     }
 
     .step-h2 {
@@ -746,6 +712,13 @@
       font-weight: 700;
       margin-top: 4px;
     }
+
+    .prefs-block {
+      display: none;
+    }
+    .prefs-block.is-visible {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -760,7 +733,6 @@
   </div>
 
   <div class="stage">
-    <div class="step-pill" id="stepPill">1</div>
     <div class="phone">
       <div class="phone-screen">
         <header class="app-header">
@@ -816,42 +788,99 @@
               </button>
             </div>
 
-            <!-- 2 Préférences -->
+            <!-- 2 Préférences (contenu selon catégorie) -->
             <div class="step-panel" data-step="2">
-              <h2 class="step-h2">Personnaliser</h2>
-              <p class="step-desc">Affine ta pose (exemple type ongles)</p>
-              <div class="field-label">Dépose ou remplissage ?</div>
-              <div class="chip-row" id="depRow">
-                <button type="button" class="chip" data-dep="Dépose">Dépose</button>
-                <button type="button" class="chip on" data-dep="Remplissage">Remplissage</button>
+              <h2 class="step-h2" id="prefsTitle">Personnaliser</h2>
+              <p class="step-desc" id="prefsDesc">Affine ta pose (exemple type ongles)</p>
+
+              <div class="prefs-block prefs-ongles is-visible" data-prefs-for="Ongles">
+                <div class="field-label">Dépose ou remplissage ?</div>
+                <div class="chip-row" id="depRow">
+                  <button type="button" class="chip" data-dep="Dépose">Dépose</button>
+                  <button type="button" class="chip on" data-dep="Remplissage">Remplissage</button>
+                </div>
+                <div class="field-label">Méthode</div>
+                <select class="fi-like" id="methodeSel">
+                  <option>Gel X</option>
+                  <option>Semi-permanent</option>
+                  <option>Pose américaine</option>
+                </select>
+                <div class="field-label">Longueur</div>
+                <div class="chip-row" id="lenRow">
+                  <button type="button" class="chip" data-len="XS">XS</button>
+                  <button type="button" class="chip" data-len="S">S</button>
+                  <button type="button" class="chip on" data-len="M">M</button>
+                  <button type="button" class="chip" data-len="L">L</button>
+                  <button type="button" class="chip" data-len="XL">XL</button>
+                </div>
+                <div class="field-label">Forme</div>
+                <div class="pill-row" id="shapeRow">
+                  <button type="button" class="pill on" data-shape="Amande">Amande</button>
+                  <button type="button" class="pill" data-shape="Carré">Carré</button>
+                  <button type="button" class="pill" data-shape="Ballerine">Ballerine</button>
+                </div>
               </div>
-              <div class="field-label">Méthode</div>
-              <select class="fi-like" id="methodeSel">
-                <option>Gel X</option>
-                <option>Semi-permanent</option>
-                <option>Pose américaine</option>
-              </select>
-              <div class="field-label">Longueur</div>
-              <div class="chip-row" id="lenRow">
-                <button type="button" class="chip" data-len="XS">XS</button>
-                <button type="button" class="chip" data-len="S">S</button>
-                <button type="button" class="chip on" data-len="M">M</button>
-                <button type="button" class="chip" data-len="L">L</button>
-                <button type="button" class="chip" data-len="XL">XL</button>
+
+              <div class="prefs-block prefs-cils" data-prefs-for="Cils">
+                <div class="field-label">Pose complète ou remplissage ?</div>
+                <div class="chip-row" id="cilsPoseRow">
+                  <button type="button" class="chip on" data-cils-pose="Pose complète">Pose complète</button>
+                  <button type="button" class="chip" data-cils-pose="Remplissage">Remplissage</button>
+                </div>
+                <div class="field-label">Technique</div>
+                <select class="fi-like" id="cilsTechSel">
+                  <option>Cil à cil</option>
+                  <option selected>Volume russe</option>
+                  <option>Hybride / mixte</option>
+                  <option>Mega volume</option>
+                </select>
+                <div class="field-label">Courbure</div>
+                <div class="chip-row" id="cilsCurlRow">
+                  <button type="button" class="chip" data-cils-curl="C">C</button>
+                  <button type="button" class="chip" data-cils-curl="CC">CC</button>
+                  <button type="button" class="chip on" data-cils-curl="D">D</button>
+                  <button type="button" class="chip" data-cils-curl="L">L</button>
+                </div>
+                <div class="field-label">Épaisseur / volume</div>
+                <div class="pill-row" id="cilsThickRow">
+                  <button type="button" class="pill" data-cils-ep="0,07 mm · léger">Fin · 0,07</button>
+                  <button type="button" class="pill on" data-cils-ep="0,15 mm · naturel">Naturel · 0,15</button>
+                  <button type="button" class="pill" data-cils-ep="0,20 mm · glamour">Glamour · 0,20</button>
+                </div>
               </div>
-              <div class="field-label">Forme</div>
-              <div class="pill-row" id="shapeRow">
-                <button type="button" class="pill on" data-shape="Amande">Amande</button>
-                <button type="button" class="pill" data-shape="Carré">Carré</button>
-                <button type="button" class="pill" data-shape="Ballerine">Ballerine</button>
+
+              <div class="prefs-block prefs-blanc" data-prefs-for="Blanchiment dentaire">
+                <div class="field-label">Type de séance</div>
+                <div class="chip-row" id="blancTypeRow">
+                  <button type="button" class="chip on" data-blanc-type="Première séance">Première séance</button>
+                  <button type="button" class="chip" data-blanc-type="Retouche express">Retouche express</button>
+                </div>
+                <div class="field-label">Objectif d’éclaircissement</div>
+                <div class="pill-row" id="blancGoalRow">
+                  <button type="button" class="pill" data-blanc-goal="+2 teintes">+2 teintes</button>
+                  <button type="button" class="pill on" data-blanc-goal="+4 teintes">+4 teintes</button>
+                  <button type="button" class="pill" data-blanc-goal="+6 teintes max">+6 teintes max</button>
+                </div>
+                <div class="field-label">Sensibilité dentaire</div>
+                <div class="chip-row" id="blancSensRow">
+                  <button type="button" class="chip on" data-blanc-sens="Normale">Normale</button>
+                  <button type="button" class="chip" data-blanc-sens="Sensibles">Sensibles</button>
+                  <button type="button" class="chip" data-blanc-sens="Très sensibles">Très sensibles</button>
+                </div>
+                <div class="field-label">Durée prévue (démo)</div>
+                <select class="fi-like" id="blancDureeSel">
+                  <option>45 min · standard</option>
+                  <option>60 min · confort +</option>
+                  <option>30 min · flash</option>
+                </select>
               </div>
             </div>
 
             <!-- 3 Photo d'inspiration -->
             <div class="step-panel" data-step="3">
               <div class="demo-badge-new">✦ + NOUVEAU</div>
-              <h2 class="step-h2">Montrez votre inspiration</h2>
-              <p class="step-desc">Importez une photo de nail art que vous aimez pour guider votre prestataire.</p>
+              <h2 class="step-h2" id="inspiTitle">Montrez votre inspiration</h2>
+              <p class="step-desc" id="inspiDesc">Importez une photo de nail art que vous aimez pour guider votre prestataire.</p>
               <div class="demo-upload-zone">
                 <div class="demo-upload-ico">📷</div>
                 <strong style="font-size:14px;color:var(--text);display:block;margin-bottom:4px;">Importer une photo</strong>
@@ -959,6 +988,14 @@
       methode: "Gel X",
       len: "M",
       shape: "Amande",
+      cilsPose: "Pose complète",
+      cilsTechnique: "Volume russe",
+      cilsCourbure: "D",
+      cilsEpaisseur: "0,15 mm · naturel",
+      blancType: "Première séance",
+      blancObjectif: "+4 teintes",
+      blancSensibilite: "Normale",
+      blancDuree: "45 min · standard",
       day: 25,
       slot: "14:00",
       slotEnd: "15:10",
@@ -969,7 +1006,6 @@
     let step = 0;
     const track = document.getElementById("stepsTrack");
     const progressFill = document.getElementById("progressFill");
-    const stepPill = document.getElementById("stepPill");
     const btnNext = document.getElementById("btnNext");
     const btnBack = document.getElementById("btnBack");
     const footerLabel = document.getElementById("footerLabel");
@@ -978,6 +1014,12 @@
     const stepCaption = document.getElementById("stepCaption");
     const stepTitleOut = document.getElementById("stepTitleOut");
     const appFooter = document.getElementById("appFooter");
+
+    function syncPrefsBlocks() {
+      document.querySelectorAll(".prefs-block").forEach((el) => {
+        el.classList.toggle("is-visible", el.dataset.prefsFor === state.cat);
+      });
+    }
 
     const checksText = [
       "J'annule au moins 72h avant, sinon l'acompte est conservé.",
@@ -1066,13 +1108,31 @@
 
     function buildRecap() {
       const body = document.getElementById("recapBody");
+      let detailRows = [];
+      if (state.cat === "Ongles") {
+        detailRows = [
+          ["Prestation", `Ongles · ${state.dep}`],
+          ["Pose", `${state.methode} · ${state.shape} · long. ${state.len}`],
+          ["Finition", "French / naturel · démo"]
+        ];
+      } else if (state.cat === "Cils") {
+        detailRows = [
+          ["Prestation", `Cils · ${state.cilsPose}`],
+          ["Technique", state.cilsTechnique],
+          ["Courbure & volume", `${state.cilsCourbure} · ${state.cilsEpaisseur}`]
+        ];
+      } else {
+        detailRows = [
+          ["Prestation", `Blanchiment · ${state.blancType}`],
+          ["Objectif", state.blancObjectif],
+          ["Confort", `${state.blancSensibilite} · ${state.blancDuree}`]
+        ];
+      }
       const rows = [
         ["Prestataire", `${state.pro} · Bloom Nails`],
         ["Adresse", "27 av. Jean Médecin"],
-        ["Prestation", `${state.cat} · ${state.dep}`],
-        ["Méthode", `${state.methode} · ${state.shape} · ${state.len}`],
-        ["Inspiration", "1 photo · analyse IA"],
-        ["Finition", "French / naturel"],
+        ...detailRows,
+        ["Inspiration", "1 photo · analyse IA (démo)"],
         ["Date & heure", `Mar. ${state.day} mars · ${state.slot}`]
       ];
       body.innerHTML = rows.map(([a, b]) => `<div class="recap-row"><span>${a}</span><strong>${b}</strong></div>`).join("");
@@ -1107,8 +1167,6 @@
       track.style.transform = `translateX(-${(step / TOTAL) * 100}%)`;
       progressFill.style.width = `${((step + 1) / TOTAL) * 100}%`;
       progressFill.style.background = stepToneGrads[step] || stepToneGrads[0];
-      stepPill.textContent = String(step + 1);
-      stepPill.className = "step-pill pulse step-tone-" + step;
       const c = captions[step] || captions[0];
       stepCaption.textContent = c.cap;
       stepTitleOut.textContent = c.title;
@@ -1116,7 +1174,7 @@
       const subs = [
         "Réserver une prestation",
         "Réserver une prestation",
-        "Personnaliser la pose",
+        "Personnaliser la prestation",
         "Votre inspiration",
         "Choisir un créneau",
         "Récapitulatif",
@@ -1124,6 +1182,36 @@
         "Confirmation"
       ];
       headerSub.textContent = subs[step] || subs[0];
+
+      syncPrefsBlocks();
+      const prefsTitle = document.getElementById("prefsTitle");
+      const prefsDesc = document.getElementById("prefsDesc");
+      if (prefsTitle && prefsDesc && step === 2) {
+        if (state.cat === "Ongles") {
+          prefsTitle.textContent = "Personnaliser";
+          prefsDesc.textContent = "Affine ta pose (exemple type ongles).";
+        } else if (state.cat === "Cils") {
+          prefsTitle.textContent = "Personnaliser";
+          prefsDesc.textContent = "Technique, courbure et volume — comme en cabine.";
+        } else {
+          prefsTitle.textContent = "Personnaliser";
+          prefsDesc.textContent = "Objectif d’éclaircissement, sensibilité et durée de séance.";
+        }
+      }
+      const insT = document.getElementById("inspiTitle");
+      const insD = document.getElementById("inspiDesc");
+      if (insT && insD && step === 3) {
+        if (state.cat === "Ongles") {
+          insT.textContent = "Montrez votre inspiration";
+          insD.textContent = "Importez une photo de nail art que vous aimez pour guider votre prestataire.";
+        } else if (state.cat === "Cils") {
+          insT.textContent = "Votre référence regard";
+          insD.textContent = "Une photo d’inspi (volume, densité) aide la pro à caler le rendu.";
+        } else {
+          insT.textContent = "Photo du sourire (optionnel)";
+          insD.textContent = "Pour suivi des teintes avant / après — uniquement en démo.";
+        }
+      }
 
       if (step === 7) {
         appFooter.style.display = "none";
@@ -1150,7 +1238,13 @@
         footerValue.textContent = state.pro + " · Bloom Nails";
       } else if (step === 2) {
         footerLabel.textContent = "Préférences";
-        footerValue.textContent = `${state.dep} · ${state.methode} · ${state.len}`;
+        if (state.cat === "Ongles") {
+          footerValue.textContent = `${state.dep} · ${state.methode} · ${state.len}`;
+        } else if (state.cat === "Cils") {
+          footerValue.textContent = `${state.cilsTechnique} · ${state.cilsCourbure} · ${state.cilsPose}`;
+        } else {
+          footerValue.textContent = `${state.blancType} · ${state.blancObjectif}`;
+        }
       } else if (step === 3) {
         footerLabel.textContent = "Référence ajoutée";
         footerValue.textContent = "1 photo importée";
@@ -1174,6 +1268,7 @@
         });
         btn.classList.add("selected");
         state.cat = btn.dataset.cat;
+        syncPrefsBlocks();
         updateFooter();
       });
     });
@@ -1223,6 +1318,64 @@
       updateFooter();
     });
 
+    document.querySelectorAll("#cilsPoseRow .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#cilsPoseRow .chip").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.cilsPose = btn.dataset.cilsPose;
+        updateFooter();
+      });
+    });
+    document.getElementById("cilsTechSel").addEventListener("change", (e) => {
+      state.cilsTechnique = e.target.value;
+      updateFooter();
+    });
+    document.querySelectorAll("#cilsCurlRow .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#cilsCurlRow .chip").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.cilsCourbure = btn.dataset.cilsCurl;
+        updateFooter();
+      });
+    });
+    document.querySelectorAll("#cilsThickRow .pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#cilsThickRow .pill").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.cilsEpaisseur = btn.dataset.cilsEp;
+        updateFooter();
+      });
+    });
+
+    document.querySelectorAll("#blancTypeRow .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#blancTypeRow .chip").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.blancType = btn.dataset.blancType;
+        updateFooter();
+      });
+    });
+    document.querySelectorAll("#blancGoalRow .pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#blancGoalRow .pill").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.blancObjectif = btn.dataset.blancGoal;
+        updateFooter();
+      });
+    });
+    document.querySelectorAll("#blancSensRow .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#blancSensRow .chip").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.blancSensibilite = btn.dataset.blancSens;
+        updateFooter();
+      });
+    });
+    document.getElementById("blancDureeSel").addEventListener("change", (e) => {
+      state.blancDuree = e.target.value;
+      updateFooter();
+    });
+
     btnNext.addEventListener("click", () => {
       if (step === 4) buildRecap();
       if (step === 5) {
@@ -1244,6 +1397,7 @@
 
     buildDays();
     buildSlots();
+    syncPrefsBlocks();
     updateUI();
   </script>
 </body>
