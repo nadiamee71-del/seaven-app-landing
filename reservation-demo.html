@@ -2,6 +2,13 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function () {
+      try {
+        if (window.self !== window.top) document.documentElement.classList.add("rdemo-embed");
+      } catch (e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
   <title>Seaven — Parcours réservation client (démo)</title>
   <meta name="description" content="Parcours de réservation démo Bloom Nails — teste le flux comme dans l’app SEAVEN." />
@@ -775,6 +782,20 @@
       overflow: hidden;
       gap: 0;
     }
+
+    html.rdemo-embed body {
+      padding: 8px 6px 12px;
+      min-height: 0;
+    }
+    .rdemo-embed .demo-top {
+      display: none !important;
+    }
+    .rdemo-embed .stage {
+      margin-top: 0;
+    }
+    .rdemo-embed .caption-out {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -798,7 +819,7 @@
               <h1>Bloom Nails</h1>
               <p id="headerSub">Réserver une prestation</p>
             </div>
-            <button type="button" class="icon-btn" id="btnClose" aria-label="Fermer la démo" onclick="location.href='./landing.html'">×</button>
+            <button type="button" class="icon-btn" id="btnClose" aria-label="Fermer la démo" onclick="rdemoCloseOrBack()">×</button>
           </div>
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
         </header>
@@ -1004,7 +1025,7 @@
                 <div class="success-ring">✓</div>
                 <h2 class="step-h2">C’est réservé (démo)</h2>
                 <p class="step-desc">Dans SEAVEN, le paiement de l’acompte et la confirmation arrivent ici. Tu viens de parcourir tout le flux.</p>
-                <button type="button" class="opt-card" style="margin-top:8px;padding:8px;justify-content:center;" onclick="location.href='./landing.html'">
+                <button type="button" class="opt-card" style="margin-top:8px;padding:8px;justify-content:center;" onclick="rdemoGoWaitlist()">
                   <span class="opt-txt" style="text-align:center;"><strong>Rejoindre la liste d’attente</strong><span>Sur la landing SEAVEN</span></span>
                 </button>
               </div>
@@ -1025,6 +1046,34 @@
   </div>
 
   <script>
+    function rdemoInIframe() {
+      try {
+        return window.parent && window.parent !== window;
+      } catch (e) {
+        return false;
+      }
+    }
+    function rdemoCloseOrBack() {
+      if (rdemoInIframe()) {
+        try {
+          if (typeof window.parent.scroll2 === "function") window.parent.scroll2("pricing-section");
+          else window.parent.location.hash = "pricing-section";
+        } catch (e) {}
+        return;
+      }
+      location.href = "./landing.html";
+    }
+    function rdemoGoWaitlist() {
+      if (rdemoInIframe()) {
+        try {
+          if (typeof window.parent.scroll2 === "function") window.parent.scroll2("waitlist");
+          else window.parent.location.hash = "waitlist";
+        } catch (e) {}
+        return;
+      }
+      location.href = "./landing.html#waitlist";
+    }
+
     const TOTAL = 8;
     const captions = [
       { cap: "Étape 1", title: "Choix du service" },

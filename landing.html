@@ -544,7 +544,9 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 #waitlist .btn-submit:hover{box-shadow:0 12px 28px rgba(255,202,40,.35);}
 #pricing-section .btn-submit{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 #pricing-section .btn-submit:hover{box-shadow:0 12px 28px rgba(74,144,217,.3);}
-.tarif-demo-link{margin-top:clamp(20px,4vw,28px);text-align:center;}
+.rdemo-embed-wrap{margin-top:clamp(24px,4vw,36px);width:100%;text-align:center;}
+.rdemo-embed-lead{font-size:13px;font-weight:700;color:var(--blue);font-family:'Manrope',sans-serif;margin:0 auto 16px;line-height:1.45;max-width:420px;}
+.rdemo-embed-frame{width:100%;max-width:400px;height:min(680px,82vh);height:min(680px,82dvh);border:none;border-radius:24px;display:block;margin:0 auto;background:#0c0c0e;box-shadow:0 20px 50px rgba(0,0,0,.1);vertical-align:top;}
 #pricing-section .t-pop{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 
 /* Bloc parrainage */
@@ -1415,7 +1417,15 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               <div style="font-size: 13px; color: #666; margin-top: 8px">par mois · toutes fonctionnalités incluses</div>
               <div class="t-feats" id="tFeats"></div>
             </div>
-            <p class="hero-demo-link tarif-demo-link"><a href="./reservation-demo.html">Essayer la démo réservation interactive →</a></p>
+            <div class="rdemo-embed-wrap" id="reservation-demo">
+              <p class="rdemo-embed-lead">Démo interactive — parcours réservation (8 étapes). Tu restes sur cette page.</p>
+              <iframe
+                class="rdemo-embed-frame"
+                src="./reservation-demo.html"
+                title="Démo interactive — parcours réservation client Seaven"
+                loading="lazy"
+              ></iframe>
+            </div>
           </div>
         </div>
 
