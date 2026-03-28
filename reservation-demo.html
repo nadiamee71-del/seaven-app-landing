@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
-  <title>SEAVEN — Démo réservation interactive</title>
+  <title>Seaven — Parcours réservation client (démo)</title>
   <meta name="description" content="Parcours de réservation démo Bloom Nails — teste le flux comme dans l’app SEAVEN." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,6 +14,7 @@
       --purple: #a87dc8;
       --violet: #9b7cf2;
       --mint: #8dddc7;
+      --green: #6cc9a9;
       --text: #151515;
       --muted: #6f6f77;
       --border: rgba(255,255,255,.08);
@@ -35,8 +36,8 @@
     a { color: inherit; }
 
     .demo-top {
-      max-width: 420px;
-      margin: 0 auto 20px;
+      max-width: min(560px, 100%);
+      margin: 0 auto 24px;
       text-align: center;
     }
     .demo-back {
@@ -51,30 +52,44 @@
       transition: color .2s;
     }
     .demo-back:hover { color: #fff; }
-    .demo-kicker {
-      font-size: 11px;
+    .demo-title-block {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: clamp(28px, 8vw, 42px);
       font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--pink), var(--violet));
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      margin: 0 0 14px;
+    }
+    .demo-title-brand {
+      display: inline-block;
+      color: #121218;
+      background: rgba(255,255,255,.94);
+      padding: 6px 14px 8px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+    }
+    .demo-title-grad {
+      display: inline-block;
+      background: linear-gradient(90deg, #7c3aed, #a855f7 35%, var(--pink) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
     }
-    .demo-title {
-      font-family: "Bricolage Grotesque", sans-serif;
-      font-size: clamp(26px, 7vw, 34px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin: 0 0 8px;
-    }
-    .demo-sub {
-      font-size: 14px;
-      color: rgba(255,255,255,.55);
+    .demo-sub-hero {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(165, 180, 200, 0.88);
       line-height: 1.55;
-      margin: 0;
+      margin: 0 auto;
+      max-width: 440px;
+    }
+    .demo-title-accent {
+      width: 56px;
+      height: 3px;
+      margin: 18px auto 0;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #7c3aed, var(--pink));
     }
 
     .stage {
@@ -191,13 +206,13 @@
     }
     .steps-track {
       display: flex;
-      width: 700%;
+      width: 800%;
       height: 100%;
       transition: transform 0.5s cubic-bezier(.25,.46,.45,.94);
       will-change: transform;
     }
     .step-panel {
-      width: 14.285714%;
+      width: 12.5%;
       flex-shrink: 0;
       padding: 18px 16px 88px;
       overflow-y: auto;
@@ -385,6 +400,134 @@
     .slot.on small { color: rgba(255,255,255,.75); }
     .slot.off { opacity: .35; cursor: not-allowed; }
 
+    .demo-badge-new {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .demo-upload-zone {
+      border: 2px dashed #d4d4d8;
+      border-radius: 16px;
+      padding: 28px 16px;
+      text-align: center;
+      margin-bottom: 12px;
+      background: #fafafa;
+    }
+    .demo-upload-ico {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 8px 28px rgba(238,75,147,.35);
+    }
+    .demo-upload-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(238,75,147,.2), rgba(155,124,242,.25));
+      border: 1px solid rgba(155,124,242,.25);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .demo-upload-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+    .demo-upload-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(155, 124, 242, 0.28);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    .demo-upload-filename {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .demo-upload-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .demo-import-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--mint);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .demo-import-label {
+      color: var(--mint);
+      font-weight: 800;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .demo-ia-box {
+      padding: 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(168, 125, 200, 0.16), rgba(155, 124, 242, 0.1));
+      border: 1px solid rgba(155, 124, 242, 0.22);
+    }
+    .demo-ia {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .demo-ia-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .demo-ia-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(168,125,200,.12);
+      color: #6b21a8;
+    }
+    .demo-ia-tag.pink { background: rgba(238,75,147,.12); color: #be185d; }
+    .demo-ia-tag.mint { background: rgba(141,221,199,.18); color: #0f766e; }
+    .demo-ia-tag.orange { background: rgba(251,146,60,.15); color: #c2410c; }
+
     .recap-row {
       display: flex;
       justify-content: space-between;
@@ -541,9 +684,12 @@
 <body>
   <div class="demo-top">
     <a class="demo-back" href="./landing.html">← Retour à la landing</a>
-    <div class="demo-kicker">Démo interactive</div>
-    <h1 class="demo-title">Réservation client · 7 étapes</h1>
-    <p class="demo-sub">Teste le parcours comme dans l’app — sélections, créneaux et récap. Aucune donnée n’est envoyée.</p>
+    <h1 class="demo-title-block">
+      <span class="demo-title-brand">Seaven –</span><br />
+      <span class="demo-title-grad">Parcours<br />Réservation Client</span>
+    </h1>
+    <p class="demo-sub-hero">8 étapes · de la catégorie à la confirmation · avec photo d'inspiration</p>
+    <div class="demo-title-accent" aria-hidden="true"></div>
   </div>
 
   <div class="stage">
@@ -634,16 +780,55 @@
               </div>
             </div>
 
-            <!-- 3 Créneau -->
+            <!-- 3 Photo d'inspiration -->
             <div class="step-panel" data-step="3">
+              <div class="demo-badge-new">✦ + NOUVEAU</div>
+              <h2 class="step-h2">Montrez votre inspiration</h2>
+              <p class="step-desc">Importez une photo de nail art que vous aimez pour guider votre prestataire.</p>
+              <div class="demo-upload-zone">
+                <div class="demo-upload-ico">📷</div>
+                <strong style="font-size:14px;color:var(--text);display:block;margin-bottom:4px;">Importer une photo</strong>
+                <span style="font-size:12px;color:var(--muted);">Choisissez une image depuis votre galerie ou prenez une photo</span>
+              </div>
+              <div class="demo-upload-bar">
+                <div class="demo-upload-bar-left">
+                  <img
+                    class="demo-upload-thumb"
+                    src="./assets/inspiration-ongles-demo.png"
+                    width="40"
+                    height="40"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="demo-upload-filename">inspiration_ongles.jpg</span>
+                </div>
+                <div class="demo-upload-bar-right">
+                  <span class="demo-import-check" aria-hidden="true">✓</span>
+                  <span class="demo-import-label">Importée ✓</span>
+                </div>
+              </div>
+              <div class="demo-ia-box">
+                <div class="demo-ia"><span style="color:var(--violet);">●</span> Analyse IA détectée</div>
+                <div class="demo-ia-tags">
+                  <span class="demo-ia-tag">French manucure</span>
+                  <span class="demo-ia-tag pink">Gel X</span>
+                  <span class="demo-ia-tag mint">Amande · M</span>
+                  <span class="demo-ia-tag orange">Nude + tips</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 Créneau -->
+            <div class="step-panel" data-step="4">
               <h2 class="step-h2">Choisir un créneau</h2>
               <p class="step-desc">Mars 2026 · démo</p>
               <div class="days-row" id="daysRow"></div>
               <div class="slots" id="slotsGrid"></div>
             </div>
 
-            <!-- 4 Récap -->
-            <div class="step-panel" data-step="4">
+            <!-- 5 Récap -->
+            <div class="step-panel" data-step="5">
               <h2 class="step-h2">Récapitulatif</h2>
               <p class="step-desc">Vérifie avant de continuer</p>
               <div id="recapBody"></div>
@@ -651,8 +836,8 @@
               <p style="font-size:12px;color:var(--muted);margin:0;">Durée estimée · 1h10</p>
             </div>
 
-            <!-- 5 Paiement -->
-            <div class="step-panel" data-step="5">
+            <!-- 6 Paiement -->
+            <div class="step-panel" data-step="6">
               <h2 class="step-h2">Conditions &amp; paiement</h2>
               <p class="step-desc">À lire et accepter</p>
               <div id="checksWrap"></div>
@@ -660,8 +845,8 @@
               <div class="pay-grid" id="payGrid"></div>
             </div>
 
-            <!-- 6 Succès -->
-            <div class="step-panel" data-step="6" style="padding:0;">
+            <!-- 7 Succès -->
+            <div class="step-panel" data-step="7" style="padding:0;">
               <div class="confetti" id="confetti"></div>
               <div class="success-screen">
                 <div class="success-ring">✓</div>
@@ -688,15 +873,16 @@
   </div>
 
   <script>
-    const TOTAL = 7;
+    const TOTAL = 8;
     const captions = [
       { cap: "Étape 1", title: "Choix du service" },
       { cap: "Étape 2", title: "Prestataire" },
       { cap: "Étape 3", title: "Préférences" },
-      { cap: "Étape 4", title: "Créneau" },
-      { cap: "Étape 5", title: "Récapitulatif" },
-      { cap: "Étape 6", title: "Conditions & paiement" },
-      { cap: "Étape 7", title: "Confirmation" }
+      { cap: "Étape 4", title: "Photo d'inspiration" },
+      { cap: "Étape 5", title: "Créneau" },
+      { cap: "Étape 6", title: "Récapitulatif" },
+      { cap: "Étape 7", title: "Conditions & paiement" },
+      { cap: "Étape 8", title: "Confirmation" }
     ];
 
     const state = {
@@ -818,6 +1004,7 @@
         ["Adresse", "27 av. Jean Médecin"],
         ["Prestation", `${state.cat} · ${state.dep}`],
         ["Méthode", `${state.methode} · ${state.shape} · ${state.len}`],
+        ["Inspiration", "1 photo · analyse IA"],
         ["Finition", "French / naturel"],
         ["Date & heure", `Mar. ${state.day} mars · ${state.slot}`]
       ];
@@ -849,10 +1036,19 @@
       stepCaption.textContent = c.cap;
       stepTitleOut.textContent = c.title;
 
-      const subs = ["Réserver une prestation", "Réserver une prestation", "Personnaliser la pose", "Choisir un créneau", "Récapitulatif", "Conditions & paiement", "Confirmation"];
+      const subs = [
+        "Réserver une prestation",
+        "Réserver une prestation",
+        "Personnaliser la pose",
+        "Votre inspiration",
+        "Choisir un créneau",
+        "Récapitulatif",
+        "Conditions & paiement",
+        "Confirmation"
+      ];
       headerSub.textContent = subs[step] || subs[0];
 
-      if (step === 6) {
+      if (step === 7) {
         appFooter.style.display = "none";
         confettiBurst();
       } else {
@@ -861,7 +1057,7 @@
 
       btnBack.style.visibility = step === 0 ? "hidden" : "visible";
       btnNext.disabled = false;
-      if (step === 5) {
+      if (step === 6) {
         const allOk = state.checks.every(Boolean);
         btnNext.disabled = !allOk;
       }
@@ -879,12 +1075,15 @@
         footerLabel.textContent = "Préférences";
         footerValue.textContent = `${state.dep} · ${state.methode} · ${state.len}`;
       } else if (step === 3) {
+        footerLabel.textContent = "Référence ajoutée";
+        footerValue.textContent = "1 photo importée";
+      } else if (step === 4) {
         footerLabel.textContent = "Créneau sélectionné";
         footerValue.textContent = `${state.slot} → ${state.slotEnd} · Mar. ${state.day}`;
-      } else if (step === 4) {
+      } else if (step === 5) {
         footerLabel.textContent = "Total estimé";
         footerValue.textContent = "65€ · 1h10";
-      } else if (step === 5) {
+      } else if (step === 6) {
         footerLabel.textContent = "À payer maintenant";
         footerValue.textContent = "19,50€ (acompte)";
       }
@@ -948,8 +1147,8 @@
     });
 
     btnNext.addEventListener("click", () => {
-      if (step === 3) buildRecap();
-      if (step === 4) {
+      if (step === 4) buildRecap();
+      if (step === 5) {
         buildChecks();
         buildPay();
       }
