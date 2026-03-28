@@ -797,11 +797,15 @@
     .rdemo-embed .caption-out {
       margin-top: 10px;
     }
+    .accueil-overlay{position:absolute;inset:0;z-index:5;background:#fff;transition:opacity .4s ease,transform .4s ease;cursor:pointer;}
+    .accueil-overlay img{width:100%;height:100%;object-fit:cover;display:block;}
+    .accueil-overlay.is-hidden{opacity:0;transform:scale(.97);pointer-events:none;}
     html.rdemo-naked body{background:#fff;padding:0;min-height:100vh;min-height:100dvh;overflow:hidden;}
     html.rdemo-naked .demo-top,html.rdemo-naked .caption-out{display:none!important;}
     html.rdemo-naked .stage{max-width:none;margin:0;height:100vh;height:100dvh;}
     html.rdemo-naked .phone{background:none;border-radius:0;padding:0;box-shadow:none;height:100%;}
     html.rdemo-naked .phone-screen{border-radius:0;height:100%;max-height:100%;}
+    html.rdemo-naked .app-header{padding-top:22px;}
   </style>
 </head>
 <body>
@@ -831,6 +835,9 @@
         </header>
 
         <div class="steps-viewport">
+          <div class="accueil-overlay" id="accueilOverlay">
+            <img src="./assets/accueil.png" alt="Écran d'accueil Seaven" />
+          </div>
           <div class="steps-track" id="stepsTrack">
             <!-- 0 Catégorie -->
             <div class="step-panel" data-step="0">
@@ -964,37 +971,32 @@
               <div class="demo-badge-new">✦ + NOUVEAU</div>
               <h2 class="step-h2" id="inspiTitle">Montrez votre inspiration</h2>
               <p class="step-desc" id="inspiDesc">Importez une photo de nail art que vous aimez pour guider votre prestataire.</p>
-              <div class="demo-upload-zone">
+              <div class="demo-upload-zone" id="uploadZone" style="cursor:pointer;">
                 <div class="demo-upload-ico">📷</div>
                 <strong style="font-size:11px;color:var(--text);display:block;margin-bottom:2px;">Importer une photo</strong>
                 <span style="font-size:9px;color:var(--muted);line-height:1.3;">Galerie ou appareil photo</span>
               </div>
-              <div class="demo-upload-bar">
+              <div class="demo-upload-bar" id="uploadBar" style="display:none;">
                 <div class="demo-upload-bar-left">
                   <img
                     class="demo-upload-thumb"
-                    src="./assets/inspiration-ongles-demo.png"
+                    src=""
                     width="32"
                     height="32"
                     alt=""
                     loading="lazy"
                     decoding="async"
                   />
-                  <span class="demo-upload-filename">inspiration_ongles.jpg</span>
+                  <span class="demo-upload-filename"></span>
                 </div>
                 <div class="demo-upload-bar-right">
                   <span class="demo-import-check" aria-hidden="true">✓</span>
                   <span class="demo-import-label">Importée ✓</span>
                 </div>
               </div>
-              <div class="demo-ia-box">
+              <div class="demo-ia-box" id="iaBox" style="display:none;">
                 <div class="demo-ia"><span style="color:var(--violet);">●</span> Analyse IA détectée</div>
-                <div class="demo-ia-tags">
-                  <span class="demo-ia-tag">French manucure</span>
-                  <span class="demo-ia-tag pink">Gel X</span>
-                  <span class="demo-ia-tag mint">Amande · M</span>
-                  <span class="demo-ia-tag orange">Nude + tips</span>
-                </div>
+                <div class="demo-ia-tags"></div>
               </div>
             </div>
 
@@ -1111,7 +1113,8 @@
       slot: "14:00",
       slotEnd: "15:10",
       checks: [true, true, true, true],
-      pay: "Carte bancaire"
+      pay: "Carte bancaire",
+      photoImported: false
     };
 
     const catProMap = {"Ongles":"Léa","Cils":"Nina","Blanchiment dentaire":"N'importe qui"};
@@ -1156,16 +1159,33 @@
     }
 
     function syncPhotoStep() {
-      const photo = catPhotoMap[state.cat] || catPhotoMap["Ongles"];
-      const tags = catIaTags[state.cat] || catIaTags["Ongles"];
-      const thumb = document.querySelector(".demo-upload-thumb");
-      const fname = document.querySelector(".demo-upload-filename");
-      const tagsEl = document.querySelector(".demo-ia-tags");
-      if (thumb) thumb.src = photo.src;
-      if (fname) fname.textContent = photo.name;
-      if (tagsEl) tagsEl.innerHTML = tags.map(function(t) {
-        return '<span class="demo-ia-tag' + (t.cls ? ' ' + t.cls : '') + '">' + t.text + '</span>';
-      }).join("");
+      const uploadBar = document.getElementById("uploadBar");
+      const iaBox = document.getElementById("iaBox");
+      const uploadZone = document.getElementById("uploadZone");
+      if (!state.photoImported) {
+        if (uploadBar) uploadBar.style.display = "none";
+        if (iaBox) iaBox.style.display = "none";
+        if (uploadZone) uploadZone.style.display = "";
+      } else {
+        const photo = catPhotoMap[state.cat] || catPhotoMap["Ongles"];
+        const tags = catIaTags[state.cat] || catIaTags["Ongles"];
+        const thumb = document.querySelector(".demo-upload-thumb");
+        const fname = document.querySelector(".demo-upload-filename");
+        const tagsEl = document.querySelector(".demo-ia-tags");
+        if (thumb) thumb.src = photo.src;
+        if (fname) fname.textContent = photo.name;
+        if (uploadBar) uploadBar.style.display = "";
+        if (iaBox) iaBox.style.display = "";
+        if (uploadZone) uploadZone.style.display = "none";
+        if (tagsEl) tagsEl.innerHTML = tags.map(function(t) {
+          return '<span class="demo-ia-tag' + (t.cls ? ' ' + t.cls : '') + '">' + t.text + '</span>';
+        }).join("");
+      }
+    }
+
+    function doImportPhoto() {
+      state.photoImported = true;
+      syncPhotoStep();
     }
 
     let step = 0;
@@ -1373,7 +1393,7 @@
         appFooter.style.display = "flex";
       }
 
-      btnBack.style.visibility = step === 0 ? "hidden" : "visible";
+      btnBack.style.visibility = (step === 0 && accueilVisible) ? "hidden" : "visible";
       btnNext.disabled = false;
       if (step === 6) {
         const allOk = state.checks.every(Boolean);
@@ -1422,6 +1442,7 @@
         });
         btn.classList.add("selected");
         state.cat = btn.dataset.cat;
+        state.photoImported = false;
         syncPrefsBlocks();
         syncProForCat();
         syncPhotoStep();
@@ -1532,7 +1553,29 @@
       updateFooter();
     });
 
+    document.getElementById("uploadZone").addEventListener("click", doImportPhoto);
+
+    let accueilVisible = true;
+    const accueilOverlay = document.getElementById("accueilOverlay");
+
+    function dismissAccueil() {
+      if (!accueilVisible) return;
+      accueilVisible = false;
+      if (accueilOverlay) accueilOverlay.classList.add("is-hidden");
+    }
+
+    function showAccueil() {
+      accueilVisible = true;
+      if (accueilOverlay) accueilOverlay.classList.remove("is-hidden");
+    }
+
+    if (accueilOverlay) accueilOverlay.addEventListener("click", dismissAccueil);
+
     btnNext.addEventListener("click", () => {
+      if (accueilVisible) {
+        dismissAccueil();
+        return;
+      }
       if (step === 4) buildRecap();
       if (step === 5) {
         buildChecks();
@@ -1545,6 +1588,10 @@
     });
 
     btnBack.addEventListener("click", () => {
+      if (step === 0 && !accueilVisible) {
+        showAccueil();
+        return;
+      }
       if (step > 0) {
         step--;
         updateUI();

@@ -581,8 +581,6 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .demo-confetti-p{position:absolute;top:-16px;opacity:0;}
 @keyframes demoFall{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(700px) rotate(720deg);}}
 .demo-auto-hint{margin-top:14px;font-size:11px;color:var(--mid);display:flex;align-items:center;justify-content:center;gap:8px;}
-.demo-auto-hint button{background:none;border:1px solid rgba(0,0,0,.1);color:rgba(0,0,0,.35);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit;}
-.demo-auto-hint button:hover{border-color:rgba(0,0,0,.25);color:var(--black);}
 @media(max-width:600px){
 .demo-res{padding:20px 10px 16px;}
 .demo-res-title{font-size:clamp(18px,5vw,26px);margin-bottom:4px;}
@@ -602,8 +600,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .demo-phone-btn-r2{height:30px;top:84px;}
 .demo-phone-btn-l{height:22px;top:60px;}
 .demo-phone-btn-l2{height:22px;top:88px;}
-.demo-auto-hint{margin-top:10px;font-size:10px;}
-.demo-auto-hint button{width:22px;height:22px;font-size:9px;}
+.demo-auto-hint{margin-top:8px;font-size:9px;}
 }
 #pricing-section .t-pop{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 
@@ -1532,8 +1529,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
             </div>
 
             <div class="demo-auto-hint">
-              <button type="button" id="demoPlayBtn" aria-label="Pause la démo" title="Pause / Play">❚❚</button>
-              <span id="demoAutoLabel">Démo automatique</span>
+              <span>Cliquez les étapes ou naviguez dans le téléphone</span>
             </div>
           </div>
         </div>
@@ -2266,14 +2262,9 @@ async function submitForm() {
 (function(){
   var BUBBLE_TO_IFRAME=[0,1,2,4,5,6,7];
   var IFRAME_TO_BUBBLE={0:0,1:1,2:2,3:2,4:3,5:4,6:5,7:6};
-  var TOTAL_IFRAME=8;
-  var currentIframe=0,autoPlay=true,autoTimer=null;
-  var AUTO_DELAY=3800,FINAL_DELAY=6000;
   var dots=document.querySelectorAll('.demo-step-dot');
   var fill=document.getElementById('demoStepsFill');
   var iframe=document.getElementById('demoIframe');
-  var playBtn=document.getElementById('demoPlayBtn');
-  var autoLabel=document.getElementById('demoAutoLabel');
   var confettiLayer=document.getElementById('demoConfetti');
 
   function updateBubbles(bIdx){
@@ -2292,14 +2283,6 @@ async function submitForm() {
     if(iframe&&iframe.contentWindow){
       try{iframe.contentWindow.postMessage({type:'rdemo-goto',step:iStep},'*');}catch(e){}
     }
-  }
-
-  function gotoIframeStep(iStep){
-    currentIframe=iStep;
-    var bIdx=IFRAME_TO_BUBBLE[iStep];
-    if(bIdx===undefined)bIdx=0;
-    updateBubbles(bIdx);
-    sendToIframe(iStep);
   }
 
   function triggerConfetti(){
@@ -2322,65 +2305,21 @@ async function submitForm() {
     }
   }
 
-  function startAuto(){
-    stopAuto();
-    if(!autoPlay)return;
-    var isLast=currentIframe===TOTAL_IFRAME-1;
-    var delay=isLast?FINAL_DELAY:AUTO_DELAY;
-    autoTimer=setTimeout(function(){
-      var next=(currentIframe+1)%TOTAL_IFRAME;
-      gotoIframeStep(next);
-      startAuto();
-    },delay);
-  }
-
-  function stopAuto(){
-    if(autoTimer){clearTimeout(autoTimer);autoTimer=null;}
-  }
-
-  function toggleAuto(){
-    autoPlay=!autoPlay;
-    if(playBtn)playBtn.textContent=autoPlay?'❚❚':'▶';
-    if(autoLabel)autoLabel.textContent=autoPlay?'Démo automatique':'En pause';
-    if(autoPlay)startAuto();else stopAuto();
-  }
-
   dots.forEach(function(d){
     d.addEventListener('click',function(){
       var idx=parseInt(d.dataset.demoStep,10);
       var iStep=BUBBLE_TO_IFRAME[idx];
-      gotoIframeStep(iStep);
-      if(autoPlay)startAuto();
+      updateBubbles(idx);
+      sendToIframe(iStep);
     });
   });
-
-  if(playBtn)playBtn.addEventListener('click',toggleAuto);
 
   window.addEventListener('message',function(e){
     if(e.data&&e.data.type==='rdemo-step'){
       var bIdx=IFRAME_TO_BUBBLE[e.data.step];
-      if(bIdx!==undefined){
-        currentIframe=e.data.step;
-        updateBubbles(bIdx);
-      }
+      if(bIdx!==undefined) updateBubbles(bIdx);
     }
   });
-
-  if(iframe){
-    iframe.addEventListener('load',function(){
-      setTimeout(function(){gotoIframeStep(0);startAuto();},400);
-    });
-  }
-
-  var section=document.getElementById('demo-reservation');
-  if(section&&'IntersectionObserver' in window){
-    new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting&&autoPlay)startAuto();
-        else stopAuto();
-      });
-    },{threshold:0.15}).observe(section);
-  }
 })();
 
   </script>
