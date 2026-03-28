@@ -361,6 +361,17 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   text-align:center;
   gap:0;
 }
+.landing-app-video-sec{
+  width:100%;
+  max-width:min(640px,100%);
+  margin:0 auto;
+  padding:clamp(20px,4vw,40px) max(16px,env(safe-area-inset-left)) clamp(28px,5vw,48px) max(16px,env(safe-area-inset-right));
+  box-sizing:border-box;
+  background:
+    radial-gradient(ellipse 110% 70% at 50% 0%, rgba(168,125,200,.1) 0%, transparent 52%),
+    linear-gradient(180deg, #fafbff 0%, #fff 100%);
+}
+.landing-app-video-sec .hero-device-stage{margin-top:0;}
 .hero-device-stage{
   width:100%;
   display:flex;
@@ -782,7 +793,7 @@ main .mobile-shell .stack > .hero + .feat-outer{margin-top:0;}
 .fc-dots{display:flex;gap:6px;align-items:center;}
 .fc-dot{width:6px;height:6px;border-radius:3px;background:var(--border);cursor:pointer;transition:all .3s;}
 .fc-dot.on{width:22px;background:var(--purple);}
-.fc-count{margin-left:auto;font-size:11px;font-weight:700;color:var(--mid);}
+.feat-controls .fc-dots{flex:1;justify-content:center;}
 
 /* MÉTIERS — petites cartes, défilement manuel + effet */
 .m-metiers-wrap{display:flex;align-items:center;gap:4px;margin:22px 0 26px;max-width:100%;min-width:0;}
@@ -877,7 +888,6 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-di
 .cmp-selector{max-width:100%;min-width:0;}
 footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env(safe-area-inset-left)) 24px max(12px,env(safe-area-inset-right));}
 .feat-controls{flex-wrap:wrap;row-gap:10px;max-width:100%;justify-content:center;}
-.fc-count{margin-left:0;}
 .t-labels{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));font-size:11px;text-align:center;gap:4px;line-height:1.25;}
 .form-est{flex-wrap:wrap;gap:8px;}
 .fe-p{width:100%;text-align:right;}
@@ -973,32 +983,6 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               </div>
               <div class="hero-extra-offers">
                 <div class="hero-promo" role="status">14 jours offerts à l’essai</div>
-              </div>
-            </div>
-            <div class="hero-device-stage" aria-hidden="true">
-              <div class="hero-device-shell">
-                <span class="hero-device-side hero-device-side--vol1"></span>
-                <span class="hero-device-side hero-device-side--vol2"></span>
-                <span class="hero-device-side hero-device-side--power"></span>
-                <div class="hero-device-frame">
-                  <div class="hero-device-zoom">
-                    <video
-                      id="hero-bg-video"
-                      class="hero-device-video"
-                      autoplay
-                      muted
-                      loop
-                      playsinline
-                      preload="metadata"
-                      disablepictureinpicture
-                      disableremoteplayback
-                      aria-hidden="true"
-                    >
-                      <source src="./assets/seaven-bg.mp4" type="video/mp4" />
-                    </video>
-                    <div class="hero-device-dynamic"></div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -1380,7 +1364,6 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
             <button type="button" class="fc-btn" onclick="moveFeat(-1)" aria-label="Slide précédente">←</button>
             <button type="button" class="fc-btn" onclick="moveFeat(1)" aria-label="Slide suivante">→</button>
             <div class="fc-dots" id="fcDots"></div>
-            <div class="fc-count" id="fcCount">1 / 6</div>
           </div>
         </div>
 
@@ -1416,6 +1399,36 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               <div class="t-price" id="tPrice"></div>
               <div style="font-size: 13px; color: #666; margin-top: 8px">par mois · toutes fonctionnalités incluses</div>
               <div class="t-feats" id="tFeats"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vidéo app (après tarifs) -->
+        <div class="landing-app-video-sec" aria-hidden="true">
+          <div class="hero-device-stage">
+            <div class="hero-device-shell">
+              <span class="hero-device-side hero-device-side--vol1"></span>
+              <span class="hero-device-side hero-device-side--vol2"></span>
+              <span class="hero-device-side hero-device-side--power"></span>
+              <div class="hero-device-frame">
+                <div class="hero-device-zoom">
+                  <video
+                    id="hero-bg-video"
+                    class="hero-device-video"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    disablepictureinpicture
+                    disableremoteplayback
+                    aria-hidden="true"
+                  >
+                    <source src="./assets/seaven-bg.mp4" type="video/mp4" />
+                  </video>
+                  <div class="hero-device-dynamic"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1767,8 +1780,6 @@ function goFeat(n) {
   const w = slideWidth();
   ft.style.transform = w ? `translateX(-${cur * w}px)` : "";
   document.querySelectorAll(".fc-dot").forEach((d, i) => d.classList.toggle("on", i === cur));
-  const fc = document.getElementById("fcCount");
-  if (fc) fc.textContent = `${cur + 1} / ${N}`;
 }
 function moveFeat(d) {
   goFeat(cur + d);

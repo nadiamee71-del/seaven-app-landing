@@ -118,6 +118,14 @@
       transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
     }
     .step-pill.pulse { animation: pillPop .55s ease; }
+    .step-pill.step-tone-0 { background: linear-gradient(135deg, #e11d74, #fb7185); box-shadow: 0 12px 28px rgba(225, 29, 116, 0.42); }
+    .step-pill.step-tone-1 { background: linear-gradient(135deg, #7c3aed, #a78bfa); box-shadow: 0 12px 28px rgba(124, 58, 237, 0.38); }
+    .step-pill.step-tone-2 { background: linear-gradient(135deg, #9333ea, #c084fc); box-shadow: 0 12px 28px rgba(147, 51, 234, 0.36); }
+    .step-pill.step-tone-3 { background: linear-gradient(135deg, #ea580c, #fb923c); box-shadow: 0 12px 28px rgba(234, 88, 12, 0.38); }
+    .step-pill.step-tone-4 { background: linear-gradient(135deg, #4f46e5, #818cf8); box-shadow: 0 12px 28px rgba(79, 70, 229, 0.36); }
+    .step-pill.step-tone-5 { background: linear-gradient(135deg, #db2777, #9b7cf2); box-shadow: 0 12px 28px rgba(219, 39, 119, 0.32); }
+    .step-pill.step-tone-6 { background: linear-gradient(135deg, #6d28d9, #a855f7); box-shadow: 0 12px 28px rgba(109, 40, 217, 0.38); }
+    .step-pill.step-tone-7 { background: linear-gradient(135deg, #0d9488, #14b8a6); box-shadow: 0 12px 28px rgba(13, 148, 136, 0.4); }
     @keyframes pillPop {
       0% { transform: translateX(-50%) scale(1); }
       50% { transform: translateX(-50%) scale(1.12); }
@@ -217,7 +225,39 @@
       padding: 18px 16px 88px;
       overflow-y: auto;
       max-height: min(520px, 65vh);
+      --step-a: #e11d74;
+      --step-b: #fb7185;
+      background: linear-gradient(180deg, rgba(225, 29, 116, 0.11) 0%, #fff 38%);
     }
+    .step-panel[data-step="0"] { --step-a: #e11d74; --step-b: #fb7185; background: linear-gradient(180deg, rgba(225, 29, 116, 0.12) 0%, #fff 38%); }
+    .step-panel[data-step="1"] { --step-a: #7c3aed; --step-b: #a78bfa; background: linear-gradient(180deg, rgba(124, 58, 237, 0.12) 0%, #fff 38%); }
+    .step-panel[data-step="2"] { --step-a: #9333ea; --step-b: #c084fc; background: linear-gradient(180deg, rgba(147, 51, 234, 0.11) 0%, #fff 38%); }
+    .step-panel[data-step="3"] { --step-a: #ea580c; --step-b: #fb923c; background: linear-gradient(180deg, rgba(234, 88, 12, 0.12) 0%, #fff 38%); }
+    .step-panel[data-step="4"] { --step-a: #4f46e5; --step-b: #818cf8; background: linear-gradient(180deg, rgba(79, 70, 229, 0.11) 0%, #fff 38%); }
+    .step-panel[data-step="5"] { --step-a: #db2777; --step-b: #9b7cf2; background: linear-gradient(180deg, rgba(219, 39, 119, 0.09) 0%, rgba(155, 124, 242, 0.1) 24%, #fff 42%); }
+    .step-panel[data-step="6"] { --step-a: #6d28d9; --step-b: #a855f7; background: linear-gradient(180deg, rgba(109, 40, 217, 0.12) 0%, #fff 38%); }
+    .step-panel[data-step="7"] { --step-a: #0d9488; --step-b: #5eead4; background: linear-gradient(180deg, rgba(13, 148, 136, 0.12) 0%, rgba(141, 221, 199, 0.14) 30%, #fff 48%); }
+    .step-panel .step-h2 {
+      background: linear-gradient(135deg, var(--step-a), var(--step-b));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .step-panel[data-step="7"] .success-screen .step-h2 {
+      background: linear-gradient(135deg, #0f766e, #14b8a6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .step-panel[data-step="0"] .step-desc { color: #7a5566; }
+    .step-panel[data-step="1"] .step-desc { color: #5c5680; }
+    .step-panel[data-step="2"] .step-desc { color: #5f5280; }
+    .step-panel[data-step="3"] .step-desc { color: #7a5538; }
+    .step-panel[data-step="4"] .step-desc { color: #454878; }
+    .step-panel[data-step="5"] .step-desc { color: #6b4a70; }
+    .step-panel[data-step="6"] .step-desc { color: #5a4a78; }
+    .step-panel[data-step="7"] .step-desc { color: #3d6b62; }
     @media (prefers-reduced-motion: reduce) {
       .steps-track { transition-duration: 0.01ms; }
       .progress-fill { transition-duration: 0.01ms; }
@@ -228,13 +268,11 @@
       font-family: "Bricolage Grotesque", sans-serif;
       font-size: 20px;
       font-weight: 800;
-      color: var(--text);
       margin: 0 0 6px;
       letter-spacing: -0.03em;
     }
     .step-desc {
       font-size: 13px;
-      color: var(--muted);
       margin: 0 0 18px;
       line-height: 1.5;
     }
@@ -257,6 +295,10 @@
     .opt-card.selected {
       border-color: var(--text);
       box-shadow: 0 0 0 1px var(--text);
+    }
+    .step-panel[data-step="0"] .opt-card.selected {
+      border-color: #e11d74;
+      box-shadow: 0 0 0 1px #e11d74, 0 10px 28px rgba(225, 29, 116, 0.12);
     }
     .opt-ico {
       width: 44px;
@@ -301,7 +343,7 @@
       color: #fff;
       font-size: 16px;
     }
-    .avatar.s { background: linear-gradient(135deg, var(--pink), var(--violet)); }
+    .avatar.l { background: linear-gradient(135deg, #e11d74, #9b7cf2); }
     .avatar.n { background: linear-gradient(135deg, var(--mint), #5ec9a8); }
     .avatar.any { background: #e8e8ed; color: #555; }
     .radio-ui {
@@ -336,6 +378,11 @@
     }
     .chip:hover { border-color: var(--purple); }
     .chip.on { background: var(--text); color: #fff; border-color: var(--text); }
+    .step-panel[data-step="2"] .chip.on {
+      background: linear-gradient(135deg, #9333ea, #a855f7);
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(147, 51, 234, 0.28);
+    }
     .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .pill {
       padding: 10px 16px;
@@ -347,6 +394,11 @@
       cursor: pointer;
     }
     .pill.on { background: var(--text); color: #fff; border-color: var(--text); }
+    .step-panel[data-step="2"] .pill.on {
+      background: linear-gradient(135deg, #7c3aed, #c084fc);
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.22);
+    }
     select.fi-like {
       width: 100%;
       padding: 12px 14px;
@@ -378,6 +430,11 @@
     }
     .day-cell small { display: block; font-size: 9px; color: var(--muted); font-weight: 600; }
     .day-cell.on { background: var(--text); color: #fff; border-color: var(--text); }
+    .step-panel[data-step="4"] .day-cell.on {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
     .day-cell.off { opacity: .35; pointer-events: none; }
     .slots {
       display: grid;
@@ -398,6 +455,11 @@
     .slot small { display: block; font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 4px; }
     .slot.on { background: var(--text); color: #fff; border-color: var(--text); }
     .slot.on small { color: rgba(255,255,255,.75); }
+    .step-panel[data-step="4"] .slot.on {
+      background: linear-gradient(135deg, #4338ca, #818cf8);
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.25);
+    }
     .slot.off { opacity: .35; cursor: not-allowed; }
 
     .demo-badge-new {
@@ -590,6 +652,11 @@
       transition: all .2s;
     }
     .pay-btn.on { border-color: var(--text); box-shadow: 0 0 0 1px var(--text); }
+    .step-panel[data-step="6"] .pay-btn.on {
+      border-color: #6d28d9;
+      box-shadow: 0 0 0 1px #6d28d9, 0 6px 18px rgba(109, 40, 217, 0.15);
+      color: #4c1d95;
+    }
 
     .success-screen {
       text-align: center;
@@ -732,9 +799,9 @@
             <div class="step-panel" data-step="1">
               <h2 class="step-h2">Avec qui ?</h2>
               <p class="step-desc">Sélectionne une pro ou laisse le choix ouvert</p>
-              <button type="button" class="person-row selected" data-pro="Sassa">
-                <span class="avatar s">S</span>
-                <span class="opt-txt"><strong>Sassa</strong><span>Prothésiste ongulaire</span></span>
+              <button type="button" class="person-row selected" data-pro="Léa">
+                <span class="avatar l">L</span>
+                <span class="opt-txt"><strong>Léa</strong><span>Prothésiste ongulaire</span></span>
                 <span class="radio-ui">✓</span>
               </button>
               <button type="button" class="person-row" data-pro="Nina">
@@ -887,7 +954,7 @@
 
     const state = {
       cat: "Ongles",
-      pro: "Sassa",
+      pro: "Léa",
       dep: "Remplissage",
       methode: "Gel X",
       len: "M",
@@ -1025,13 +1092,23 @@
       }
     }
 
+    const stepToneGrads = [
+      "linear-gradient(90deg, #e11d74, #fb7185)",
+      "linear-gradient(90deg, #7c3aed, #a78bfa)",
+      "linear-gradient(90deg, #9333ea, #c084fc)",
+      "linear-gradient(90deg, #ea580c, #fb923c)",
+      "linear-gradient(90deg, #4f46e5, #818cf8)",
+      "linear-gradient(90deg, #db2777, #9b7cf2)",
+      "linear-gradient(90deg, #6d28d9, #a855f7)",
+      "linear-gradient(90deg, #0d9488, #14b8a6)"
+    ];
+
     function updateUI() {
       track.style.transform = `translateX(-${(step / TOTAL) * 100}%)`;
       progressFill.style.width = `${((step + 1) / TOTAL) * 100}%`;
+      progressFill.style.background = stepToneGrads[step] || stepToneGrads[0];
       stepPill.textContent = String(step + 1);
-      stepPill.classList.remove("pulse");
-      void stepPill.offsetWidth;
-      stepPill.classList.add("pulse");
+      stepPill.className = "step-pill pulse step-tone-" + step;
       const c = captions[step] || captions[0];
       stepCaption.textContent = c.cap;
       stepTitleOut.textContent = c.title;
