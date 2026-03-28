@@ -545,7 +545,12 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 #pricing-section .btn-submit{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 #pricing-section .btn-submit:hover{box-shadow:0 12px 28px rgba(74,144,217,.3);}
 .rdemo-embed-wrap{margin-top:clamp(24px,4vw,36px);width:100%;text-align:center;}
-.rdemo-embed-lead{font-size:13px;font-weight:700;color:var(--blue);font-family:'Manrope',sans-serif;margin:0 auto 16px;line-height:1.45;max-width:420px;}
+.rdemo-embed-heading{margin:0 auto 18px;max-width:min(420px,100%);}
+.rdemo-embed-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(22px,5.5vw,32px);font-weight:800;letter-spacing:-0.04em;line-height:1.08;margin:0 0 10px;color:var(--black);}
+.rdemo-embed-brand{display:inline-block;color:#1d1d1f;font-weight:800;}
+.rdemo-embed-grad{display:inline-block;background:linear-gradient(90deg,#7c3aed,#a855f7 38%,var(--pink) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+.rdemo-embed-sub{font-size:12px;font-weight:500;color:var(--mid);line-height:1.55;margin:0 auto;max-width:380px;}
+.rdemo-embed-accent{width:56px;height:3px;margin:14px auto 0;border-radius:2px;background:linear-gradient(90deg,#7c3aed,var(--pink));}
 .rdemo-embed-frame{width:100%;max-width:400px;height:min(680px,82vh);height:min(680px,82dvh);border:none;border-radius:24px;display:block;margin:0 auto;background:#0c0c0e;box-shadow:0 20px 50px rgba(0,0,0,.1);vertical-align:top;}
 #pricing-section .t-pop{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 
@@ -1418,7 +1423,14 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               <div class="t-feats" id="tFeats"></div>
             </div>
             <div class="rdemo-embed-wrap" id="reservation-demo">
-              <p class="rdemo-embed-lead">Démo interactive — parcours réservation (8 étapes). Tu restes sur cette page.</p>
+              <div class="rdemo-embed-heading">
+                <h2 class="rdemo-embed-title">
+                  <span class="rdemo-embed-brand">Seaven –</span><br />
+                  <span class="rdemo-embed-grad">Parcours<br />Réservation Client</span>
+                </h2>
+                <p class="rdemo-embed-sub">8 étapes · de la catégorie à la confirmation · avec photo d'inspiration</p>
+                <div class="rdemo-embed-accent" aria-hidden="true"></div>
+              </div>
               <iframe
                 class="rdemo-embed-frame"
                 src="./reservation-demo.html"
