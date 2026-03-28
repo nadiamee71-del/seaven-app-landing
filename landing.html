@@ -496,6 +496,9 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .btn-main{display:inline-flex;align-items:center;gap:8px;justify-content:center;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border:none;border-radius:30px;padding:16px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;transition:transform .2s,box-shadow .2s;max-width:100%;box-sizing:border-box;}
 .btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(232,99,140,.35);}
 .hero-note{font-size:12px;color:rgba(0,0,0,.45);margin-top:clamp(14px,3vw,20px);line-height:1.55;max-width:min(420px,100%);margin-left:auto;margin-right:auto;}
+.hero-demo-link{display:block;text-align:center;margin-top:12px;font-size:13px;font-weight:700;font-family:'Manrope',sans-serif;}
+.hero-demo-link a{color:var(--pink);text-decoration:none;border-bottom:1px solid rgba(238,75,147,.35);padding-bottom:1px;transition:color .2s,border-color .2s;}
+.hero-demo-link a:hover{color:var(--violet);border-color:rgba(155,124,242,.5);}
 @media (prefers-reduced-motion:reduce){
   .hero-device-zoom{animation:none;transform:none;}
 }
@@ -953,6 +956,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
                 </button>
               </div>
               <p class="hero-note">🔒 Gratuit · Aucune carte bancaire requise</p>
+              <p class="hero-demo-link"><a href="./reservation-demo.html">Essayer la démo réservation interactive →</a></p>
               <div class="hero-stats">
                 <div class="stat">
                   <div class="stat-n">+20</div>

@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+  <title>SEAVEN — Démo réservation interactive</title>
+  <meta name="description" content="Parcours de réservation démo Bloom Nails — teste le flux comme dans l’app SEAVEN." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ee4b93;
+      --purple: #a87dc8;
+      --violet: #9b7cf2;
+      --mint: #8dddc7;
+      --text: #151515;
+      --muted: #6f6f77;
+      --border: rgba(255,255,255,.08);
+      --phone-bg: #fff;
+      --dark: #0c0c0e;
+      --card-dark: #16161a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: "Manrope", system-ui, sans-serif;
+      background: radial-gradient(120% 80% at 50% -20%, rgba(168,125,200,.25), transparent 50%),
+        radial-gradient(80% 60% at 100% 50%, rgba(238,75,147,.12), transparent 45%),
+        var(--dark);
+      color: #f5f5f7;
+      -webkit-font-smoothing: antialiased;
+      padding: max(20px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+    }
+    a { color: inherit; }
+
+    .demo-top {
+      max-width: 420px;
+      margin: 0 auto 20px;
+      text-align: center;
+    }
+    .demo-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 16px;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .demo-back:hover { color: #fff; }
+    .demo-kicker {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    .demo-title {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: clamp(26px, 7vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin: 0 0 8px;
+    }
+    .demo-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,.55);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .stage {
+      max-width: 380px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .step-pill {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      box-shadow: 0 12px 32px rgba(238,75,147,.45);
+      z-index: 4;
+      transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+    }
+    .step-pill.pulse { animation: pillPop .55s ease; }
+    @keyframes pillPop {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.12); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    .phone {
+      background: linear-gradient(180deg, #1e1e24 0%, #121214 100%);
+      border-radius: 36px;
+      padding: 12px;
+      box-shadow: 0 40px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+    .phone-screen {
+      background: var(--phone-bg);
+      border-radius: 28px;
+      overflow: hidden;
+      min-height: min(620px, 78vh);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .app-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid #f0f0f3;
+    }
+    .app-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: #f5f5f7;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text);
+      transition: transform .15s, background .2s;
+    }
+    .icon-btn:hover { background: #ececf0; transform: scale(1.05); }
+    .icon-btn:active { transform: scale(.96); }
+    .app-brand {
+      text-align: center;
+      flex: 1;
+    }
+    .app-brand h1 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .app-brand p {
+      margin: 2px 0 0;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .progress-track {
+      height: 3px;
+      background: #ececf1;
+      border-radius: 99px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--pink), var(--violet));
+      transition: width 0.55s cubic-bezier(.25,.46,.45,.94);
+    }
+
+    .steps-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .steps-track {
+      display: flex;
+      width: 700%;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(.25,.46,.45,.94);
+      will-change: transform;
+    }
+    .step-panel {
+      width: 14.285714%;
+      flex-shrink: 0;
+      padding: 18px 16px 88px;
+      overflow-y: auto;
+      max-height: min(520px, 65vh);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .steps-track { transition-duration: 0.01ms; }
+      .progress-fill { transition-duration: 0.01ms; }
+      .step-pill.pulse { animation: none; }
+    }
+
+    .step-h2 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 6px;
+      letter-spacing: -0.03em;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 18px;
+      line-height: 1.5;
+    }
+
+    .opt-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 2px solid #ececf1;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      background: #fff;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      text-align: left;
+      width: 100%;
+    }
+    .opt-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+    .opt-card.selected {
+      border-color: var(--text);
+      box-shadow: 0 0 0 1px var(--text);
+    }
+    .opt-ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(238,75,147,.12), rgba(155,124,242,.12));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .opt-card.selected .opt-ico {
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+    }
+    .opt-txt strong { display: block; font-size: 15px; color: var(--text); }
+    .opt-txt span { font-size: 12px; color: var(--muted); }
+
+    .person-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 2px solid #ececf1;
+      border-radius: 16px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      background: #fff;
+      transition: all .2s;
+      width: 100%;
+      text-align: left;
+    }
+    .person-row:hover { transform: translateX(4px); }
+    .person-row.selected { border-color: var(--text); }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 16px;
+    }
+    .avatar.s { background: linear-gradient(135deg, var(--pink), var(--violet)); }
+    .avatar.n { background: linear-gradient(135deg, var(--mint), #5ec9a8); }
+    .avatar.any { background: #e8e8ed; color: #555; }
+    .radio-ui {
+      margin-left: auto;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .person-row.selected .radio-ui {
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .field-label { font-size: 12px; font-weight: 700; color: var(--muted); margin: 14px 0 8px; text-transform: uppercase; letter-spacing: .04em; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      min-width: 40px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 2px solid #ececf1;
+      background: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .chip:hover { border-color: var(--purple); }
+    .chip.on { background: var(--text); color: #fff; border-color: var(--text); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 2px solid #ececf1;
+      background: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .pill.on { background: var(--text); color: #fff; border-color: var(--text); }
+    select.fi-like {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 2px solid #ececf1;
+      background: #fff;
+      font-weight: 600;
+    }
+
+    .days-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .day-cell {
+      flex: 0 0 auto;
+      width: 44px;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 12px;
+      border: 2px solid #ececf1;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all .2s;
+    }
+    .day-cell small { display: block; font-size: 9px; color: var(--muted); font-weight: 600; }
+    .day-cell.on { background: var(--text); color: #fff; border-color: var(--text); }
+    .day-cell.off { opacity: .35; pointer-events: none; }
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .slot {
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid #ececf1;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s;
+      background: #fff;
+    }
+    .slot small { display: block; font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 4px; }
+    .slot.on { background: var(--text); color: #fff; border-color: var(--text); }
+    .slot.on small { color: rgba(255,255,255,.75); }
+    .slot.off { opacity: .35; cursor: not-allowed; }
+
+    .recap-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f3;
+      font-size: 13px;
+    }
+    .recap-row span { color: var(--muted); }
+    .recap-row strong { color: var(--text); text-align: right; font-weight: 700; }
+    .total-big {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--pink), var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 16px 0 8px;
+    }
+
+    .check-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .check-box {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--text);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      border: none;
+    }
+    .check-item.unchecked .check-box { background: #e0e0e5; color: transparent; }
+    .pay-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .pay-btn {
+      padding: 14px;
+      border-radius: 14px;
+      border: 2px solid #ececf1;
+      background: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .pay-btn.on { border-color: var(--text); box-shadow: 0 0 0 1px var(--text); }
+
+    .success-screen {
+      text-align: center;
+      padding: 40px 20px 60px;
+    }
+    .success-ring {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mint), var(--green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #fff;
+      box-shadow: 0 20px 50px rgba(141,221,199,.45);
+      animation: successIn .6s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes successIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 28px;
+    }
+    .confetti span {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      top: -10px;
+      animation: fall 2.5s linear infinite;
+    }
+    @keyframes fall {
+      to { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+    }
+
+    .app-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 16px max(14px, env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 18%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid #f0f0f3;
+    }
+    .footer-sum { min-width: 0; }
+    .footer-sum small { display: block; font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+    .footer-sum strong { font-size: 14px; color: var(--text); }
+    .btn-next {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      border: none;
+      background: var(--text);
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    }
+    .btn-next:hover:not(:disabled) { transform: scale(1.06); }
+    .btn-next:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+
+    .caption-out {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 13px;
+      color: rgba(255,255,255,.45);
+    }
+    .caption-out strong {
+      display: block;
+      color: rgba(255,255,255,.85);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-top">
+    <a class="demo-back" href="./landing.html">← Retour à la landing</a>
+    <div class="demo-kicker">Démo interactive</div>
+    <h1 class="demo-title">Réservation client · 7 étapes</h1>
+    <p class="demo-sub">Teste le parcours comme dans l’app — sélections, créneaux et récap. Aucune donnée n’est envoyée.</p>
+  </div>
+
+  <div class="stage">
+    <div class="step-pill" id="stepPill">1</div>
+    <div class="phone">
+      <div class="phone-screen">
+        <header class="app-header">
+          <div class="app-header-top">
+            <button type="button" class="icon-btn" id="btnBack" aria-label="Retour">←</button>
+            <div class="app-brand">
+              <h1>Bloom Nails</h1>
+              <p id="headerSub">Réserver une prestation</p>
+            </div>
+            <button type="button" class="icon-btn" id="btnClose" aria-label="Fermer la démo" onclick="location.href='./landing.html'">×</button>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </header>
+
+        <div class="steps-viewport">
+          <div class="steps-track" id="stepsTrack">
+            <!-- 0 Catégorie -->
+            <div class="step-panel" data-step="0">
+              <h2 class="step-h2">Quelle catégorie ?</h2>
+              <p class="step-desc">Choisis le type de prestation</p>
+              <button type="button" class="opt-card selected" data-cat="Ongles">
+                <span class="opt-ico">💅</span>
+                <span class="opt-txt"><strong>Ongles</strong><span>Manucure, pose, dépose…</span></span>
+              </button>
+              <button type="button" class="opt-card" data-cat="Cils">
+                <span class="opt-ico">👁️</span>
+                <span class="opt-txt"><strong>Cils</strong><span>Extensions, remplissage</span></span>
+              </button>
+              <button type="button" class="opt-card" data-cat="Blanchiment dentaire">
+                <span class="opt-ico">🦷</span>
+                <span class="opt-txt"><strong>Blanchiment dentaire</strong><span>Séance éclaircissante</span></span>
+              </button>
+            </div>
+
+            <!-- 1 Prestataire -->
+            <div class="step-panel" data-step="1">
+              <h2 class="step-h2">Avec qui ?</h2>
+              <p class="step-desc">Sélectionne une pro ou laisse le choix ouvert</p>
+              <button type="button" class="person-row selected" data-pro="Sassa">
+                <span class="avatar s">S</span>
+                <span class="opt-txt"><strong>Sassa</strong><span>Prothésiste ongulaire</span></span>
+                <span class="radio-ui">✓</span>
+              </button>
+              <button type="button" class="person-row" data-pro="Nina">
+                <span class="avatar n">N</span>
+                <span class="opt-txt"><strong>Nina</strong><span>Spécialiste cils &amp; soins</span></span>
+                <span class="radio-ui"></span>
+              </button>
+              <button type="button" class="person-row" data-pro="N'importe qui">
+                <span class="avatar any">✦</span>
+                <span class="opt-txt"><strong>N'importe qui</strong><span>Première disponible</span></span>
+                <span class="radio-ui"></span>
+              </button>
+            </div>
+
+            <!-- 2 Préférences -->
+            <div class="step-panel" data-step="2">
+              <h2 class="step-h2">Personnaliser</h2>
+              <p class="step-desc">Affine ta pose (exemple type ongles)</p>
+              <div class="field-label">Dépose ou remplissage ?</div>
+              <div class="chip-row" id="depRow">
+                <button type="button" class="chip" data-dep="Dépose">Dépose</button>
+                <button type="button" class="chip on" data-dep="Remplissage">Remplissage</button>
+              </div>
+              <div class="field-label">Méthode</div>
+              <select class="fi-like" id="methodeSel">
+                <option>Gel X</option>
+                <option>Semi-permanent</option>
+                <option>Pose américaine</option>
+              </select>
+              <div class="field-label">Longueur</div>
+              <div class="chip-row" id="lenRow">
+                <button type="button" class="chip" data-len="XS">XS</button>
+                <button type="button" class="chip" data-len="S">S</button>
+                <button type="button" class="chip on" data-len="M">M</button>
+                <button type="button" class="chip" data-len="L">L</button>
+                <button type="button" class="chip" data-len="XL">XL</button>
+              </div>
+              <div class="field-label">Forme</div>
+              <div class="pill-row" id="shapeRow">
+                <button type="button" class="pill on" data-shape="Amande">Amande</button>
+                <button type="button" class="pill" data-shape="Carré">Carré</button>
+                <button type="button" class="pill" data-shape="Ballerine">Ballerine</button>
+              </div>
+            </div>
+
+            <!-- 3 Créneau -->
+            <div class="step-panel" data-step="3">
+              <h2 class="step-h2">Choisir un créneau</h2>
+              <p class="step-desc">Mars 2026 · démo</p>
+              <div class="days-row" id="daysRow"></div>
+              <div class="slots" id="slotsGrid"></div>
+            </div>
+
+            <!-- 4 Récap -->
+            <div class="step-panel" data-step="4">
+              <h2 class="step-h2">Récapitulatif</h2>
+              <p class="step-desc">Vérifie avant de continuer</p>
+              <div id="recapBody"></div>
+              <div class="total-big" id="recapTotal">65€</div>
+              <p style="font-size:12px;color:var(--muted);margin:0;">Durée estimée · 1h10</p>
+            </div>
+
+            <!-- 5 Paiement -->
+            <div class="step-panel" data-step="5">
+              <h2 class="step-h2">Conditions &amp; paiement</h2>
+              <p class="step-desc">À lire et accepter</p>
+              <div id="checksWrap"></div>
+              <div class="field-label" style="margin-top:16px;">Mode de paiement</div>
+              <div class="pay-grid" id="payGrid"></div>
+            </div>
+
+            <!-- 6 Succès -->
+            <div class="step-panel" data-step="6" style="padding:0;">
+              <div class="confetti" id="confetti"></div>
+              <div class="success-screen">
+                <div class="success-ring">✓</div>
+                <h2 class="step-h2">C’est réservé (démo)</h2>
+                <p class="step-desc">Dans SEAVEN, le paiement de l’acompte et la confirmation arrivent ici. Tu viens de parcourir tout le flux.</p>
+                <button type="button" class="opt-card" style="margin-top:20px;justify-content:center;" onclick="location.href='./landing.html'">
+                  <span class="opt-txt" style="text-align:center;"><strong>Rejoindre la liste d’attente</strong><span>Sur la landing SEAVEN</span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="app-footer" id="appFooter">
+          <div class="footer-sum" id="footerSum">
+            <small id="footerLabel">Catégorie sélectionnée</small>
+            <strong id="footerValue">Ongles</strong>
+          </div>
+          <button type="button" class="btn-next" id="btnNext" aria-label="Étape suivante">→</button>
+        </footer>
+      </div>
+    </div>
+    <p class="caption-out"><span id="stepCaption">Étape 1</span><strong id="stepTitleOut">Choix du service</strong></p>
+  </div>
+
+  <script>
+    const TOTAL = 7;
+    const captions = [
+      { cap: "Étape 1", title: "Choix du service" },
+      { cap: "Étape 2", title: "Prestataire" },
+      { cap: "Étape 3", title: "Préférences" },
+      { cap: "Étape 4", title: "Créneau" },
+      { cap: "Étape 5", title: "Récapitulatif" },
+      { cap: "Étape 6", title: "Conditions & paiement" },
+      { cap: "Étape 7", title: "Confirmation" }
+    ];
+
+    const state = {
+      cat: "Ongles",
+      pro: "Sassa",
+      dep: "Remplissage",
+      methode: "Gel X",
+      len: "M",
+      shape: "Amande",
+      day: 25,
+      slot: "14:00",
+      slotEnd: "15:10",
+      checks: [true, true, true, true],
+      pay: "Carte bancaire"
+    };
+
+    let step = 0;
+    const track = document.getElementById("stepsTrack");
+    const progressFill = document.getElementById("progressFill");
+    const stepPill = document.getElementById("stepPill");
+    const btnNext = document.getElementById("btnNext");
+    const btnBack = document.getElementById("btnBack");
+    const footerLabel = document.getElementById("footerLabel");
+    const footerValue = document.getElementById("footerValue");
+    const headerSub = document.getElementById("headerSub");
+    const stepCaption = document.getElementById("stepCaption");
+    const stepTitleOut = document.getElementById("stepTitleOut");
+    const appFooter = document.getElementById("appFooter");
+
+    const checksText = [
+      "J'annule au moins 72h avant, sinon l'acompte est conservé.",
+      "Je viens seul(e), sans accompagnateur ni enfant.",
+      "Tout retard de plus de 15 min entraîne l'annulation.",
+      "L'acompte de 19,50€ doit être réglé en ligne."
+    ];
+
+    function buildDays() {
+      const row = document.getElementById("daysRow");
+      const days = [24, 25, 26, 27, 28, 29, 30];
+      const labels = ["L", "M", "M", "J", "V", "S", "D"];
+      row.innerHTML = days.map((d, i) => {
+        const off = d === 24 ? " off" : "";
+        const on = d === state.day ? " on" : "";
+        return `<button type="button" class="day-cell${off}${on}" data-day="${d}"><small>${labels[i]}</small>${d}</button>`;
+      }).join("");
+      row.querySelectorAll(".day-cell:not(.off)").forEach((el) => {
+        el.addEventListener("click", () => {
+          row.querySelectorAll(".day-cell").forEach((c) => c.classList.remove("on"));
+          el.classList.add("on");
+          state.day = parseInt(el.dataset.day, 10);
+          updateFooter();
+        });
+      });
+    }
+
+    function buildSlots() {
+      const grid = document.getElementById("slotsGrid");
+      const slots = [
+        { t: "09:00", end: "10:10", ok: false },
+        { t: "12:00", end: "13:10", ok: true },
+        { t: "14:00", end: "15:10", ok: true },
+        { t: "15:30", end: "16:40", ok: true },
+        { t: "17:00", end: "18:10", ok: true },
+        { t: "18:30", end: "19:40", ok: true },
+        { t: "20:00", end: "21:10", ok: false }
+      ];
+      grid.innerHTML = slots.map((s) => {
+        const on = s.t === state.slot && s.ok ? " on" : "";
+        const off = s.ok ? "" : " off";
+        return `<button type="button" class="slot${on}${off}" data-t="${s.t}" data-end="${s.end}" ${s.ok ? "" : "disabled"}>${s.t}<small>${s.ok ? s.end : "Complet"}</small></button>`;
+      }).join("");
+      grid.querySelectorAll(".slot:not(.off)").forEach((el) => {
+        el.addEventListener("click", () => {
+          grid.querySelectorAll(".slot").forEach((c) => c.classList.remove("on"));
+          el.classList.add("on");
+          state.slot = el.dataset.t;
+          state.slotEnd = el.dataset.end;
+          updateFooter();
+        });
+      });
+    }
+
+    function buildChecks() {
+      const w = document.getElementById("checksWrap");
+      w.innerHTML = checksText.map((txt, i) => `
+        <label class="check-item${state.checks[i] ? "" : " unchecked"}" data-i="${i}">
+          <span class="check-box">✓</span>
+          <span>${txt}</span>
+        </label>
+      `).join("");
+      w.querySelectorAll(".check-item").forEach((el) => {
+        el.addEventListener("click", () => {
+          const i = +el.dataset.i;
+          state.checks[i] = !state.checks[i];
+          el.classList.toggle("unchecked", !state.checks[i]);
+        });
+      });
+    }
+
+    function buildPay() {
+      const g = document.getElementById("payGrid");
+      const opts = ["Carte bancaire", "PayPal", "Wero", "Apple Pay"];
+      g.innerHTML = opts.map((p) => `
+        <button type="button" class="pay-btn${p === state.pay ? " on" : ""}" data-pay="${p}">${p}</button>
+      `).join("");
+      g.querySelectorAll(".pay-btn").forEach((el) => {
+        el.addEventListener("click", () => {
+          g.querySelectorAll(".pay-btn").forEach((b) => b.classList.remove("on"));
+          el.classList.add("on");
+          state.pay = el.dataset.pay;
+        });
+      });
+    }
+
+    function buildRecap() {
+      const body = document.getElementById("recapBody");
+      const rows = [
+        ["Prestataire", `${state.pro} · Bloom Nails`],
+        ["Adresse", "27 av. Jean Médecin"],
+        ["Prestation", `${state.cat} · ${state.dep}`],
+        ["Méthode", `${state.methode} · ${state.shape} · ${state.len}`],
+        ["Finition", "French / naturel"],
+        ["Date & heure", `Mar. ${state.day} mars · ${state.slot}`]
+      ];
+      body.innerHTML = rows.map(([a, b]) => `<div class="recap-row"><span>${a}</span><strong>${b}</strong></div>`).join("");
+    }
+
+    function confettiBurst() {
+      const host = document.getElementById("confetti");
+      host.innerHTML = "";
+      const colors = ["#ee4b93", "#9b7cf2", "#8dddc7", "#ffd54d", "#a87dc8"];
+      for (let i = 0; i < 28; i++) {
+        const s = document.createElement("span");
+        s.style.left = Math.random() * 100 + "%";
+        s.style.background = colors[i % colors.length];
+        s.style.animationDelay = Math.random() * 1.2 + "s";
+        s.style.animationDuration = 2 + Math.random() * 2 + "s";
+        host.appendChild(s);
+      }
+    }
+
+    function updateUI() {
+      track.style.transform = `translateX(-${(step / TOTAL) * 100}%)`;
+      progressFill.style.width = `${((step + 1) / TOTAL) * 100}%`;
+      stepPill.textContent = String(step + 1);
+      stepPill.classList.remove("pulse");
+      void stepPill.offsetWidth;
+      stepPill.classList.add("pulse");
+      const c = captions[step] || captions[0];
+      stepCaption.textContent = c.cap;
+      stepTitleOut.textContent = c.title;
+
+      const subs = ["Réserver une prestation", "Réserver une prestation", "Personnaliser la pose", "Choisir un créneau", "Récapitulatif", "Conditions & paiement", "Confirmation"];
+      headerSub.textContent = subs[step] || subs[0];
+
+      if (step === 6) {
+        appFooter.style.display = "none";
+        confettiBurst();
+      } else {
+        appFooter.style.display = "flex";
+      }
+
+      btnBack.style.visibility = step === 0 ? "hidden" : "visible";
+      btnNext.disabled = false;
+      if (step === 5) {
+        const allOk = state.checks.every(Boolean);
+        btnNext.disabled = !allOk;
+      }
+      updateFooter();
+    }
+
+    function updateFooter() {
+      if (step === 0) {
+        footerLabel.textContent = "Catégorie sélectionnée";
+        footerValue.textContent = state.cat;
+      } else if (step === 1) {
+        footerLabel.textContent = "Prestataire";
+        footerValue.textContent = state.pro + " · Bloom Nails";
+      } else if (step === 2) {
+        footerLabel.textContent = "Préférences";
+        footerValue.textContent = `${state.dep} · ${state.methode} · ${state.len}`;
+      } else if (step === 3) {
+        footerLabel.textContent = "Créneau sélectionné";
+        footerValue.textContent = `${state.slot} → ${state.slotEnd} · Mar. ${state.day}`;
+      } else if (step === 4) {
+        footerLabel.textContent = "Total estimé";
+        footerValue.textContent = "65€ · 1h10";
+      } else if (step === 5) {
+        footerLabel.textContent = "À payer maintenant";
+        footerValue.textContent = "19,50€ (acompte)";
+      }
+    }
+
+    document.querySelectorAll(".opt-card[data-cat]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".opt-card[data-cat]").forEach((b) => {
+          b.classList.remove("selected");
+          b.querySelector(".opt-ico").style.background = "";
+        });
+        btn.classList.add("selected");
+        state.cat = btn.dataset.cat;
+        updateFooter();
+      });
+    });
+
+    document.querySelectorAll(".person-row").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".person-row").forEach((b) => {
+          b.classList.remove("selected");
+          b.querySelector(".radio-ui").textContent = "";
+        });
+        btn.classList.add("selected");
+        btn.querySelector(".radio-ui").textContent = "✓";
+        state.pro = btn.dataset.pro;
+        updateFooter();
+      });
+    });
+
+    document.querySelectorAll("#depRow .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#depRow .chip").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.dep = btn.dataset.dep;
+        updateFooter();
+      });
+    });
+
+    document.querySelectorAll("#lenRow .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#lenRow .chip").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.len = btn.dataset.len;
+        updateFooter();
+      });
+    });
+
+    document.querySelectorAll("#shapeRow .pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#shapeRow .pill").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.shape = btn.dataset.shape;
+        updateFooter();
+      });
+    });
+
+    document.getElementById("methodeSel").addEventListener("change", (e) => {
+      state.methode = e.target.value;
+      updateFooter();
+    });
+
+    btnNext.addEventListener("click", () => {
+      if (step === 3) buildRecap();
+      if (step === 4) {
+        buildChecks();
+        buildPay();
+      }
+      if (step < TOTAL - 1) {
+        step++;
+        updateUI();
+      }
+    });
+
+    btnBack.addEventListener("click", () => {
+      if (step > 0) {
+        step--;
+        updateUI();
+      }
+    });
+
+    buildDays();
+    buildSlots();
+    updateUI();
+  </script>
+</body>
+</html>
