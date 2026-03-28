@@ -593,7 +593,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-selector{display:flex;align-items:stretch;gap:0;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:visible;box-shadow:0 10px 22px rgba(0,0,0,.06);margin-bottom:14px;position:relative;z-index:40;}
 .cmp-selector-left{flex:1;min-width:0;padding:12px 14px;font-weight:900;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-0.03em;font-size:18px;color:#1b1b22;border-radius:16px 0 0 16px;overflow:hidden;}
 .cmp-selector-divider{width:1px;align-self:stretch;background:var(--border);flex-shrink:0;}
-.cmp-selector-right{flex:1;min-width:0;position:relative;border-radius:0 16px 16px 0;overflow:visible;}
+.cmp-selector-right{flex:1;min-width:0;position:relative;border-radius:0 16px 16px 0;overflow:visible;background:#fff;}
 .cmp-selector-btn{
   width:100%;
   display:flex;
@@ -601,7 +601,7 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   justify-content:space-between;
   gap:10px;
   padding:12px 12px 12px 14px;
-  background:linear-gradient(135deg,rgba(168,125,200,.10),rgba(74,144,217,.08));
+  background:#fff;
   border:none;
   cursor:pointer;
   font-family:'Bricolage Grotesque',sans-serif;
@@ -634,10 +634,10 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-check{width:18px;height:18px;color:var(--purple);opacity:0;}
 .cmp-opt.active .cmp-check{opacity:1;}
 
-/* 2 colonnes mobile (toujours visibles) */
+/* 3 colonnes : libellés | SEAVEN | concurrent */
 .cmp-grid{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns:minmax(0,1.55fr) minmax(52px,0.42fr) minmax(52px,0.42fr);
   gap:10px;
   width:100%;
   perspective:1200px;
@@ -655,6 +655,8 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   border-color:rgba(168,125,200,.35);
   box-shadow:0 12px 28px rgba(168,125,200,.14), 0 2px 6px rgba(168,125,200,.08);
 }
+.cmp-card--feat{padding-left:12px;padding-right:12px;}
+.cmp-card--icons{padding-left:8px;padding-right:8px;}
 .cmp-list{max-height:none;overflow:visible;overflow-x:visible;padding-right:0;-webkit-overflow-scrolling:touch;}
 .cmp-row{
   display:flex;
@@ -672,11 +674,11 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-ico.warn{color:#fff;background:#f0c04a;border-radius:999px;padding:3px;}
 .cmp-txt{font-size:11px;line-height:1.3;font-weight:800;color:#21212a;overflow-wrap:anywhere;}
 .cmp-cell{min-width:0;flex:1;}
-.cmp-row--seaven{justify-content:space-between;gap:10px;}
-.cmp-row--seaven .cmp-cell{padding-right:4px;}
-.cmp-row--competitor{justify-content:space-between;gap:10px;}
-.cmp-row--competitor .cmp-ico{margin:0;}
-.cmp-cell-ghost{visibility:hidden;pointer-events:none;padding-right:4px;}
+.cmp-row--feat{align-items:flex-start;}
+.cmp-row--icons{position:relative;display:block;padding:7px 0;border-bottom:1px solid #f0f0f3;min-width:0;min-height:34px;}
+.cmp-row--icons:last-child{border-bottom:none;}
+.cmp-sync-layer{visibility:hidden;pointer-events:none;user-select:none;}
+.cmp-ico-slot{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
 .cmp-warn-hint{font-size:10px;font-weight:700;color:#8a6d1a;margin-top:3px;line-height:1.25;letter-spacing:.01em;}
 
 /* Animation changement concurrent (léger) */
@@ -867,7 +869,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;flex-di
 .hero-showcase-inner{padding-left:max(4px,env(safe-area-inset-left));padding-right:max(4px,env(safe-area-inset-right));}
 .sec,.feat-outer{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));}
 .comparatif-wrap{width:100%;min-width:0;max-width:100%;}
-.cmp-grid{min-width:0;}
+.cmp-grid{min-width:0;grid-template-columns:minmax(0,1.35fr) minmax(44px,0.4fr) minmax(44px,0.4fr);gap:8px;}
+.cmp-card--feat,.cmp-card--icons{padding:8px 6px;}
 .cmp-selector{max-width:100%;min-width:0;}
 footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env(safe-area-inset-left)) 24px max(12px,env(safe-area-inset-right));}
 .feat-controls{flex-wrap:wrap;row-gap:10px;max-width:100%;justify-content:center;}
@@ -1499,11 +1502,14 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               </div>
             </div>
             <div class="cmp-grid" role="region" aria-label="Comparatif des fonctionnalités">
-              <div class="cmp-card seaven">
-                <div id="cmpLeft" class="cmp-list"></div>
+              <div class="cmp-card cmp-card--feat">
+                <div id="cmpFeatures" class="cmp-list"></div>
               </div>
-              <div class="cmp-card" id="cmpRightCard">
-                <div id="cmpRight" class="cmp-list"></div>
+              <div class="cmp-card seaven cmp-card--icons">
+                <div id="cmpSeavenIcons" class="cmp-list"></div>
+              </div>
+              <div class="cmp-card cmp-card--icons" id="cmpRightCard">
+                <div id="cmpCompetitor" class="cmp-list"></div>
               </div>
             </div>
             <div class="cmp-end">
@@ -1892,12 +1898,15 @@ function cmpIconSvg(kind) {
   }
   return `<svg class="cmp-ico no" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6.7 6.7 13.3 13.3M13.3 6.7l-6.6 6.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`;
 }
-function cmpRowLeftHtml(f) {
-  return `<div class="cmp-row cmp-row--seaven"><div class="cmp-cell"><div class="cmp-txt">${f}</div></div>${cmpIconSvg(CMP_STATUS.ok)}</div>`;
+function cmpRowFeatHtml(f) {
+  return `<div class="cmp-row cmp-row--feat"><div class="cmp-cell"><div class="cmp-txt">${f}</div></div></div>`;
 }
-function cmpRowRightHtml(f, status, compKey) {
+function cmpRowSeavenIconsHtml(f) {
+  return `<div class="cmp-row cmp-row--icons"><div class="cmp-sync-layer"><div class="cmp-txt">${f}</div></div><div class="cmp-ico-slot">${cmpIconSvg(CMP_STATUS.ok)}</div></div>`;
+}
+function cmpRowCompetitorHtml(f, status) {
   const st = status || CMP_STATUS.no;
-  return `<div class="cmp-row cmp-row--competitor"><div class="cmp-cell cmp-cell-ghost"><div class="cmp-txt">${f}</div></div>${cmpIconSvg(st)}</div>`;
+  return `<div class="cmp-row cmp-row--icons"><div class="cmp-sync-layer"><div class="cmp-txt">${f}</div></div><div class="cmp-ico-slot">${cmpIconSvg(st)}</div></div>`;
 }
 function cmpStatusFor(compKey, feature) {
   const baseStatus = CMP_COMPETITOR_BASE[feature];
@@ -1908,17 +1917,19 @@ function cmpStatusFor(compKey, feature) {
   return baseStatus || CMP_STATUS.no;
 }
 function renderComparatif(key) {
-  const left = document.getElementById("cmpLeft");
-  const right = document.getElementById("cmpRight");
+  const feat = document.getElementById("cmpFeatures");
+  const seavenCol = document.getElementById("cmpSeavenIcons");
+  const competitorCol = document.getElementById("cmpCompetitor");
   const rightCard = document.getElementById("cmpRightCard");
-  if (!left || !right || !rightCard) return;
+  if (!feat || !seavenCol || !competitorCol || !rightCard) return;
 
   rightCard.classList.remove("is-swapping");
   void rightCard.offsetWidth;
   rightCard.classList.add("is-swapping");
 
-  left.innerHTML = CMP_FEATURES.map((f) => cmpRowLeftHtml(f)).join("");
-  right.innerHTML = CMP_FEATURES.map((f) => cmpRowRightHtml(f, cmpStatusFor(key, f), key)).join("");
+  feat.innerHTML = CMP_FEATURES.map((f) => cmpRowFeatHtml(f)).join("");
+  seavenCol.innerHTML = CMP_FEATURES.map((f) => cmpRowSeavenIconsHtml(f)).join("");
+  competitorCol.innerHTML = CMP_FEATURES.map((f) => cmpRowCompetitorHtml(f, cmpStatusFor(key, f))).join("");
 }
 const cmpSelectBtn = document.getElementById("cmpSelectBtn");
 const cmpMenu = document.getElementById("cmpMenu");
