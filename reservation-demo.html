@@ -6,6 +6,7 @@
     (function () {
       try {
         if (window.self !== window.top) document.documentElement.classList.add("rdemo-embed");
+        if (new URLSearchParams(location.search).get('naked')==='1') document.documentElement.classList.add("rdemo-naked");
       } catch (e) {}
     })();
   </script>
@@ -796,6 +797,11 @@
     .rdemo-embed .caption-out {
       margin-top: 10px;
     }
+    html.rdemo-naked body{background:#fff;padding:0;min-height:100vh;min-height:100dvh;overflow:hidden;}
+    html.rdemo-naked .demo-top,html.rdemo-naked .caption-out{display:none!important;}
+    html.rdemo-naked .stage{max-width:none;margin:0;height:100vh;height:100dvh;}
+    html.rdemo-naked .phone{background:none;border-radius:0;padding:0;box-shadow:none;height:100%;}
+    html.rdemo-naked .phone-screen{border-radius:0;height:100%;max-height:100%;}
   </style>
 </head>
 <body>
@@ -1317,6 +1323,7 @@
         btnNext.disabled = !allOk;
       }
       updateFooter();
+      if(window.self!==window.top){try{window.parent.postMessage({type:'rdemo-step',step:step},'*');}catch(e){}}
     }
 
     function updateFooter() {
@@ -1489,6 +1496,15 @@
     buildSlots();
     syncPrefsBlocks();
     updateUI();
+
+    window.addEventListener('message',function(e){
+      if(e.data&&e.data.type==='rdemo-goto'&&typeof e.data.step==='number'){
+        var t=Math.max(0,Math.min(TOTAL-1,e.data.step));
+        if(t===step)return;
+        buildRecap();buildChecks();buildPay();
+        step=t;updateUI();
+      }
+    });
   </script>
 </body>
 </html>

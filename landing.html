@@ -544,14 +544,42 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 #waitlist .btn-submit:hover{box-shadow:0 12px 28px rgba(255,202,40,.35);}
 #pricing-section .btn-submit{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 #pricing-section .btn-submit:hover{box-shadow:0 12px 28px rgba(74,144,217,.3);}
-.rdemo-embed-wrap{margin-top:clamp(24px,4vw,36px);width:100%;text-align:center;}
-.rdemo-embed-heading{margin:0 auto 18px;max-width:min(420px,100%);}
-.rdemo-embed-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(22px,5.5vw,32px);font-weight:800;letter-spacing:-0.04em;line-height:1.08;margin:0 0 10px;color:var(--black);}
-.rdemo-embed-brand{display:inline-block;color:#1d1d1f;font-weight:800;}
-.rdemo-embed-grad{display:inline-block;background:linear-gradient(90deg,#7c3aed,#a855f7 38%,var(--pink) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
-.rdemo-embed-sub{font-size:12px;font-weight:500;color:var(--mid);line-height:1.55;margin:0 auto;max-width:380px;}
-.rdemo-embed-accent{width:56px;height:3px;margin:14px auto 0;border-radius:2px;background:linear-gradient(90deg,#7c3aed,var(--pink));}
-.rdemo-embed-frame{width:100%;max-width:400px;height:min(680px,82vh);height:min(680px,82dvh);border:none;border-radius:24px;display:block;margin:0 auto;background:#0c0c0e;box-shadow:0 20px 50px rgba(0,0,0,.1);vertical-align:top;}
+/* DEMO RESERVATION INTERACTIVE */
+.demo-res{position:relative;padding:clamp(48px,8vw,100px) 16px;background:#08080c;overflow:hidden;}
+.demo-res::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 120% 60% at 50% 0%,rgba(124,58,237,.22),transparent 60%),radial-gradient(ellipse 80% 50% at 85% 90%,rgba(238,75,147,.12),transparent 50%),radial-gradient(ellipse 60% 40% at 15% 60%,rgba(155,124,242,.08),transparent 50%);pointer-events:none;}
+.demo-res-inner{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.demo-res-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,5.5vw,44px);font-weight:800;letter-spacing:-0.04em;line-height:1.08;color:#fff;margin:0 0 10px;}
+.demo-res-title em{font-style:normal;background:linear-gradient(90deg,#7c3aed,#a855f7 40%,#ee4b93);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.demo-res-sub{font-size:clamp(13px,2.2vw,15px);color:rgba(255,255,255,.45);margin:0 auto 36px;max-width:460px;line-height:1.55;}
+.demo-steps-nav{display:flex;align-items:flex-start;justify-content:center;position:relative;margin:0 auto 36px;max-width:680px;padding:0 20px;gap:0;}
+.demo-steps-line{position:absolute;top:19px;left:56px;right:56px;height:2px;background:rgba(255,255,255,.07);z-index:0;border-radius:2px;overflow:hidden;}
+.demo-steps-fill{height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7,#ee4b93);border-radius:2px;transition:width .6s cubic-bezier(.25,.46,.45,.94);box-shadow:0 0 12px rgba(124,58,237,.5);}
+.demo-step-dot{display:flex;flex-direction:column;align-items:center;flex:1;cursor:pointer;position:relative;z-index:2;gap:6px;transition:transform .3s;padding:0 2px;border:none;background:none;font-family:'Manrope',sans-serif;}
+.demo-step-dot:hover{transform:translateY(-2px);}
+.demo-bub{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.08);transition:all .45s cubic-bezier(.25,.46,.45,.94);flex-shrink:0;}
+.demo-step-dot.visited .demo-bub{background:rgba(124,58,237,.15);border-color:rgba(155,124,242,.35);color:rgba(255,255,255,.65);box-shadow:0 0 14px rgba(155,124,242,.2);}
+.demo-step-dot.active .demo-bub{width:46px;height:46px;font-size:15px;background:linear-gradient(135deg,#7c3aed,#ee4b93);border-color:transparent;color:#fff;box-shadow:0 0 28px rgba(124,58,237,.55),0 0 56px rgba(238,75,147,.2);animation:demoPulse 2.2s ease-in-out infinite;}
+@keyframes demoPulse{0%,100%{box-shadow:0 0 28px rgba(124,58,237,.55),0 0 56px rgba(238,75,147,.2);}50%{box-shadow:0 0 38px rgba(124,58,237,.7),0 0 72px rgba(238,75,147,.35);}}
+.demo-bub-lbl{font-size:9px;font-weight:600;color:rgba(255,255,255,.22);transition:color .35s;text-align:center;line-height:1.2;max-width:72px;}
+.demo-step-dot.active .demo-bub-lbl{color:rgba(255,255,255,.8);}
+.demo-step-dot.visited .demo-bub-lbl{color:rgba(255,255,255,.45);}
+.demo-phone-wrap{display:inline-block;position:relative;animation:demoFloat 5s ease-in-out infinite;}
+@keyframes demoFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.demo-phone-shell{background:linear-gradient(180deg,#222228,#111114);border-radius:42px;padding:12px;position:relative;box-shadow:0 50px 100px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06) inset,0 0 90px rgba(124,58,237,.1);}
+.demo-phone-shell::before{content:'';position:absolute;inset:0;border-radius:42px;padding:1px;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.02));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+.demo-phone-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:100px;height:24px;background:#111114;border-radius:0 0 14px 14px;z-index:10;}
+.demo-phone-screen{width:min(300px,68vw);height:min(540px,68vh);border-radius:32px;overflow:hidden;background:#0c0c0e;position:relative;}
+.demo-phone-screen iframe{width:100%;height:100%;border:none;display:block;}
+.demo-confetti-layer{position:absolute;inset:-40px -40px 0 -40px;pointer-events:none;overflow:hidden;z-index:20;opacity:0;transition:opacity .4s;}
+.demo-confetti-layer.is-active{opacity:1;}
+.demo-confetti-p{position:absolute;top:-16px;opacity:0;}
+@keyframes demoFall{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(700px) rotate(720deg);}}
+.demo-auto-hint{margin-top:24px;font-size:11px;color:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;gap:8px;}
+.demo-auto-hint button{background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.45);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit;}
+.demo-auto-hint button:hover{border-color:rgba(255,255,255,.3);color:#fff;}
+@media(max-width:600px){.demo-bub{width:30px;height:30px;font-size:11px;}.demo-step-dot.active .demo-bub{width:36px;height:36px;font-size:12px;}
+.demo-bub-lbl{font-size:7px;max-width:50px;}.demo-steps-line{top:15px;left:24px;right:24px;}.demo-steps-nav{padding:0 8px;}
+.demo-phone-shell{border-radius:34px;padding:8px;}.demo-phone-screen{border-radius:28px;}.demo-phone-notch{width:80px;height:20px;border-radius:0 0 10px 10px;top:8px;}}
 #pricing-section .t-pop{background:linear-gradient(135deg,var(--blue),#6ca8e3);}
 
 /* Bloc parrainage */
@@ -1422,21 +1450,60 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
               <div style="font-size: 13px; color: #666; margin-top: 8px">par mois · toutes fonctionnalités incluses</div>
               <div class="t-feats" id="tFeats"></div>
             </div>
-            <div class="rdemo-embed-wrap" id="reservation-demo">
-              <div class="rdemo-embed-heading">
-                <h2 class="rdemo-embed-title">
-                  <span class="rdemo-embed-brand">Seaven –</span><br />
-                  <span class="rdemo-embed-grad">Parcours<br />Réservation Client</span>
-                </h2>
-                <p class="rdemo-embed-sub">8 étapes · de la catégorie à la confirmation · avec photo d'inspiration</p>
-                <div class="rdemo-embed-accent" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- DEMO RESERVATION INTERACTIVE -->
+        <div class="demo-res" id="demo-reservation">
+          <div class="demo-res-inner">
+            <h2 class="demo-res-title">Réservation client<br><em>en action.</em></h2>
+            <p class="demo-res-sub">Découvrez le parcours complet de réservation, de la prestation à la confirmation.</p>
+
+            <nav class="demo-steps-nav" aria-label="Étapes de la démo">
+              <div class="demo-steps-line"><div class="demo-steps-fill" id="demoStepsFill"></div></div>
+              <button class="demo-step-dot active" data-demo-step="0" type="button">
+                <span class="demo-bub">1</span>
+                <span class="demo-bub-lbl">Prestation</span>
+              </button>
+              <button class="demo-step-dot" data-demo-step="1" type="button">
+                <span class="demo-bub">2</span>
+                <span class="demo-bub-lbl">Prestataire</span>
+              </button>
+              <button class="demo-step-dot" data-demo-step="2" type="button">
+                <span class="demo-bub">3</span>
+                <span class="demo-bub-lbl">Préférences</span>
+              </button>
+              <button class="demo-step-dot" data-demo-step="3" type="button">
+                <span class="demo-bub">4</span>
+                <span class="demo-bub-lbl">Créneau</span>
+              </button>
+              <button class="demo-step-dot" data-demo-step="4" type="button">
+                <span class="demo-bub">5</span>
+                <span class="demo-bub-lbl">Récapitulatif</span>
+              </button>
+              <button class="demo-step-dot" data-demo-step="5" type="button">
+                <span class="demo-bub">6</span>
+                <span class="demo-bub-lbl">Paiement</span>
+              </button>
+              <button class="demo-step-dot" data-demo-step="6" type="button">
+                <span class="demo-bub">7</span>
+                <span class="demo-bub-lbl">Confirmé !</span>
+              </button>
+            </nav>
+
+            <div class="demo-phone-wrap">
+              <div class="demo-confetti-layer" id="demoConfetti"></div>
+              <div class="demo-phone-shell">
+                <div class="demo-phone-notch"></div>
+                <div class="demo-phone-screen">
+                  <iframe id="demoIframe" src="./reservation-demo.html?naked=1" title="Démo réservation Seaven" loading="lazy"></iframe>
+                </div>
               </div>
-              <iframe
-                class="rdemo-embed-frame"
-                src="./reservation-demo.html"
-                title="Démo interactive — parcours réservation client Seaven"
-                loading="lazy"
-              ></iframe>
+            </div>
+
+            <div class="demo-auto-hint">
+              <button type="button" id="demoPlayBtn" aria-label="Pause la démo" title="Pause / Play">❚❚</button>
+              <span id="demoAutoLabel">Démo automatique</span>
             </div>
           </div>
         </div>
@@ -2164,6 +2231,127 @@ async function submitForm() {
   document.getElementById("formWrap").innerHTML =
     `<div style="text-align:center;padding:56px 20px;"><div style="font-size:56px;margin-bottom:20px;">🦚</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;margin-bottom:10px;">Tu es sur la liste !</div><div style="font-size:15px;color:var(--mid);line-height:1.7;">Merci ${p} — on t'envoie un email le 21 septembre<br>quand SEAVEN est prêt pour toi. 🎉</div></div>`;
 }
+
+// ── DEMO RESERVATION INTERACTIVE ──
+(function(){
+  var BUBBLE_TO_IFRAME=[0,1,2,4,5,6,7];
+  var IFRAME_TO_BUBBLE={0:0,1:1,2:2,3:2,4:3,5:4,6:5,7:6};
+  var TOTAL_IFRAME=8;
+  var currentIframe=0,autoPlay=true,autoTimer=null;
+  var AUTO_DELAY=3800,FINAL_DELAY=6000;
+  var dots=document.querySelectorAll('.demo-step-dot');
+  var fill=document.getElementById('demoStepsFill');
+  var iframe=document.getElementById('demoIframe');
+  var playBtn=document.getElementById('demoPlayBtn');
+  var autoLabel=document.getElementById('demoAutoLabel');
+  var confettiLayer=document.getElementById('demoConfetti');
+
+  function updateBubbles(bIdx){
+    dots.forEach(function(d,i){
+      d.classList.remove('active','visited');
+      if(i===bIdx)d.classList.add('active');
+      else if(i<bIdx)d.classList.add('visited');
+    });
+    var pct=bIdx<=0?0:bIdx/(BUBBLE_TO_IFRAME.length-1)*100;
+    if(fill)fill.style.width=pct+'%';
+    if(bIdx===BUBBLE_TO_IFRAME.length-1)triggerConfetti();
+    else if(confettiLayer)confettiLayer.classList.remove('is-active');
+  }
+
+  function sendToIframe(iStep){
+    if(iframe&&iframe.contentWindow){
+      try{iframe.contentWindow.postMessage({type:'rdemo-goto',step:iStep},'*');}catch(e){}
+    }
+  }
+
+  function gotoIframeStep(iStep){
+    currentIframe=iStep;
+    var bIdx=IFRAME_TO_BUBBLE[iStep];
+    if(bIdx===undefined)bIdx=0;
+    updateBubbles(bIdx);
+    sendToIframe(iStep);
+  }
+
+  function triggerConfetti(){
+    if(!confettiLayer)return;
+    confettiLayer.innerHTML='';
+    confettiLayer.classList.add('is-active');
+    var colors=['#ee4b93','#9b7cf2','#8dddc7','#ffd54d','#a87dc8','#7c3aed','#a855f7'];
+    for(var i=0;i<45;i++){
+      var p=document.createElement('span');
+      p.className='demo-confetti-p';
+      p.style.left=Math.random()*100+'%';
+      p.style.background=colors[i%colors.length];
+      var dur=2.5+Math.random()*2;
+      var del=Math.random()*1.8;
+      p.style.animation='demoFall '+dur+'s linear '+del+'s forwards';
+      p.style.width=(6+Math.random()*6)+'px';
+      p.style.height=(6+Math.random()*6)+'px';
+      p.style.borderRadius=Math.random()>0.5?'50%':'2px';
+      confettiLayer.appendChild(p);
+    }
+  }
+
+  function startAuto(){
+    stopAuto();
+    if(!autoPlay)return;
+    var isLast=currentIframe===TOTAL_IFRAME-1;
+    var delay=isLast?FINAL_DELAY:AUTO_DELAY;
+    autoTimer=setTimeout(function(){
+      var next=(currentIframe+1)%TOTAL_IFRAME;
+      gotoIframeStep(next);
+      startAuto();
+    },delay);
+  }
+
+  function stopAuto(){
+    if(autoTimer){clearTimeout(autoTimer);autoTimer=null;}
+  }
+
+  function toggleAuto(){
+    autoPlay=!autoPlay;
+    if(playBtn)playBtn.textContent=autoPlay?'❚❚':'▶';
+    if(autoLabel)autoLabel.textContent=autoPlay?'Démo automatique':'En pause';
+    if(autoPlay)startAuto();else stopAuto();
+  }
+
+  dots.forEach(function(d){
+    d.addEventListener('click',function(){
+      var idx=parseInt(d.dataset.demoStep,10);
+      var iStep=BUBBLE_TO_IFRAME[idx];
+      gotoIframeStep(iStep);
+      if(autoPlay)startAuto();
+    });
+  });
+
+  if(playBtn)playBtn.addEventListener('click',toggleAuto);
+
+  window.addEventListener('message',function(e){
+    if(e.data&&e.data.type==='rdemo-step'){
+      var bIdx=IFRAME_TO_BUBBLE[e.data.step];
+      if(bIdx!==undefined){
+        currentIframe=e.data.step;
+        updateBubbles(bIdx);
+      }
+    }
+  });
+
+  if(iframe){
+    iframe.addEventListener('load',function(){
+      setTimeout(function(){gotoIframeStep(0);startAuto();},400);
+    });
+  }
+
+  var section=document.getElementById('demo-reservation');
+  if(section&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting&&autoPlay)startAuto();
+        else stopAuto();
+      });
+    },{threshold:0.15}).observe(section);
+  }
+})();
 
   </script>
 </body>
