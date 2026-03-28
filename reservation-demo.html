@@ -1079,14 +1079,9 @@
       }
     }
     function rdemoCloseOrBack() {
-      if (rdemoInIframe()) {
-        try {
-          if (typeof window.parent.scroll2 === "function") window.parent.scroll2("pricing-section");
-          else window.parent.location.hash = "pricing-section";
-        } catch (e) {}
-        return;
-      }
-      location.href = "./landing.html";
+      step = 0;
+      updateUI();
+      showAccueil();
     }
     function rdemoGoWaitlist() {
       if (rdemoInIframe()) {
