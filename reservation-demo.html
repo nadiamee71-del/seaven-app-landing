@@ -820,12 +820,12 @@
     .rdemo-embed .caption-out {
       margin-top: 10px;
     }
-    .accueil-overlay{position:absolute;inset:0;z-index:5;background:#fff;transition:opacity .4s ease,transform .4s ease;overflow-x:hidden;overflow-y:auto;}
+    .accueil-overlay{position:absolute;inset:0;z-index:5;background:#fff;transition:opacity .4s ease,transform .4s ease;overflow:hidden;}
     .accueil-overlay.is-hidden{opacity:0;transform:scale(.97);pointer-events:none;}
-    .accueil-img-inner{position:relative;width:100%;}
+    .accueil-img-inner{position:relative;width:100%;padding:0 3px;}
     .accueil-img-inner img{width:100%;height:auto;display:block;}
-    .accueil-hotspot{position:absolute;left:4%;top:44%;width:10%;aspect-ratio:1;border-radius:50%;border:none;background:rgba(124,58,237,.08);cursor:pointer;z-index:6;animation:hotspotPulse 2s ease-in-out infinite;}
-    .accueil-hotspot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(124,58,237,.45);animation:hotspotRing 2s ease-in-out infinite;}
+    .accueil-hotspot{position:absolute;left:5.5%;top:44.5%;width:8%;aspect-ratio:1;border-radius:50%;border:none;background:rgba(124,58,237,.06);cursor:pointer;z-index:6;animation:hotspotPulse 2s ease-in-out infinite;}
+    .accueil-hotspot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid rgba(124,58,237,.4);animation:hotspotRing 2s ease-in-out infinite;}
     @keyframes hotspotPulse{0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,.3);}50%{box-shadow:0 0 0 10px rgba(124,58,237,0);}}
     @keyframes hotspotRing{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:1;transform:scale(1.1);}}
     html.rdemo-naked body{background:#fff;padding:0;min-height:100vh;min-height:100dvh;overflow:hidden;}
