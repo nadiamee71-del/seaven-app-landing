@@ -762,47 +762,6 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .access-gate::after{display:none;}
 .access-gate.hidden{display:none;}
 
-/* Intro animation — logo ouverture */
-.intro-anim{
-  position:absolute;inset:0;z-index:10;
-  display:flex;align-items:center;justify-content:center;
-  background:#fff;
-  pointer-events:none;
-  transition:opacity .7s ease;
-}
-.intro-anim.done{opacity:0;}
-.intro-anim-anchor{
-  position:relative;
-  width:260px;height:260px;
-}
-.intro-anim-frame{
-  position:absolute;
-  bottom:10%;
-  left:50%;
-  transform:translateX(-50%);
-  object-fit:contain;
-  opacity:0;
-  transform-origin:center bottom;
-}
-.intro-anim-frame[data-frame="0"]{width:70px;height:160px;}
-.intro-anim-frame[data-frame="1"]{width:90px;height:160px;}
-.intro-anim-frame[data-frame="2"]{width:200px;height:140px;}
-.intro-anim-frame.f-active{
-  opacity:1;
-  animation:frameIn .4s cubic-bezier(.16,1,.3,1) both;
-}
-@keyframes frameIn{
-  0%{opacity:0;transform:translateX(-50%) scale(.8);}
-  100%{opacity:1;transform:translateX(-50%) scale(1);}
-}
-.intro-anim.shrink .intro-anim-frame.f-active{
-  animation:logoEnd .5s cubic-bezier(.16,1,.3,1) forwards;
-}
-@keyframes logoEnd{
-  0%{opacity:1;transform:translateX(-50%) scale(1);}
-  40%{opacity:1;transform:translateX(-50%) scale(1.06);}
-  100%{opacity:0;transform:translateX(-50%) scale(.3);}
-}
 
 .access-card{
   position:relative;z-index:1;
@@ -815,13 +774,11 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   background-clip:padding-box;
   box-shadow:0 24px 64px rgba(0,0,0,.06),0 8px 20px rgba(0,0,0,.03),0 0 0 2px rgba(232,99,140,.15),0 0 0 4px rgba(168,125,200,.1);
   text-align:center;
-  opacity:0;
-  transform:translateY(20px) scale(.97);
-  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);
+  animation:accessCardIn .8s cubic-bezier(.16,1,.3,1) both;
 }
-.access-card.show{
-  opacity:1;
-  transform:translateY(0) scale(1);
+@keyframes accessCardIn{
+  0%{opacity:0;transform:translateY(30px) scale(.95);}
+  100%{opacity:1;transform:translateY(0) scale(1);}
 }
 .access-logo{
   width:64px;height:64px;
@@ -1180,13 +1137,6 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 </head>
 <body>
 <div id="accessGate" class="access-gate">
-  <div class="intro-anim" id="introAnim">
-    <div class="intro-anim-anchor">
-      <img class="intro-anim-frame" data-frame="0" src="./assets/26b1246d-6e8d-4bc9-bb30-d3c9f0f784d6.png" alt="" />
-      <img class="intro-anim-frame" data-frame="1" src="./assets/41afbaa3-8e5a-4837-b296-100f61fff829.png" alt="" />
-      <img class="intro-anim-frame" data-frame="2" src="./assets/2dc413fe-fac5-47e5-9470-9c1bce05ad8d.png" alt="" />
-    </div>
-  </div>
   <div class="access-card" id="accessCard">
     <img class="access-logo" src="./assets/logo-seaven-main.png" alt="SEAVEN" />
     <div class="access-title">SEAVEN</div>
@@ -2029,33 +1979,6 @@ function scroll2(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
 
-// Animation intro — ouverture logo paon
-(function(){
-  var intro = document.getElementById('introAnim');
-  var card = document.getElementById('accessCard');
-  if(!intro || !card) return;
-  var frames = intro.querySelectorAll('.intro-anim-frame');
-  var total = frames.length;
-  var delay = 450;
-  var i = 0;
-
-  function showFrame(){
-    if(i > 0) frames[i-1].classList.remove('f-active');
-    if(i < total){
-      frames[i].classList.add('f-active');
-      i++;
-      setTimeout(showFrame, i === total ? 600 : delay);
-    } else {
-      intro.classList.add('shrink');
-      setTimeout(function(){
-        intro.classList.add('done');
-        card.classList.add('show');
-      }, 500);
-    }
-  }
-
-  setTimeout(showFrame, 250);
-})();
 
 // Modifie ici le mot de passe d'acces de la landing.
 const ACCESS_PASSWORD = "seavenroom";
