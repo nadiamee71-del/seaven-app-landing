@@ -963,7 +963,8 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
   100%{transform:scale(1);}
 }
 .hero-cta-pill,
-.btn-submit,
+#waitlist .btn-submit,
+#comparatif-section .cmp-end .btn-submit,
 .parrain-modal-cta{animation:heartbeat 2.4s ease-in-out infinite;}
 
 @keyframes subtitleShimmer{
@@ -1053,9 +1054,10 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 /* 16. Smooth focus outlines — accessible + premium */
 :focus-visible{outline:2px solid rgba(168,125,200,.5);outline-offset:2px;border-radius:inherit;}
 
-/* 17. Comparatif card — bordure + hover subtil */
-.cmp-unified{transition:box-shadow .25s ease;}
-.cmp-unified:hover{box-shadow:0 16px 36px rgba(0,0,0,.1),0 2px 8px rgba(0,0,0,.04);}
+/* 17. Comparatif — pas de scrollbar, pas d'animation parasite */
+.cmp-unified{overflow:hidden;}
+#comparatif-section .cmp-list{overflow:visible;scrollbar-width:none;}
+#comparatif-section .cmp-list::-webkit-scrollbar{display:none;}
 
 /* 18. Métiers — glow subtil sur carte active */
 .m-card.on{box-shadow:0 8px 24px rgba(126,200,164,.22),0 0 0 1px rgba(126,200,164,.35) inset,0 0 0 3px rgba(126,200,164,.06);}
@@ -1081,7 +1083,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
         </svg>
       </button>
     </div>
-    <button type="button" class="btn-submit" style="margin-top:12px" onclick="unlockLanding()">Entrer</button>
+    <button type="button" class="btn-submit" style="margin-top:12px;animation:none;" onclick="unlockLanding()">Entrer</button>
     <div id="accessError" class="access-error">Mot de passe incorrect.</div>
   </div>
 </div>
@@ -2468,7 +2470,7 @@ async function submitForm() {
     '.reveal-up.is-visible{opacity:1;transform:translateY(0);}';
   document.head.appendChild(style);
 
-  var targets=document.querySelectorAll('.sec, .feat-outer, .demo-res, .parrainage-wrap, .cmp-unified, footer');
+  var targets=document.querySelectorAll('.sec, .feat-outer, .demo-res, .parrainage-wrap, footer');
   targets.forEach(function(el){el.classList.add('reveal-up');});
 
   if(!('IntersectionObserver' in window)){
