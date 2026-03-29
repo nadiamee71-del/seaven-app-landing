@@ -758,25 +758,8 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   background:#ffffff;
   overflow:hidden;
 }
-.access-gate::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 20% 20%,rgba(232,99,140,.1) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 60% at 80% 80%,rgba(168,125,200,.12) 0%,transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 50%,rgba(74,144,217,.06) 0%,transparent 55%);
-  animation:accessOrbs 12s ease-in-out infinite alternate;
-  pointer-events:none;
-}
-@keyframes accessOrbs{
-  0%{transform:scale(1) rotate(0deg);opacity:.8;}
-  50%{transform:scale(1.1) rotate(3deg);opacity:1;}
-  100%{transform:scale(1) rotate(-2deg);opacity:.85;}
-}
-.access-gate::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 40%,transparent 30%,rgba(0,0,0,.02) 100%);
-  pointer-events:none;
-}
+.access-gate::before{display:none;}
+.access-gate::after{display:none;}
 .access-gate.hidden{display:none;}
 .access-card{
   position:relative;z-index:1;
