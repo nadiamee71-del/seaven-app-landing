@@ -900,8 +900,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
 .ff{display:flex;flex-direction:column;gap:5px;}
 .ff.full{grid-column:1/-1;}
 .fl{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px;}
-.fi{width:100%;max-width:100%;min-width:0;box-sizing:border-box;background:#fff;border:1px solid rgba(255,202,40,.55);border-radius:14px;padding:13px 16px;font-size:14px;color:var(--black);font-family:'Manrope',sans-serif;outline:none;transition:border .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;box-shadow:0 10px 30px rgba(0,0,0,.04);}
-.fi:focus{border-color:rgba(255,202,40,.95);box-shadow:0 0 0 2px rgba(255,202,40,.18),0 10px 30px rgba(0,0,0,.04);}
+.fi{width:100%;max-width:100%;min-width:0;box-sizing:border-box;background:#fff;border:1px solid rgba(168,125,200,.35);border-radius:14px;padding:13px 16px;font-size:14px;color:var(--black);font-family:'Manrope',sans-serif;outline:none;transition:border .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;box-shadow:0 10px 30px rgba(0,0,0,.04);}
+.fi:focus{border-color:rgba(232,99,140,.7);box-shadow:0 0 0 2px rgba(232,99,140,.14),0 10px 30px rgba(0,0,0,.04);}
 .fi.invalid{border-color:var(--pink)!important;box-shadow:0 0 0 2px rgba(232,99,140,.14),0 10px 30px rgba(0,0,0,.04);}
 .form-est{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:15px 20px;margin-bottom:14px;display:none;align-items:center;justify-content:space-between;box-shadow:0 10px 30px rgba(0,0,0,.04);}
 .fe-l{font-size:13px;color:var(--mid);font-weight:600;}
@@ -952,6 +952,32 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 }
 
 /* ═══ PREMIUM POLISH — profondeur, micro-interactions, lumières ═══ */
+
+/* 0. Heartbeat CTA + sous-titre démo animé */
+@keyframes heartbeat{
+  0%{transform:scale(1);}
+  14%{transform:scale(1.06);}
+  28%{transform:scale(1);}
+  42%{transform:scale(1.08);}
+  56%{transform:scale(1);}
+  100%{transform:scale(1);}
+}
+.hero-cta-pill,
+.btn-submit,
+.parrain-modal-cta{animation:heartbeat 2.4s ease-in-out infinite;}
+
+@keyframes subtitleShimmer{
+  0%{background-position:200% center;}
+  100%{background-position:-200% center;}
+}
+.demo-res-sub{
+  background:linear-gradient(90deg,var(--mid) 30%,var(--pink) 50%,var(--purple) 55%,var(--mid) 70%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:subtitleShimmer 6s linear infinite;
+}
 
 /* 1. Fond vivant : lumières radiales très subtiles entre les sections */
 .sec{position:relative;}
@@ -1564,7 +1590,7 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
         <div class="demo-res" id="demo-reservation">
           <div class="demo-res-inner">
             <h2 class="demo-res-title">Parcours<br><em>Réservation Client</em></h2>
-            <p class="demo-res-sub">8 étapes · de la catégorie à la confirmation · avec photo d'inspiration</p>
+            <p class="demo-res-sub">7 étapes · de la catégorie à la confirmation · avec photo d'inspiration</p>
 
             <nav class="demo-steps-nav" aria-label="Étapes de la démo">
               <div class="demo-steps-line"><div class="demo-steps-fill" id="demoStepsFill"></div></div>
