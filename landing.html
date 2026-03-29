@@ -706,7 +706,6 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   border-radius:22px;
   padding:10px 12px 12px;
   box-shadow:0 12px 28px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
-  transform:translateZ(0) rotateX(.35deg);
 }
 .cmp-unified-grid{
   display:grid;
@@ -752,12 +751,97 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-end .btn-submit{max-width:300px;margin:12px auto 0;background:linear-gradient(135deg,var(--purple),var(--blue));}
 
 /* Code d'accès */
-.access-gate{position:fixed;inset:0;background:#fff;z-index:12000;display:flex;align-items:center;justify-content:center;padding:20px;}
+.access-gate{
+  position:fixed;inset:0;z-index:12000;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:#0a0a0f;
+  overflow:hidden;
+}
+.access-gate::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%,rgba(232,99,140,.18) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 80%,rgba(168,125,200,.2) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%,rgba(74,144,217,.08) 0%,transparent 55%);
+  animation:accessOrbs 12s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes accessOrbs{
+  0%{transform:scale(1) rotate(0deg);opacity:.8;}
+  50%{transform:scale(1.1) rotate(3deg);opacity:1;}
+  100%{transform:scale(1) rotate(-2deg);opacity:.85;}
+}
+.access-gate::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 40%,transparent 30%,rgba(0,0,0,.4) 100%);
+  pointer-events:none;
+}
 .access-gate.hidden{display:none;}
-.access-card{width:100%;max-width:360px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.04);}
-.access-title{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.03em;margin-bottom:8px;}
-.access-sub{font-size:14px;color:var(--mid);line-height:1.55;margin-bottom:14px;}
-.access-error{margin-top:10px;font-size:12px;font-weight:700;color:#d14369;display:none;}
+.access-card{
+  position:relative;z-index:1;
+  width:100%;max-width:360px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:28px;
+  padding:32px 24px 28px;
+  box-shadow:0 24px 64px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.05) inset;
+  text-align:center;
+  animation:accessCardIn .8s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes accessCardIn{
+  0%{opacity:0;transform:translateY(30px) scale(.95);}
+  100%{opacity:1;transform:translateY(0) scale(1);}
+}
+.access-logo{
+  width:64px;height:64px;
+  border-radius:18px;
+  object-fit:cover;
+  margin:0 auto 16px;
+  box-shadow:0 8px 24px rgba(232,99,140,.25);
+  animation:accessLogoFloat 4s ease-in-out infinite;
+}
+@keyframes accessLogoFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-5px);}
+}
+.access-title{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:26px;font-weight:800;letter-spacing:-0.03em;
+  margin-bottom:4px;
+  background:linear-gradient(135deg,#fff 30%,rgba(232,99,140,.8) 60%,rgba(168,125,200,.9));
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.access-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:20px;}
+.access-error{margin-top:10px;font-size:12px;font-weight:700;color:#ff6b8a;display:none;}
+.access-gate .fi{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  border-radius:16px;
+}
+.access-gate .fi::placeholder{color:rgba(255,255,255,.3);}
+.access-gate .fi:focus{
+  border-color:rgba(232,99,140,.5);
+  box-shadow:0 0 0 3px rgba(232,99,140,.12);
+  background:rgba(255,255,255,.1);
+}
+.access-gate .btn-submit{
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  border:none;border-radius:16px;
+  padding:15px;font-size:15px;font-weight:700;
+  box-shadow:0 12px 32px rgba(232,99,140,.3);
+  transition:transform .2s,box-shadow .2s;
+}
+.access-gate .btn-submit:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(232,99,140,.4);
+}
+.access-gate .btn-submit:active{transform:translateY(0) scale(.98);}
+.access-gate .access-pass-toggle{color:rgba(255,255,255,.4);}
+.access-gate .access-pass-toggle:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);}
 .access-pass-wrap{position:relative;}
 .access-pass-input{padding-right:46px;}
 .access-pass-toggle{
@@ -1056,8 +1140,11 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 
 /* 17. Comparatif — pas de scrollbar, pas d'animation parasite */
 .cmp-unified{overflow:hidden;}
-#comparatif-section .cmp-list{overflow:visible;scrollbar-width:none;}
-#comparatif-section .cmp-list::-webkit-scrollbar{display:none;}
+.comparatif-wrap{overflow:hidden;}
+#comparatif-section{overflow:hidden;}
+#comparatif-section *{scrollbar-width:none;}
+#comparatif-section *::-webkit-scrollbar{display:none;}
+#comparatif-section.reveal-up{animation:none;opacity:1;transform:none;}
 
 /* 18. Métiers — glow subtil sur carte active */
 .m-card.on{box-shadow:0 8px 24px rgba(126,200,164,.22),0 0 0 1px rgba(126,200,164,.35) inset,0 0 0 3px rgba(126,200,164,.06);}
@@ -1067,8 +1154,9 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 <body>
 <div id="accessGate" class="access-gate">
   <div class="access-card">
+    <img class="access-logo" src="./assets/logo-seaven-main.png" alt="SEAVEN" />
     <div class="access-title">SEAVEN</div>
-    <p class="access-sub">Accès protégé. Entre le mot de passe pour afficher la landing.</p>
+    <p class="access-sub">Accès protégé. Entre le mot de passe pour continuer.</p>
     <div class="access-pass-wrap">
       <input class="fi access-pass-input" type="password" id="accessPassword" placeholder="Mot de passe" />
       <button type="button" id="accessPasswordToggle" class="access-pass-toggle" aria-label="Afficher le mot de passe" aria-pressed="false">
@@ -2471,7 +2559,10 @@ async function submitForm() {
   document.head.appendChild(style);
 
   var targets=document.querySelectorAll('.sec, .feat-outer, .demo-res, .parrainage-wrap, footer');
-  targets.forEach(function(el){el.classList.add('reveal-up');});
+  targets.forEach(function(el){
+    if(el.id==='comparatif-section') return;
+    el.classList.add('reveal-up');
+  });
 
   if(!('IntersectionObserver' in window)){
     targets.forEach(function(el){el.classList.add('is-visible');});
