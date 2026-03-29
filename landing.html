@@ -768,36 +768,38 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
   display:flex;align-items:center;justify-content:center;
   background:#fff;
   pointer-events:none;
-  transition:opacity .6s ease;
+  transition:opacity .7s ease;
 }
 .intro-anim.done{opacity:0;}
 .intro-anim-frame{
   position:absolute;
-  width:140px;height:140px;
+  width:160px;height:160px;
   object-fit:contain;
   opacity:0;
+}
+.intro-anim-frame.blend-light{
   mix-blend-mode:multiply;
-  filter:brightness(1.2) contrast(1.15) saturate(1.3);
-  transition:none;
+  filter:brightness(1.3) contrast(1.2) saturate(1.4);
+}
+.intro-anim-frame.blend-dark{
+  mix-blend-mode:screen;
+  filter:contrast(1.2) saturate(1.3);
 }
 .intro-anim-frame.f-active{
   opacity:1;
-  animation:frameIn .5s cubic-bezier(.16,1,.3,1) both;
+  animation:frameIn .55s cubic-bezier(.16,1,.3,1) both;
 }
 @keyframes frameIn{
-  0%{opacity:0;transform:scale(.7);}
-  100%{opacity:1;transform:scale(1);}
+  0%{opacity:0;transform:scale(.6) rotate(-8deg);}
+  100%{opacity:1;transform:scale(1) rotate(0deg);}
 }
-.intro-anim-frame.f-final{
-  mix-blend-mode:normal;
-  border-radius:18px;
+.intro-anim.shrink .intro-anim-frame.f-active{
+  animation:logoEnd .8s cubic-bezier(.16,1,.3,1) forwards;
 }
-.intro-anim.shrink .intro-anim-frame.f-final{
-  animation:logoShrink .7s cubic-bezier(.16,1,.3,1) forwards;
-}
-@keyframes logoShrink{
-  0%{opacity:1;transform:scale(1);}
-  100%{opacity:1;transform:scale(.45);}
+@keyframes logoEnd{
+  0%{opacity:1;transform:scale(1) rotate(0deg);}
+  50%{opacity:1;transform:scale(1.1) rotate(2deg);}
+  100%{opacity:0;transform:scale(.4) rotate(0deg);}
 }
 
 .access-card{
@@ -1177,11 +1179,10 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
 <body>
 <div id="accessGate" class="access-gate">
   <div class="intro-anim" id="introAnim">
-    <img class="intro-anim-frame" data-frame="0" src="./assets/logo-seaven-feather.png" alt="" />
-    <img class="intro-anim-frame" data-frame="1" src="./assets/WhatsApp Image 2026-03-29 at 13.22.54.jpeg" alt="" />
-    <img class="intro-anim-frame" data-frame="2" src="./assets/WhatsApp Image.25.03.jpeg" alt="" />
-    <img class="intro-anim-frame" data-frame="3" src="./assets/Image 2026-03-29 at 13.22.54.jpeg" alt="" />
-    <img class="intro-anim-frame f-final" data-frame="4" src="./assets/logo-seaven-main.png" alt="" />
+    <img class="intro-anim-frame blend-light" data-frame="0" src="./assets/WhatsApp Image 2026-03-29 at 13.22.54.jpeg" alt="" />
+    <img class="intro-anim-frame blend-light" data-frame="1" src="./assets/WhatsApp Image.25.03.jpeg" alt="" />
+    <img class="intro-anim-frame blend-dark" data-frame="2" src="./assets/Image 2026-03-29 at 13.22.54.jpeg" alt="" />
+    <img class="intro-anim-frame blend-dark" data-frame="3" src="./assets/WhatsApp .jpeg" alt="" />
   </div>
   <div class="access-card" id="accessCard">
     <img class="access-logo" src="./assets/logo-seaven-main.png" alt="SEAVEN" />
@@ -2032,7 +2033,7 @@ function scroll2(id) {
   if(!intro || !card) return;
   var frames = intro.querySelectorAll('.intro-anim-frame');
   var total = frames.length;
-  var delay = 600;
+  var delay = 700;
   var i = 0;
 
   function showFrame(){
@@ -2040,17 +2041,17 @@ function scroll2(id) {
     if(i < total){
       frames[i].classList.add('f-active');
       i++;
-      setTimeout(showFrame, i === total ? 800 : delay);
+      setTimeout(showFrame, i === total ? 900 : delay);
     } else {
       intro.classList.add('shrink');
       setTimeout(function(){
         intro.classList.add('done');
         card.classList.add('show');
-      }, 700);
+      }, 800);
     }
   }
 
-  setTimeout(showFrame, 300);
+  setTimeout(showFrame, 400);
 })();
 
 // Modifie ici le mot de passe d'acces de la landing.
