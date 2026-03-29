@@ -652,50 +652,35 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-title em{font-style:normal;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cmp-sub{text-align:center;color:#6B6B6B;font-size:15px;line-height:1.6;margin-bottom:16px;font-weight:600;overflow-wrap:anywhere;}
 
-/* Sélecteur concurrent — overflow visible pour ne pas clipper le menu (était hidden) */
-.cmp-selector{display:flex;align-items:stretch;gap:0;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:visible;box-shadow:0 10px 22px rgba(0,0,0,.06);margin-bottom:14px;position:relative;z-index:40;}
-.cmp-selector-left{flex:1;min-width:0;padding:12px 14px;font-weight:900;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-0.03em;font-size:18px;color:#1b1b22;border-radius:16px 0 0 16px;overflow:hidden;}
-.cmp-selector-divider{width:1px;align-self:stretch;background:var(--border);flex-shrink:0;}
-.cmp-selector-right{flex:1;min-width:0;position:relative;border-radius:0 16px 16px 0;overflow:visible;background:#fff;}
-.cmp-selector-btn{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:12px 12px 12px 14px;
-  background:#fff;
-  border:none;
-  cursor:pointer;
-  font-family:'Bricolage Grotesque',sans-serif;
-  font-size:18px;
-  font-weight:900;
-  letter-spacing:-0.03em;
-  line-height:1.1;
-  color:#1b1b22;
-  text-transform:uppercase;
-}
-.cmp-selector-btn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.03em;}
-.cmp-caret{width:18px;height:18px;flex:0 0 auto;color:#52525e;}
+/* Sélecteur concurrent — caché, remplacé par header tableau */
+.cmp-selector{display:none;}
 .cmp-menu{
   position:absolute;
-  top:calc(100% + 8px);
+  top:calc(100% + 4px);
   right:0;
-  left:0;
+  min-width:160px;
   background:#fff;
   border:1px solid var(--border);
-  border-radius:16px;
+  border-radius:12px;
   box-shadow:0 18px 40px rgba(0,0,0,.12);
   overflow:hidden;
   display:none;
   z-index:50;
 }
 .cmp-menu.open{display:block;}
-.cmp-opt{width:100%;border:none;background:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:900;font-size:18px;letter-spacing:-0.03em;line-height:1.1;text-transform:uppercase;color:#1b1b22;cursor:pointer;}
+.cmp-opt{width:100%;border:none;background:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:-0.02em;line-height:1.1;text-transform:uppercase;color:#1b1b22;cursor:pointer;}
 .cmp-opt + .cmp-opt{border-top:1px solid #f0f0f3;}
 .cmp-opt:hover{background:#f7f7fb;}
-.cmp-check{width:18px;height:18px;color:var(--purple);opacity:0;}
+.cmp-check{width:16px;height:16px;color:var(--purple);opacity:0;}
 .cmp-opt.active .cmp-check{opacity:1;}
+/* Header du tableau — span les 3 colonnes de la grille parent */
+.cmp-header{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.6fr) 52px 52px;gap:0 12px;width:100%;align-items:stretch;border-bottom:2px solid #e8e8ed;margin-bottom:2px;}
+.cmp-header-logo{grid-column:1/3;display:flex;align-items:center;justify-content:center;padding:10px 4px;}
+.cmp-header-logo img{height:28px;width:auto;display:block;}
+.cmp-header-comp{position:relative;display:flex;align-items:center;justify-content:center;padding:8px 4px;border-left:1px solid rgba(0,0,0,.06);}
+.cmp-header-comp-btn{border:none;background:none;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;font-weight:900;font-size:16px;letter-spacing:-0.02em;color:#1b1b22;display:flex;align-items:center;gap:3px;padding:4px 6px;border-radius:8px;transition:background .15s;}
+.cmp-header-comp-btn:hover{background:#f0f0f5;}
+.cmp-header-comp-btn .cmp-caret{width:14px;height:14px;color:#52525e;}
 
 /* Tableau comparatif : une grille = alignement ligne à ligne parfait */
 .cmp-unified{
@@ -2020,6 +2005,7 @@ function cmpStatusFor(compKey, feature) {
   }
   return baseStatus || CMP_STATUS.no;
 }
+const CMP_INITIALS = {planity:"P",fresha:"F",treatwell:"T",booksy:"B",iara:"I"};
 function renderComparatif(key) {
   const table = document.getElementById("cmpUnifiedTable");
   const rightCard = document.getElementById("cmpRightCard");
@@ -2029,7 +2015,30 @@ function renderComparatif(key) {
   void rightCard.offsetWidth;
   rightCard.classList.add("is-swapping");
 
-  table.innerHTML = CMP_FEATURES.map((f) => cmpUnifiedRowHtml(f, key)).join("");
+  const initial = CMP_INITIALS[key] || key.charAt(0).toUpperCase();
+  const headerHtml = `<div class="cmp-header"><div class="cmp-header-logo"><img src="./assets/logo-seaven-main.png?v=2" alt="SEAVEN" /></div><div class="cmp-header-comp"><button type="button" class="cmp-header-comp-btn" id="cmpHeaderBtn">${initial} <svg class="cmp-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="cmp-menu" id="cmpMenu2" role="listbox"></div></div></div>`;
+
+  table.innerHTML = headerHtml + CMP_FEATURES.map((f) => cmpUnifiedRowHtml(f, key)).join("");
+
+  const hdrBtn = document.getElementById("cmpHeaderBtn");
+  const menu2 = document.getElementById("cmpMenu2");
+  if (hdrBtn && menu2) {
+    menu2.innerHTML = Object.keys(CMP_COMPETITORS).map(k => {
+      const active = k === key ? " active" : "";
+      return `<button type="button" class="cmp-opt${active}" data-cmp="${k}" role="option"><span>${CMP_COMPETITORS[k].name}</span><svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+    }).join("");
+    hdrBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      menu2.classList.toggle("open");
+    });
+    menu2.querySelectorAll(".cmp-opt").forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var k = btn.dataset.cmp;
+        if (k && CMP_COMPETITORS[k]) { renderComparatif(k); }
+      });
+    });
+  }
 }
 const cmpSelectBtn = document.getElementById("cmpSelectBtn");
 const cmpMenu = document.getElementById("cmpMenu");
@@ -2052,11 +2061,12 @@ cmpSelectBtn?.addEventListener("click", (e) => {
 });
 document.addEventListener("click", (e) => {
   const wrap = document.getElementById("cmpSelector");
-  if (!wrap || !cmpMenu) return;
-  if (!wrap.contains(e.target)) cmpCloseMenu();
+  if (wrap && cmpMenu && !wrap.contains(e.target)) cmpCloseMenu();
+  var m2 = document.getElementById("cmpMenu2");
+  if (m2 && !m2.contains(e.target) && !(e.target.id === "cmpHeaderBtn" || e.target.closest("#cmpHeaderBtn"))) m2.classList.remove("open");
 });
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") cmpCloseMenu();
+  if (e.key === "Escape") { cmpCloseMenu(); var m2 = document.getElementById("cmpMenu2"); if (m2) m2.classList.remove("open"); }
 });
 document.querySelectorAll(".cmp-opt").forEach((btn) => {
   btn.addEventListener("click", (e) => {
