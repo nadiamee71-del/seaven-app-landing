@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SEAVEN — Tout ton business, dans une seule app.</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--brand:#C4485F;--brand-dim:rgba(196,72,95,.10);--brand-line:rgba(196,72,95,.20);
+--white:#FFFFFF;--ink:#0A0A0B;
+--f:'Sora',-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:#0A0A0B;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ══ AURORA ══ */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ab{position:absolute;border-radius:50%;filter:blur(100px);opacity:.15}
+.ab1{width:600px;height:600px;background:radial-gradient(#C4485F,transparent 70%);top:-150px;left:-100px;animation:am1 11s ease-in-out infinite}
+.ab2{width:500px;height:500px;background:radial-gradient(#8b2fc9,transparent 70%);bottom:-80px;right:-80px;animation:am2 13s ease-in-out infinite}
+.ab3{width:400px;height:400px;background:radial-gradient(#3a7bd5,transparent 70%);top:40%;left:35%;animation:am3 9s ease-in-out infinite}
+@keyframes am1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
+@keyframes am2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-80px)}}
+@keyframes am3{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(calc(-50% + 50px),calc(-50% + 40px))}}
+
+/* ══ NAV ══ */
+nav{position:fixed;inset:0 0 auto;z-index:500;height:64px;display:flex;align-items:center;
+justify-content:space-between;padding:0 48px;
+background:rgba(10,10,11,.8);backdrop-filter:blur(24px);
+border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{font-size:18px;font-weight:900;letter-spacing:-.07em;color:#fff;
+text-decoration:none;display:flex;align-items:center;gap:10px}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--brand);
+box-shadow:0 0 12px var(--brand);animation:dotP 2.5s ease-in-out infinite}
+@keyframes dotP{0%,100%{box-shadow:0 0 0 0 rgba(196,72,95,.8)}70%{box-shadow:0 0 0 10px rgba(196,72,95,0)}}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:#fff;color:var(--ink);border:none;border-radius:50px;
+padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f);
+text-decoration:none;transition:transform .25s,box-shadow .25s}
+.nav-cta:hover{transform:scale(1.05);box-shadow:0 8px 30px rgba(255,255,255,.15)}
+
+/* ══ HERO — Kinetic Typography ══ */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;
+justify-content:center;text-align:center;padding:140px 24px 100px;
+position:relative;z-index:2}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:8px 18px;
+font-size:12px;font-weight:600;color:rgba(255,255,255,.55);margin-bottom:52px;
+animation:fadeUp .9s ease both}
+.badge-pip{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:dotP 2s infinite}
+.hero-h1{font-size:clamp(56px,9.5vw,110px);font-weight:900;letter-spacing:-.06em;line-height:.92;margin-bottom:36px}
+.word-wrap{display:inline-block;overflow:hidden;vertical-align:bottom;margin:0 3px}
+.word{display:inline-block;animation:wordUp 1s cubic-bezier(.16,1,.3,1) both}
+@keyframes wordUp{from{transform:translateY(110%);opacity:0}to{transform:translateY(0);opacity:1}}
+.accent{background:linear-gradient(135deg,#ff6b87,#C4485F,#ff6b87);background-size:300%;
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+animation:wordUp 1s cubic-bezier(.16,1,.3,1) both,shimmer 4s linear infinite}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:300%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.hero-sub{font-size:clamp(16px,2vw,19px);color:rgba(255,255,255,.38);line-height:1.75;
+max-width:500px;margin:0 auto 52px;animation:fadeUp 1s .7s ease both}
+.hero-btns{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;animation:fadeUp 1s .85s ease both}
+.btn-primary{background:#fff;color:var(--ink);border:none;border-radius:50px;padding:18px 40px;
+font-size:15px;font-weight:700;cursor:pointer;font-family:var(--f);text-decoration:none;
+display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden;
+transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
+.btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 20px 60px rgba(255,255,255,.18)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.12);
+border-radius:50px;padding:17px 32px;font-size:15px;font-weight:500;cursor:pointer;
+font-family:var(--f);text-decoration:none;transition:border-color .25s,color .25s,transform .25s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);color:#fff;transform:translateY(-2px)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:84px;
+background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+border-radius:24px;overflow:hidden;animation:fadeUp 1s 1s ease both}
+.stat{padding:28px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.06)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-.05em;color:#fff;display:block}
+.stat-l{font-size:11px;color:rgba(255,255,255,.28);display:block;margin-top:6px;font-weight:600;text-transform:uppercase;letter-spacing:.09em}
+
+/* ══ VIDEO ══ */
+.video-section{position:relative;z-index:2;padding:0 24px 100px;display:flex;justify-content:center}
+.video-wrap{width:min(900px,92vw)}
+.video-frame{width:100%;aspect-ratio:16/9;border-radius:24px;overflow:hidden;
+border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 120px rgba(0,0,0,.7);
+animation:floatF 6s ease-in-out infinite}
+@keyframes floatF{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.video-inner{width:100%;height:100%;background:linear-gradient(135deg,#141416,#1c1428,#0d1a2e);
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.play-ring{width:80px;height:80px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);
+display:flex;align-items:center;justify-content:center;position:relative;
+transition:transform .3s,border-color .3s}
+.play-ring::before{content:'';position:absolute;inset:-8px;border-radius:50%;
+border:1px solid rgba(255,255,255,.06);animation:ringP 2.5s ease-in-out infinite}
+@keyframes ringP{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.12);opacity:0}}
+.video-inner:hover .play-ring{transform:scale(1.1);border-color:rgba(255,255,255,.35)}
+.video-lbl{font-size:12px;color:rgba(255,255,255,.25);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+
+/* ══ COMMONS ══ */
+.section{padding:120px 24px;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.sec-full{padding:120px 0;position:relative;z-index:2}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);margin-bottom:20px;display:block}
+.headline{font-size:clamp(38px,5.5vw,66px);font-weight:900;letter-spacing:-.05em;line-height:1;color:#fff;margin-bottom:20px}
+.headline .dim{color:rgba(255,255,255,.18)}
+.body-l{font-size:18px;color:rgba(255,255,255,.32);line-height:1.78;max-width:480px}
+.divider{width:100%;max-width:1100px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);margin:0 auto;position:relative;z-index:2}
+
+/* ══ COVERFLOW — Section PRO ══ */
+.cf-stage{width:100%;height:480px;position:relative;perspective:900px;overflow:hidden;margin-top:70px}
+.cf-card{position:absolute;width:68vw;max-width:320px;height:420px;top:50%;left:50%;
+border-radius:22px;overflow:hidden;will-change:transform,opacity,filter;
+transition:transform 650ms cubic-bezier(.25,.46,.45,.94),opacity 650ms ease,filter 650ms ease;cursor:pointer}
+.cf-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;
+justify-content:center;gap:14px;position:relative}
+.cf-inner::after{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(255,255,255,.1),transparent 55%)}
+.cf-ico{font-size:56px;position:relative;z-index:1}
+.cf-name{font-size:20px;font-weight:900;color:#fff;position:relative;z-index:1;
+letter-spacing:-.04em;text-align:center;padding:0 20px;line-height:1.2}
+.cf-sub{font-size:12px;color:rgba(255,255,255,.45);position:relative;z-index:1;text-align:center;padding:0 16px}
+.cf-dots{display:flex;gap:8px;justify-content:center;margin-top:28px}
+.cfdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15);
+cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+.cfdot.on{background:#fff;width:22px;border-radius:3px}
+
+/* ══ GRANDE ROUE — Section Clients ══ */
+.wheel-wrap{position:relative;height:520px;overflow:hidden;margin-top:60px}
+#wheelCenter{position:absolute;left:50%;bottom:-80px;transform:translateX(-50%);width:0;height:0}
+.w-card{position:absolute;width:200px;height:260px;margin-left:-100px;margin-top:-130px;
+border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+gap:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);will-change:transform}
+.w-card::after{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(255,255,255,.12),transparent 55%)}
+.w-ico{font-size:46px;position:relative;z-index:1}
+.w-name{font-size:16px;font-weight:800;color:#fff;position:relative;z-index:1;text-align:center;padding:0 12px}
+.w-sub{font-size:11px;color:rgba(255,255,255,.45);position:relative;z-index:1;text-align:center}
+.wheel-mask{position:absolute;bottom:0;left:0;right:0;height:40%;
+background:linear-gradient(transparent,#0A0A0B);pointer-events:none;z-index:10}
+.wheel-info{text-align:center;margin-top:24px;position:relative;z-index:2;min-height:80px}
+.wi-name{font-size:22px;font-weight:900;letter-spacing:-.04em;color:#fff;margin-bottom:10px;
+transition:opacity .4s,transform .4s}
+.wi-stats{display:flex;gap:20px;justify-content:center}
+.wis-v{font-size:16px;font-weight:800;color:#fff}
+.wis-l{font-size:9px;color:rgba(255,255,255,.3);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+
+/* ══ SVG VAGUE ══ */
+.wave-section{padding:100px 0;position:relative;z-index:2;overflow:hidden}
+.wave-title{text-align:center;margin-bottom:0;padding:0 24px}
+#waveSvgWrap{position:relative;width:100%;height:320px}
+#waveSvgWrap svg{width:100%;height:100%;overflow:visible}
+.wcurve{fill:none;stroke:rgba(196,72,95,.8);stroke-width:2;stroke-linecap:round}
+.wcurve-glow{fill:none;stroke:rgba(196,72,95,.2);stroke-width:14;stroke-linecap:round}
+.wcurve-fill{fill:url(#wgrad);opacity:.1}
+.wdot{fill:#C4485F;filter:drop-shadow(0 0 8px rgba(196,72,95,.9))}
+.wring{fill:none;stroke:rgba(196,72,95,.35);stroke-width:1.5}
+.wave-card{position:absolute;background:rgba(18,18,28,.9);border:1px solid rgba(196,72,95,.2);
+border-radius:16px;padding:14px 18px;width:138px;text-align:center;
+box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03) inset;
+backdrop-filter:blur(20px);pointer-events:none;transform:translate(-50%,-100%);margin-top:-18px}
+.wave-stem{position:absolute;width:1.5px;background:linear-gradient(rgba(196,72,95,.5),rgba(196,72,95,.1));transform:translateX(-50%);pointer-events:none}
+.wc-ico{font-size:22px;margin-bottom:6px;display:block}
+.wc-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.wc-val{font-size:18px;font-weight:900;letter-spacing:-.04em;line-height:1.1}
+
+/* ══ BENTO HOVER GLOW — Tarifs ══ */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:70px}
+.bcell{border-radius:22px;padding:32px 28px;border:1px solid rgba(255,255,255,.07);
+background:rgba(255,255,255,.04);cursor:default;position:relative;overflow:hidden;
+transition:border-color .3s,transform .35s cubic-bezier(.34,1.56,.64,1)}
+.bcell::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;pointer-events:none;
+background:radial-gradient(circle 140px at var(--mx,50%) var(--my,50%),rgba(196,72,95,.2),transparent)}
+.bcell:hover{border-color:rgba(196,72,95,.3);transform:translateY(-5px) scale(1.02)}
+.bcell:hover::before{opacity:1}
+.bcell.wide{grid-column:span 2}
+.bcell.accent{background:rgba(196,72,95,.08);border-color:rgba(196,72,95,.2)}
+.bi{font-size:28px;margin-bottom:16px;display:block}
+.bt{font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.03em}
+.bb{font-size:13px;color:rgba(255,255,255,.32);line-height:1.65}
+.btag{display:inline-block;font-size:10px;font-weight:700;padding:4px 12px;border-radius:50px;
+background:rgba(255,255,255,.07);color:rgba(255,255,255,.45);margin-top:14px;margin-right:6px;letter-spacing:.04em}
+.bcell.accent .btag{background:rgba(196,72,95,.2);color:rgba(255,140,160,1)}
+
+/* ══ PRICING ══ */
+.pricing-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+border-radius:36px;padding:64px 52px;text-align:center;margin-top:70px;position:relative;overflow:hidden}
+.pricing-box::before{content:'';position:absolute;inset:0;pointer-events:none;
+background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(196,72,95,.06),transparent)}
+.price-n{font-size:clamp(72px,12vw,120px);font-weight:900;letter-spacing:-.07em;color:#fff;
+line-height:1;margin:36px 0 8px;transition:all .4s cubic-bezier(.34,1.56,.64,1);display:inline-block}
+.price-sub{font-size:15px;color:rgba(255,255,255,.28);margin-bottom:48px}
+.range-labels{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.2);margin-bottom:12px;font-weight:700}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:50px;background:rgba(255,255,255,.1);outline:none;cursor:pointer;max-width:500px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid #1c1c1e;box-shadow:0 2px 16px rgba(255,255,255,.25);cursor:pointer;transition:transform .2s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:48px;text-align:left}
+.feat-row{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.04);
+border-radius:14px;border:1px solid rgba(255,255,255,.06);font-size:13px;font-weight:500;
+color:rgba(255,255,255,.45);transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.feat-row:hover{background:rgba(255,255,255,.07);transform:translateY(-2px)}
+.feat-ck{width:22px;height:22px;border-radius:50%;background:rgba(196,72,95,.2);border:1.5px solid rgba(196,72,95,.4);
+display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--brand);font-weight:900}
+
+/* ══ COMPARATEUR ══ */
+.cmp-outer{border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-top:64px}
+.cmp-head{display:grid;grid-template-columns:1.8fr 1fr 1fr;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08)}
+.ch{padding:20px 22px;display:flex;align-items:center;font-size:14px;font-weight:700;border-right:1px solid rgba(255,255,255,.06)}
+.ch:last-child{border-right:none}
+.ch.sv{background:rgba(196,72,95,.14);color:#fff;justify-content:center;font-size:18px;font-weight:900;letter-spacing:-.04em}
+.ch.cp{justify-content:center;flex-direction:column;gap:8px;text-align:center;padding:14px}
+.cp-lbl{font-size:10px;color:rgba(255,255,255,.22);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+#compSel{-webkit-appearance:none;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);
+border-radius:10px;padding:9px 32px 9px 14px;font-size:13px;font-weight:700;color:#fff;
+font-family:var(--f);cursor:pointer;outline:none;width:100%;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+background-repeat:no-repeat;background-position:right 12px center}
+#compSel option{background:#1c1c1e}
+.cmp-row{display:grid;grid-template-columns:1.8fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s, opacity .5s ease, transform .5s ease;opacity:0;transform:translateX(-20px)}
+.cmp-row.visible{opacity:1;transform:translateX(0)}
+.cmp-row:last-child{border:none}
+.cmp-row:hover{background:rgba(255,255,255,.025)}
+.cc{padding:15px 22px;font-size:14px;border-right:1px solid rgba(255,255,255,.04);display:flex;align-items:center}
+.cc:last-child{border-right:none}
+.cc.feat{color:rgba(255,255,255,.42);font-weight:500}
+.cc.sv-v{background:rgba(196,72,95,.04);justify-content:center}
+.cc.cp-v{justify-content:center}
+.vy{width:28px;height:28px;border-radius:50%;background:rgba(196,72,95,.2);border:1.5px solid rgba(196,72,95,.4);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--brand);font-weight:900}
+.vn{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(255,255,255,.12)}
+
+/* ══ PARRAINAGE ══ */
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;
+background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+border-radius:36px;padding:64px 52px;margin-top:70px}
+.ref-ey{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);display:block;margin-bottom:18px}
+.ref-h{font-size:clamp(34px,4.5vw,52px);font-weight:900;letter-spacing:-.05em;line-height:1.02;color:#fff;margin-bottom:16px}
+.ref-sub{font-size:16px;color:rgba(255,255,255,.28);line-height:1.72;max-width:340px}
+.ref-steps{margin-top:32px;display:flex;flex-direction:column;gap:14px}
+.ref-step{display:flex;align-items:center;gap:14px;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.ref-step:hover{transform:translateX(6px)}
+.step-n{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.38);flex-shrink:0}
+.step-t{font-size:15px;color:rgba(255,255,255,.42)}
+.ref-calc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:36px}
+.ref-calc-t{font-size:12px;font-weight:700;color:rgba(255,255,255,.22);text-align:center;margin-bottom:22px;text-transform:uppercase;letter-spacing:.08em}
+.ref-labels{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.18);margin-bottom:12px;font-weight:600}
+.ref-res{display:grid;grid-template-columns:1fr 24px 1fr;gap:12px;align-items:center;margin-top:32px;text-align:center}
+.r-big{font-size:52px;font-weight:900;letter-spacing:-.06em;color:#fff;display:block;line-height:1}
+.r-lbl{font-size:11px;color:rgba(255,255,255,.22);text-transform:uppercase;letter-spacing:.07em;margin-top:4px;display:block;font-weight:600}
+.r-sep{font-size:26px;color:rgba(255,255,255,.1);text-align:center}
+.r-tot{font-size:52px;font-weight:900;letter-spacing:-.06em;color:var(--brand);display:block;line-height:1;transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+.ref-note{font-size:11px;color:rgba(255,255,255,.14);margin-top:18px;text-align:center;line-height:1.6}
+
+/* ══ FORM ══ */
+.form-wrap{max-width:680px;margin:64px auto 0;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:36px;padding:60px 52px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.fg{display:flex;flex-direction:column;gap:8px}
+.fg.full{grid-column:1/-1}
+.fg label{font-size:11px;font-weight:700;color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase}
+.fg input,.fg select{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 18px;color:#fff;font-size:15px;font-family:var(--f);outline:none;transition:border-color .25s,background .25s;-webkit-appearance:none}
+.fg input::placeholder{color:rgba(255,255,255,.18)}
+.fg select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 18px center}
+.fg select option{background:#1c1c1e}
+.fg input:focus,.fg select:focus{border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.09)}
+.form-cta{margin-top:28px;text-align:center}
+.form-hint{margin-top:14px;font-size:12px;color:rgba(255,255,255,.18)}
+.succ{display:none;text-align:center;padding:48px 0}
+.succ-ico{width:64px;height:64px;border-radius:50%;background:rgba(196,72,95,.15);border:2px solid rgba(196,72,95,.3);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 22px}
+.succ h3{font-size:26px;font-weight:900;letter-spacing:-.04em;margin-bottom:12px;color:#fff}
+.succ p{font-size:16px;color:rgba(255,255,255,.35);line-height:1.65}
+
+/* ══ FOOTER ══ */
+footer{padding:52px 48px 36px;border-top:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;z-index:2}
+.ft-logo{font-size:20px;font-weight:900;letter-spacing:-.07em;color:#fff;display:flex;align-items:center;gap:10px}
+.ft-links{display:flex;gap:22px}
+.ft-links a{font-size:13px;color:rgba(255,255,255,.18);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:rgba(255,255,255,.6)}
+.copy{font-size:12px;color:rgba(255,255,255,.1)}
+
+/* ══ FLOAT PILL ══ */
+.float-pill{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(120px);z-index:600;opacity:0;pointer-events:none;transition:transform .6s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+.float-pill.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+.pill-inner{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.95);color:var(--ink);border-radius:50px;padding:15px 28px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 10px 50px rgba(0,0,0,.6)}
+
+/* ══ SCROLL REVEAL ══ */
+.sr{opacity:0;transform:translateY(44px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.sr.in{opacity:1;transform:none}
+.sr.d1{transition-delay:.08s}.sr.d2{transition-delay:.16s}.sr.d3{transition-delay:.24s}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+nav{padding:0 20px}.nav-links{display:none}
+.bento{grid-template-columns:1fr}.bcell.wide{grid-column:1}
+.ref-grid{grid-template-columns:1fr;gap:32px;padding:40px 24px}
+.pricing-box,.form-wrap{padding:40px 24px}
+.section,.sec-full{padding:80px 20px}
+}
+@media(max-width:580px){
+.hero-stats{grid-template-columns:1fr 1fr}
+.stat:nth-child(2){border-right:none}
+.stat:nth-child(3){border-top:1px solid rgba(255,255,255,.06)}
+.stat:nth-child(4){border-right:none;border-top:1px solid rgba(255,255,255,.06)}
+.form-grid{grid-template-columns:1fr}.fg.full{grid-column:1}
+}
+</style>
+
+</head>
+<body>
+
+<!-- AURORA -->
+
+<div class="aurora"><div class="ab ab1"></div><div class="ab ab2"></div><div class="ab ab3"></div></div>
+
+<!-- NAV -->
+
+<nav>
+<a href="#" class="nav-logo"><span class="nav-dot"></span>SEAVEN</a>
+<ul class="nav-links">
+<li><a href="#pro">Prestataires</a></li>
+<li><a href="#clients">Clients</a></li>
+<li><a href="#tarifs">Tarifs</a></li>
+<li><a href="#parrainage">Parrainage</a></li>
+</ul>
+<a href="#waitlist" class="nav-cta">Liste d'attente</a>
+</nav>
+
+<!-- HERO — Kinetic Typography -->
+
+<section class="hero">
+<div style="position:relative;z-index:2;max-width:900px;width:100%">
+<div class="badge"><span class="badge-pip"></span>Lancement · 21 septembre 2026</div>
+<h1 class="hero-h1">
+<span class="word-wrap"><span class="word" style="animation-delay:.05s">Tout</span></span>
+<span class="word-wrap"><span class="word" style="animation-delay:.12s">ton</span></span><br>
+<span class="word-wrap"><span class="word" style="animation-delay:.2s">business,</span></span><br>
+<span class="word-wrap"><span class="accent" style="animation-delay:.3s">une seule app.</span></span>
+</h1>
+<p class="hero-sub">Réservations, IA, stock, messagerie, marketplace — là où tout se passait avant sur 9 apps différentes.</p>
+<div class="hero-btns">
+<a href="#waitlist" class="btn-primary">Rejoindre la liste d'attente →</a>
+<button class="btn-ghost" onclick="document.getElementById('pro').scrollIntoView({behavior:'smooth'})">Voir les fonctionnalités</button>
+</div>
+<div class="hero-stats">
+<div class="stat"><span class="stat-n">+20</span><span class="stat-l">Métiers</span></div>
+<div class="stat"><span class="stat-n">+2h</span><span class="stat-l">Gagnées/jour</span></div>
+<div class="stat"><span class="stat-n">1</span><span class="stat-l">App pour tout</span></div>
+<div class="stat"><span class="stat-n">0%</span><span class="stat-l">Commission</span></div>
+</div>
+</div>
+</section>
+
+<!-- VIDEO -->
+
+<div class="video-section">
+<div class="video-wrap">
+<div class="video-frame">
+<div class="video-inner">
+<div class="play-ring"><span style="font-size:26px;margin-left:4px">▶</span></div>
+<span class="video-lbl">✦ Ta vidéo SEAVEN ici</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRO — Coverflow 3D -->
+
+<section class="section" id="pro">
+<span class="eyebrow sr">Prestataires</span>
+<h2 class="headline sr d1">Gère tout.<br><span class="dim">Sans jongler.</span></h2>
+<p class="body-l sr d2">Toutes les fonctionnalités pro au même endroit.</p>
+<div class="cf-stage" id="cfStage">
+<div class="cf-card" id="cf0"><div class="cf-inner" style="background:linear-gradient(145deg,#C4485F,#8b2fc9)"><span class="cf-ico">🤖</span><span class="cf-name">L'IA répond à tes DMs</span><span class="cf-sub">Chatbot 24h/24 · Réponses auto</span></div></div>
+<div class="cf-card" id="cf1"><div class="cf-inner" style="background:linear-gradient(145deg,#0f3460,#3a7bd5)"><span class="cf-ico">📦</span><span class="cf-name">Stock automatique</span><span class="cf-sub">Mis à jour à chaque prestation</span></div></div>
+<div class="cf-card" id="cf2"><div class="cf-inner" style="background:linear-gradient(145deg,#1b4332,#2d6a4f)"><span class="cf-ico">⏰</span><span class="cf-name">Réveil intelligent</span><span class="cf-sub">Planning + trajet calculés</span></div></div>
+<div class="cf-card" id="cf3"><div class="cf-inner" style="background:linear-gradient(145deg,#2d1b69,#533483)"><span class="cf-ico">💬</span><span class="cf-name">Messagerie unifiée</span><span class="cf-sub">Instagram · WhatsApp · SMS</span></div></div>
+<div class="cf-card" id="cf4"><div class="cf-inner" style="background:linear-gradient(145deg,#7b2d00,#C4485F)"><span class="cf-ico">📊</span><span class="cf-name">Comptabilité</span><span class="cf-sub">CA temps réel · Factures auto</span></div></div>
+<div class="cf-card" id="cf5"><div class="cf-inner" style="background:linear-gradient(145deg,#1a1a2e,#16213e)"><span class="cf-ico">🛡️</span><span class="cf-name">Protection clientes</span><span class="cf-sub">Réseau de pros solidaires</span></div></div>
+<div class="cf-card" id="cf6"><div class="cf-inner" style="background:linear-gradient(145deg,#0d3b2e,#1b4332)"><span class="cf-ico">🛒</span><span class="cf-name">Marketplace 0%</span><span class="cf-sub">Pro → Cliente · Pro → Pro</span></div></div>
+</div>
+<div class="cf-dots" id="cfDots"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CLIENTS — Grande Roue -->
+
+<section class="section" id="clients">
+<span class="eyebrow sr">Clients</span>
+<h2 class="headline sr d1">Réserver en<br><span class="dim">quelques secondes.</span></h2>
+<p class="body-l sr d2">Une expérience pensée de bout en bout.</p>
+<div class="wheel-wrap" id="wheelWrap">
+<div id="wheelCenter">
+<div class="w-card" id="wc0" style="background:linear-gradient(145deg,#C4485F,#8b2fc9)"><span class="w-ico">📸</span><span class="w-name">IA calcule le prix</span><span class="w-sub">Depuis ta photo inspi</span></div>
+<div class="w-card" id="wc1" style="background:linear-gradient(145deg,#0f3460,#3a7bd5)"><span class="w-ico">⚡</span><span class="w-name">Réservation 60s</span><span class="w-sub">Trouve, choisis, paye</span></div>
+<div class="w-card" id="wc2" style="background:linear-gradient(145deg,#1b4332,#2d6a4f)"><span class="w-ico">🟢</span><span class="w-name">Dispos en direct</span><span class="w-sub">Temps réel · Notifs instant</span></div>
+<div class="w-card" id="wc3" style="background:linear-gradient(145deg,#533483,#8b2fc9)"><span class="w-ico">💫</span><span class="w-name">Feed inspi → RDV</span><span class="w-sub">Tu vois → tu réserves</span></div>
+<div class="w-card" id="wc4" style="background:linear-gradient(145deg,#7b2d00,#C4485F)"><span class="w-ico">🎁</span><span class="w-name">Cartes fidélité</span><span class="w-sub">Points · Réductions</span></div>
+</div>
+<div class="wheel-mask"></div>
+</div>
+<div class="wheel-info">
+<div class="wi-name" id="wiName">L'IA calcule le prix depuis ta photo</div>
+<div class="wi-stats" id="wiStats">
+<div><div class="wis-v">IA</div><div class="wis-l">Analyse photo</div></div>
+<div><div class="wis-v">Auto</div><div class="wis-l">Tarif décomposé</div></div>
+<div><div class="wis-v">1 tap</div><div class="wis-l">Réservation</div></div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SVG VAGUE -->
+
+<div class="wave-section">
+<div class="wave-title sr">
+<span class="eyebrow">Tout connecté</span>
+<h2 class="headline" style="max-width:600px;margin:0 auto 60px">Ton activité,<br><span class="dim">en un seul flux.</span></h2>
+</div>
+<div id="waveSvgWrap">
+<svg id="waveSvg" preserveAspectRatio="none">
+<defs>
+<linearGradient id="wgrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="rgba(196,72,95,.2)"/>
+<stop offset="100%" stop-color="rgba(196,72,95,0)"/>
+</linearGradient>
+<filter id="wglow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<path class="wcurve-fill" id="wFill"/>
+<path class="wcurve-glow" id="wGlow"/>
+<path class="wcurve" id="wPath"/>
+<circle class="wring" id="wr0" r="16"/><circle class="wring" id="wr1" r="16"/><circle class="wring" id="wr2" r="16"/><circle class="wring" id="wr3" r="16"/>
+<circle class="wdot" id="wd0" r="8" filter="url(#wglow)"/><circle class="wdot" id="wd1" r="8" filter="url(#wglow)"/><circle class="wdot" id="wd2" r="8" filter="url(#wglow)"/><circle class="wdot" id="wd3" r="8" filter="url(#wglow)"/>
+</svg>
+<div class="wave-card" id="wcard0"><span class="wc-ico">🤖</span><div class="wc-lbl">IA DMs</div><div class="wc-val" style="color:#ff6b87">24h/24</div></div>
+<div class="wave-stem" id="wstem0"></div>
+<div class="wave-card" id="wcard1"><span class="wc-ico">📦</span><div class="wc-lbl">Stock</div><div class="wc-val" style="color:#30D158">Auto</div></div>
+<div class="wave-stem" id="wstem1"></div>
+<div class="wave-card" id="wcard2"><span class="wc-ico">⏰</span><div class="wc-lbl">Réveil</div><div class="wc-val" style="color:#a78bfa">07:25</div></div>
+<div class="wave-stem" id="wstem2"></div>
+<div class="wave-card" id="wcard3"><span class="wc-ico">🛒</span><div class="wc-lbl">Marketplace</div><div class="wc-val" style="color:#C4485F">0%</div></div>
+<div class="wave-stem" id="wstem3"></div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ROUE 3D VERTICALE -->
+
+<section class="section">
+<span class="eyebrow sr">En un coup d'œil</span>
+<h2 class="headline sr d1">Tout ce dont<br><span class="dim">tu as besoin.</span></h2>
+<div style="width:100%;perspective:600px;perspective-origin:50% 50%;margin-top:48px">
+<div id="drum3d" style="width:260px;height:300px;position:relative;margin:0 auto;transform-style:preserve-3d;will-change:transform;transition:transform 800ms cubic-bezier(0.76,0,0.24,1)">
+<div class="drum-face" style="background:linear-gradient(145deg,#C4485F,#8b2fc9)"><span style="font-size:52px">🤖</span><span class="df-name">IA DMs</span><span class="df-sub">Chatbot 24h/24</span></div>
+<div class="drum-face" style="background:linear-gradient(145deg,#0f3460,#3a7bd5)"><span style="font-size:52px">📦</span><span class="df-name">Stock Auto</span><span class="df-sub">Temps réel</span></div>
+<div class="drum-face" style="background:linear-gradient(145deg,#1b4332,#2d6a4f)"><span style="font-size:52px">⏰</span><span class="df-name">Réveil</span><span class="df-sub">Planning intelligent</span></div>
+<div class="drum-face" style="background:linear-gradient(145deg,#7b2d00,#C4485F)"><span style="font-size:52px">🛒</span><span class="df-name">Marketplace</span><span class="df-sub">0% commission</span></div>
+<div class="drum-face" style="background:linear-gradient(145deg,#533483,#8b2fc9)"><span style="font-size:52px">💬</span><span class="df-name">Messagerie</span><span class="df-sub">Instagram · WA · SMS</span></div>
+</div>
+</div>
+<div id="drum3dInfo" style="text-align:center;margin-top:28px;min-height:60px">
+<div style="font-size:22px;font-weight:900;letter-spacing:-.04em;color:#fff;margin-bottom:8px;transition:opacity .4s" id="d3Name">L'IA répond à tes DMs</div>
+<div style="font-size:14px;color:rgba(255,255,255,.35)" id="d3Sub">Chatbot 24h/24 · Réponses automatiques</div>
+</div>
+<div style="display:flex;justify-content:center;gap:8px;margin-top:20px" id="drum3dDots"></div>
+</section>
+
+<style>
+.drum-face{position:absolute;width:260px;height:300px;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;backface-visibility:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);overflow:hidden}
+.drum-face::after{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(255,255,255,.1),transparent 55%)}
+.df-name{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.04em;text-align:center;padding:0 16px;position:relative;z-index:1}
+.df-sub{font-size:12px;color:rgba(255,255,255,.45);text-align:center;position:relative;z-index:1}
+</style>
+
+<div class="divider"></div>
+
+<!-- BENTO + PRICING -->
+
+<section class="section" id="tarifs">
+<span class="eyebrow sr">Tarifs</span>
+<h2 class="headline sr d1">Simple.<br><span class="dim">Transparent.</span></h2>
+<p class="body-l sr d2">Un tarif qui évolue avec ton activité.</p>
+<div class="bento" id="bento">
+<div class="bcell wide accent"><span class="bi">🤖</span><div class="bt">L'IA répond à tes DMs — 24h/24</div><div class="bb">Prix, dispos, délais — le chatbot répond à ta place pendant que toi tu crées.</div><span class="btag">Réponses auto</span><span class="btag">24h/24</span></div>
+<div class="bcell"><span class="bi">📦</span><div class="bt">Stock auto</div><div class="bb">Mis à jour à chaque prestation.</div><span class="btag">Temps réel</span></div>
+<div class="bcell"><span class="bi">⏰</span><div class="bt">Réveil intelligent</div><div class="bb">Calcul planning + trajet.</div><span class="btag">Auto</span></div>
+<div class="bcell"><span class="bi">💬</span><div class="bt">Messagerie unifiée</div><div class="bb">Instagram, WhatsApp, SMS.</div><span class="btag">Tout en 1</span></div>
+<div class="bcell wide"><span class="bi">🛒</span><div class="bt">Marketplace — 0% commission</div><div class="bb">Pro → Cliente · Pro → Pro · Zéro intermédiaire.</div><span class="btag">0% commission</span><span class="btag">Pro → Pro</span></div>
+</div>
+<div class="pricing-box sr">
+<div style="max-width:500px;margin:0 auto">
+<p style="font-size:14px;color:rgba(255,255,255,.28);margin-bottom:18px;font-weight:500">Clientes / mois en moyenne</p>
+<div class="range-labels"><span>&lt;5</span><span>&lt;15</span><span>&lt;35</span><span>&lt;50</span><span>&lt;100</span><span>&lt;250</span><span>+250</span></div>
+<input type="range" id="priceSlider" min="0" max="6" step="1" value="1" oninput="setPrice(this.value)">
+</div>
+<div class="price-n" id="priceDisplay">19,99€</div>
+<p class="price-sub">par mois · sans engagement · toutes fonctionnalités</p>
+<div class="feat-grid">
+<div class="feat-row"><div class="feat-ck">✓</div>IA DMs 24h/24</div>
+<div class="feat-row"><div class="feat-ck">✓</div>Gestion stock auto</div>
+<div class="feat-row"><div class="feat-ck">✓</div>Messagerie unifiée</div>
+<div class="feat-row"><div class="feat-ck">✓</div>Réveil intelligent</div>
+<div class="feat-row"><div class="feat-ck">✓</div>Marketplace incluse</div>
+<div class="feat-row"><div class="feat-ck">✓</div>Comptabilité</div>
+<div class="feat-row"><div class="feat-ck">✓</div>Formations</div>
+<div class="feat-row"><div class="feat-ck">✓</div>Protection clientes</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARATEUR -->
+
+<section class="section">
+<span class="eyebrow sr">Comparatif</span>
+<h2 class="headline sr d1">SEAVEN vs.<br><span class="dim">les autres.</span></h2>
+<div class="cmp-outer sr d1">
+<div class="cmp-head">
+<div class="ch" style="color:rgba(255,255,255,.28);font-weight:500;font-size:13px">Fonctionnalité</div>
+<div class="ch sv">SEAVEN</div>
+<div class="ch cp"><span class="cp-lbl">Comparer avec</span>
+<select id="compSel" onchange="renderCmp(this.value)">
+<option value="planity">Planity</option><option value="fresha">Fresha</option>
+<option value="treatwell">Treatwell</option><option value="booksy">Booksy</option>
+<option value="iara">Iara</option>
+</select>
+</div>
+</div>
+<div id="cmpBody"></div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PARRAINAGE -->
+
+<section class="section" id="parrainage">
+<span class="eyebrow sr">Parrainage</span>
+<h2 class="headline sr d1">Gagne 25€<br><span class="dim">par parrainage.</span></h2>
+<div class="ref-grid sr">
+<div>
+<span class="ref-ey">Comment ça marche</span>
+<h2 class="ref-h">Jusqu'à 750€ par an.</h2>
+<p class="ref-sub">Partage ton lien. Pour chaque inscription validée, tu reçois 25€ — jusqu'à 30 par an.</p>
+<div class="ref-steps">
+<div class="ref-step"><div class="step-n">1</div><span class="step-t">Partage ton lien personnalisé</span></div>
+<div class="ref-step"><div class="step-n">2</div><span class="step-t">Ton filleul s'inscrit et s'abonne</span></div>
+<div class="ref-step"><div class="step-n">3</div><span class="step-t">Tu reçois 25€ réels, encaissables</span></div>
+</div>
+</div>
+<div class="ref-calc">
+<p class="ref-calc-t">Simule tes gains</p>
+<div class="ref-labels"><span>1</span><span>10</span><span>20</span><span>30</span></div>
+<input type="range" id="refRange" min="1" max="30" value="10" oninput="setRef(this.value)">
+<div class="ref-res">
+<div><span class="r-big" id="refN">10</span><span class="r-lbl">parrainages</span></div>
+<span class="r-sep">=</span>
+<div><span class="r-tot" id="refT">250€</span><span class="r-lbl">gagnés</span></div>
+</div>
+<p class="ref-note">Parrainage validé après 3 mois d'abonnement actif. Max 30/an.</p>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WAITLIST -->
+
+<section class="section" id="waitlist">
+<div style="text-align:center;max-width:560px;margin:0 auto 56px">
+<span class="eyebrow sr">Liste d'attente</span>
+<h2 class="headline sr d1">Sois parmi<br><span class="dim">les premiers.</span></h2>
+<p class="body-l sr d2" style="margin:0 auto">Accès anticipé 2–3 jours avant l'ouverture. 30 jours offerts.</p>
+</div>
+<div class="form-wrap sr">
+<div id="formBlock">
+<form onsubmit="submitForm(event)">
+<div class="form-grid">
+<div class="fg"><label>Prénom *</label><input type="text" placeholder="Yasmine" required></div>
+<div class="fg"><label>Nom *</label><input type="text" placeholder="Martin" required></div>
+<div class="fg full"><label>Email *</label><input type="email" placeholder="yasmine@exemple.fr" required></div>
+<div class="fg"><label>Ville *</label><input type="text" placeholder="Paris" required></div>
+<div class="fg"><label>Ton métier</label>
+<select><option value="">Choisir…</option><option>Prothésiste ongulaire</option><option>Nail artist</option><option>Technicienne de cils</option><option>Brow artist</option><option>Coiffeur·se</option><option>Barbier</option><option>Tresseuse</option><option>Esthéticienne</option><option>Masseuse</option><option>Tatoueur·se</option><option>Perceur·se</option><option>Blanchiment dentaire</option><option>Cake designer</option><option>Maquilleuse</option><option>Autre</option></select>
+</div>
+<div class="fg"><label>Clientes / mois</label>
+<select><option value="">Choisir…</option><option>Moins de 5</option><option>5 à 15</option><option>15 à 35</option><option>35 à 50</option><option>50 à 100</option><option>100 à 250</option><option>Plus de 250</option></select>
+</div>
+<div class="fg full"><label>Plateforme actuelle</label>
+<select><option value="">Choisir…</option><option>Planity</option><option>Fresha</option><option>Treatwell</option><option>Booksy</option><option>Iara</option><option>Aucune</option><option>Autre</option></select>
+</div>
+</div>
+<div class="form-cta">
+<button type="submit" class="btn-primary" style="font-size:16px;padding:20px 52px">Rejoindre la liste d'attente →</button>
+<p class="form-hint">🔒 Gratuit · Aucune carte · Lancement 21 sept. 2026</p>
+</div>
+</form>
+</div>
+<div class="succ" id="succBlock">
+<div class="succ-ico">🎉</div>
+<h3>Bienvenue dans l'aventure.</h3>
+<p>Tu es sur la liste. Ton accès anticipé arrivera 2–3 jours avant l'ouverture générale.</p>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="ft-logo"><span class="nav-dot"></span>SEAVEN</div>
+<div class="ft-links"><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">Cookies</a></div>
+<p class="copy">One App · One Place · All in One — © 2026 SEAVEN</p>
+</footer>
+
+<div class="float-pill" id="floatPill">
+<a href="#waitlist" class="pill-inner">
+<span style="width:7px;height:7px;border-radius:50%;background:var(--brand);box-shadow:0 0 8px var(--brand);display:inline-block;animation:dotP 2s infinite"></span>
+Rejoindre la liste d'attente
+</a>
+</div>
+
+<script>
+/* ══ PRICING ══ */
+const PRICES=['9,99€','19,99€','59,99€','99,99€','149,99€','279,99€','329,99€'];
+function setPrice(v){
+const el=document.getElementById('priceDisplay');
+el.style.transform='scale(.88) translateY(10px)';el.style.opacity='0';
+setTimeout(()=>{el.textContent=PRICES[+v];el.style.transform='';el.style.opacity='1'},200);
+}
+</script>
+
+<script>
+/* ══ REFERRAL ══ */
+function setRef(v){document.getElementById('refN').textContent=v;document.getElementById('refT').textContent=(v*25)+'€'}
+
+/* ══ COMPARATEUR ══ */
+const FEATS=['IA répond aux DMs','Gestion de stock auto','Messagerie unifiée','Réveil intelligent','Comptabilité intégrée','Marketplace sans commission','Protection clientes','Formations intégrées','Réservation client','Cartes de fidélité','Multi-métiers','Inscription gratuite'];
+const CDATA={planity:[0,0,0,0,0,0,0,0,1,0,1,0],fresha:[0,0,0,0,0,1,0,0,1,1,1,1],treatwell:[0,0,0,0,0,0,0,0,1,0,0,0],booksy:[0,0,0,0,0,0,0,0,1,0,1,0],iara:[0,0,0,0,0,0,0,0,1,0,0,1]};
+function renderCmp(k){
+const d=CDATA[k]||CDATA.planity;
+document.getElementById('cmpBody').innerHTML=FEATS.map((f,i)=>`<div class="cmp-row" style="transition-delay:${i*60}ms"><div class="cc feat">${f}</div><div class="cc sv-v"><div class="vy">✓</div></div><div class="cc cp-v">${d[i]?'<div class="vy">✓</div>':'<div class="vn">–</div>'}</div></div>`).join('');
+// Anime les lignes
+setTimeout(()=>{
+document.querySelectorAll('.cmp-row').forEach(row=>row.classList.add('visible'));
+},50);
+}
+renderCmp('planity');
+
+/* ══ FORM ══ */
+function submitForm(e){e.preventDefault();document.getElementById('formBlock').style.display='none';document.getElementById('succBlock').style.display='block'}
+
+/* ══ COVERFLOW PRO ══ */
+const CFN=7;
+const cfCards=Array.from({length:CFN},(_,i)=>document.getElementById(`cf${i}`));
+const cfDotsEl=document.getElementById('cfDots');
+let cfCur=0,cfAuto;
+for(let i=0;i<CFN;i++){const d=document.createElement('div');d.className='cfdot'+(i===0?' on':'');d.onclick=()=>{cfGoTo(i);cfReset()};cfDotsEl.appendChild(d)}
+function cfApply(){
+const stage=document.getElementById('cfStage');
+const W=stage.offsetWidth;
+const CW=Math.min(W*0.68,320);
+cfCards.forEach((c,i)=>{
+const diff=i-cfCur,abs=Math.abs(diff);
+let tx,tz,ry,sc,op,bl,zi;
+if(diff===0){tx=-CW/2;tz=0;ry=0;sc=1;op=1;bl=0;zi=10}
+else if(diff===-1||diff===CFN-1){tx=-CW/2-CW*0.7;tz=-120;ry=38;sc=0.92;op=0.9;bl=1;zi=5}
+else if(diff===1||diff===-(CFN-1)){tx=-CW/2+CW*0.7;tz=-120;ry=-38;sc=0.92;op=0.9;bl=1;zi=5}
+else{tx=diff>0?W:-W;tz=-400;ry=diff>0?-70:70;sc=0.6;op=0;bl=8;zi=1}
+c.style.transform=`translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${sc})`;
+c.style.opacity=op;c.style.filter=`blur(${bl}px)`;c.style.zIndex=zi;
+c.style.top='50%';c.style.left='50%';c.style.marginTop=`-${c.offsetHeight/2}px`;
+});
+cfDotsEl.querySelectorAll('.cfdot').forEach((d,i)=>d.classList.toggle('on',i===cfCur));
+}
+function cfGoTo(i){cfCur=((i%CFN)+CFN)%CFN;cfApply()}
+function cfReset(){clearInterval(cfAuto);cfAuto=setInterval(()=>cfGoTo(cfCur+1),2800)}
+cfCards.forEach((c,i)=>c.addEventListener('click',()=>{if(i!==cfCur){cfGoTo(i);cfReset()}}));
+window.addEventListener('resize',cfApply);
+cfApply();cfReset();
+
+/* ══ GRANDE ROUE CLIENTS ══ */
+const WN=5,WR=260,WSTEP=360/WN,WSPEED=0.45;
+const wCards=Array.from({length:WN},(_,i)=>document.getElementById(`wc${i}`));
+const WDATA=[
+{name:"L'IA calcule le prix depuis ta photo",stats:[{v:"IA",l:"Analyse photo"},{v:"Auto",l:"Tarif décomposé"},{v:"1 tap",l:"Réservation"}]},
+{name:"Réservation en 60 secondes",stats:[{v:"60s",l:"Durée"},{v:"Sécurisé",l:"Paiement"},{v:"Ultra",l:"Rapide"}]},
+{name:"Créneaux en temps réel",stats:[{v:"Live",l:"Dispos"},{v:"Notifs",l:"Instantanées"},{v:"0",l:"Attente"}]},
+{name:"Feed inspi → réserver direct",stats:[{v:"1 tap",l:"Suffit"},{v:"Curated",l:"Feed"},{v:"IA",l:"Reco"}]},
+{name:"Cartes de fidélité",stats:[{v:"Points",l:"Gagnés"},{v:"Réductions",l:"Exclusives"},{v:"Surprises",l:"En plus"}]}
+];
+let wAngle=0,wLastActive=-1;
+function wGetY(px){return Math.sin(((px/WN*WSTEP-wAngle-90)*Math.PI/180))*WR}
+function wRender(){
+wAngle=(wAngle+WSPEED)%360;
+const wrap=document.getElementById('wheelWrap');
+const WH=wrap.offsetHeight;
+const cx=wrap.offsetWidth/2;
+let minY=Infinity,actIdx=0;
+wCards.forEach((card,i)=>{
+const ang=(i*WSTEP+wAngle)%360;
+const rad=(ang-90)*Math.PI/180;
+const x=Math.cos(rad)*WR,y=Math.sin(rad)*WR;
+const ey=WH-80+y;
+const visible=y<180;
+const prom=Math.abs((y)/WR);
+const op=visible?Math.max(0,1-(y+20)/220):0;
+const sc=visible?Math.max(0.5,1-Math.abs(x)/(WR*1.4)):0;
+card.style.transform=`translate(${x}px,${y}px) rotate(${ang}deg) scale(${sc})`;
+card.style.opacity=op;card.style.zIndex=Math.round(100-y);
+if(y<minY){minY=y;actIdx=i}
+});
+if(actIdx!==wLastActive){
+wLastActive=actIdx;
+const wiName=document.getElementById('wiName');
+const wiStats=document.getElementById('wiStats');
+wiName.style.opacity='0';wiName.style.transform='translateY(-8px)';
+setTimeout(()=>{
+wiName.textContent=WDATA[actIdx].name;
+wiStats.innerHTML=WDATA[actIdx].stats.map(s=>`<div><div class="wis-v">${s.v}</div><div class="wis-l">${s.l}</div></div>`).join('');
+wiName.style.opacity='1';wiName.style.transform='translateY(0)';
+wiName.style.transition='opacity .4s,transform .4s';
+},200);
+}
+requestAnimationFrame(wRender);
+}
+wRender();
+</script>
+
+<script>
+/* ══ SVG VAGUE ══ */
+let wOff=0;
+const wPX=[0.15,0.38,0.62,0.85];
+function wvy(nx){
+const W=window.innerWidth,H=320,AMP=H*0.28,WLEN=W*1.1,CY=H*0.5;
+return CY+AMP*Math.sin(((nx*W/WLEN)+wOff/400)*Math.PI*2);
+}
+function wvBuild(){
+const W=window.innerWidth,H=320,step=6;
+let d=`M 0 ${wvy(0)}`;
+for(let x=step;x<=W;x+=step)d+=` L ${x} ${wvy(x/W)}`;
+return d;
+}
+function wvFill(){
+const W=window.innerWidth,H=320,step=6;
+let d=`M 0 ${wvy(0)}`;
+for(let x=step;x<=W;x+=step)d+=` L ${x} ${wvy(x/W)}`;
+d+=` L ${W} ${H} L 0 ${H} Z`;return d;
+}
+function wvFrame(){
+wOff+=0.7;
+const svg=document.getElementById('waveSvg');
+const W=window.innerWidth,H=320;
+svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+const pd=wvBuild();
+document.getElementById('wPath').setAttribute('d',pd);
+document.getElementById('wGlow').setAttribute('d',pd);
+document.getElementById('wFill').setAttribute('d',wvFill());
+const wrap=document.getElementById('waveSvgWrap').getBoundingClientRect();
+const sx=wrap.width/W,sy=wrap.height/H;
+const STEM=28;
+wPX.forEach((nx,i)=>{
+const px=nx*W,py=wvy(nx);
+document.getElementById(`wd${i}`).setAttribute('cx',px);
+document.getElementById(`wd${i}`).setAttribute('cy',py);
+const ring=document.getElementById(`wr${i}`);
+ring.setAttribute('cx',px);ring.setAttribute('cy',py);
+ring.setAttribute('r',16+4*Math.sin(wOff/30+i*2));
+const ex=wrap.left+px*sx,ey=wrap.top+py*sy;
+const prom=Math.abs((py-H*0.5)/(H*0.28));
+const card=document.getElementById(`wcard${i}`);
+const stem=document.getElementById(`wstem${i}`);
+card.style.left=ex+'px';card.style.top=(ey-STEM)+'px';
+card.style.transform=`translate(-50%,-100%) scale(${0.82+0.22*prom})`;
+card.style.opacity=0.45+0.55*prom;
+stem.style.left=ex+'px';stem.style.top=(ey-STEM)+'px';stem.style.height=STEM+'px';stem.style.opacity=0.45+0.55*prom;
+});
+requestAnimationFrame(wvFrame);
+}
+wvFrame();
+
+/* ══ ROUE 3D VERTICALE ══ */
+(function(){
+const DN=5;
+const FACE_H=300;
+const R=Math.round(FACE_H/2/Math.tan(Math.PI/DN));
+const drum=document.getElementById('drum3d');
+const faces=[...drum.children];
+const dotsEl=document.getElementById('drum3dDots');
+const d3Name=document.getElementById('d3Name');
+const d3Sub=document.getElementById('d3Sub');
+const NAMES=['L\'IA répond à tes DMs','Stock automatique','Réveil intelligent','Marketplace 0%','Messagerie unifiée'];
+const SUBS=['Chatbot 24h/24 · Réponses auto','Mis à jour à chaque prestation','Planning + trajet calculés','Pro → Cliente · Pro → Pro','Instagram · WhatsApp · SMS'];
+faces.forEach((f,i)=>{f.style.transform=`rotateX(${(360/DN)*i}deg) translateZ(${R}px)`});
+for(let i=0;i<DN;i++){const d=document.createElement('div');d.className='cfdot'+(i===0?' on':'');d.style.cursor='pointer';dotsEl.appendChild(d)}
+let cur=0,tot=0;
+function d3Next(){
+tot-=360/DN;
+drum.style.transform=`rotateX(${tot}deg)`;
+cur=(cur+1)%DN;
+dotsEl.querySelectorAll('.cfdot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+d3Name.style.opacity='0';
+setTimeout(()=>{d3Name.textContent=NAMES[cur];d3Sub.textContent=SUBS[cur];d3Name.style.opacity='1';},400);
+}
+setInterval(d3Next,2600);
+})();
+document.querySelectorAll('.bcell').forEach(c=>{
+c.addEventListener('mousemove',e=>{
+const r=c.getBoundingClientRect();
+c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+});
+});
+</script>
+
+<script>
+/* ══ FLOAT PILL ══ */
+window.addEventListener('scroll',()=>{document.getElementById('floatPill').classList.toggle('show',scrollY>600)},{passive:true});
+
+/* ══ SCROLL REVEAL ══ */
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.sr').forEach(el=>ro.observe(el));
+
+/* ══ FORCE INIT toutes les animations ══ */
+window.addEventListener('load',()=>{
+// Coverflow
+cfApply(); cfReset();
+// Grande roue
+wRender();
+// Vague SVG
+wvFrame();
+// Roue 3D
+document.getElementById('drum3d').style.transition='transform 800ms cubic-bezier(0.76,0,0.24,1)';
+});
+
+/* ══ FIX VAGUE SVG — recalcul taille ══ */
+window.addEventListener('resize',()=>{
+const svg=document.getElementById('waveSvg');
+const W=window.innerWidth;
+svg.setAttribute('viewBox',`0 0 ${W} 320`);
+});
+</script>
+
+</body>
+</html>

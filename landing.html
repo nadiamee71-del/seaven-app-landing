@@ -29,6 +29,10 @@
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;900&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root {
@@ -750,6 +754,182 @@ body{background:#fff;color:var(--black);font-family:'Manrope',sans-serif;overflo
 .cmp-end-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,7vw,42px);line-height:1.06;letter-spacing:-0.04em;font-weight:800;}
 .cmp-end-title em{font-style:normal;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cmp-end .btn-submit{max-width:300px;margin:12px auto 0;background:linear-gradient(135deg,var(--purple),var(--blue));}
+
+/* Comparatif — option 2 sombre (scopé section) */
+#comparatif-section{background:#0a0a0d;color:#fff;}
+#comparatif-section .wrap{
+width:100%;
+max-width:580px;
+margin:0 auto;
+}
+#comparatif-section .table{
+width:100%;
+border-radius:20px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.08);
+background:rgba(255,255,255,.02);
+}
+#comparatif-section .t-head{
+display:grid;
+grid-template-columns:1.6fr 1fr 1fr;
+background:rgba(255,255,255,.05);
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+#comparatif-section .th{
+min-height:74px;
+padding:16px 14px;
+font-size:13px;
+font-weight:700;
+color:rgba(255,255,255,.5);
+display:flex;
+align-items:center;
+font-family:'Sora',sans-serif;
+}
+#comparatif-section .th.left{
+justify-content:flex-start;
+}
+#comparatif-section .th.sv{
+justify-content:center;
+text-align:center;
+font-size:15px;
+font-weight:900;
+color:#fff;
+background:rgba(196,72,95,.15);
+}
+#comparatif-section .th.cp{
+padding:0;
+position:relative;
+background:rgba(255,255,255,.03);
+}
+#comparatif-section .head-select-wrap{
+position:relative;
+width:100%;
+height:100%;
+}
+#comparatif-section .head-select{
+width:100%;
+height:74px;
+border:none;
+outline:none;
+background:transparent;
+color:rgba(255,255,255,.9);
+font-family:'Sora',sans-serif;
+font-size:13px;
+font-weight:700;
+text-align:center;
+text-align-last:center;
+padding:0 40px 0 16px;
+cursor:pointer;
+-webkit-appearance:none;
+appearance:none;
+}
+#comparatif-section .head-select option{
+background:#1c1c1e;
+color:#fff;
+}
+#comparatif-section .head-arrow{
+position:absolute;
+right:14px;
+top:50%;
+transform:translateY(-50%);
+pointer-events:none;
+font-size:12px;
+color:rgba(255,255,255,.55);
+}
+#comparatif-section .s2-row{
+display:grid;
+grid-template-columns:1.6fr 1fr 1fr;
+border-bottom:1px solid rgba(255,255,255,.04);
+background:rgba(255,255,255,.01);
+}
+#comparatif-section .s2-row:last-child{
+border-bottom:none;
+}
+#comparatif-section .s2-cell{
+padding:20px 14px;
+font-size:13px;
+color:rgba(255,255,255,.42);
+display:flex;
+align-items:center;
+min-height:86px;
+font-family:'Sora',sans-serif;
+}
+#comparatif-section .s2-cell.c{
+justify-content:center;
+}
+#comparatif-section .flip-wrap{
+perspective:300px;
+}
+#comparatif-section .flip-inner{
+width:42px;
+height:42px;
+position:relative;
+transform-style:preserve-3d;
+transition:transform .55s cubic-bezier(.25,.46,.45,.94);
+}
+#comparatif-section .flip-inner.done{
+transform:rotateY(180deg);
+}
+#comparatif-section .ff,
+#comparatif-section .fb{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:999px;
+backface-visibility:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:900;
+}
+#comparatif-section .ff{
+background:rgba(255,255,255,.05);
+color:rgba(255,255,255,.16);
+border:1.5px solid rgba(255,255,255,.08);
+font-size:12px;
+}
+#comparatif-section .fb-yes{
+background:rgba(48,209,88,.14);
+border:1.5px solid rgba(48,209,88,.34);
+color:#30D158;
+transform:rotateY(180deg);
+font-size:18px;
+}
+#comparatif-section .fb-no{
+background:rgba(255,59,48,.10);
+border:1.5px solid rgba(255,59,48,.28);
+color:#FF3B30;
+transform:rotateY(180deg);
+font-size:18px;
+}
+@media (max-width:640px){
+#comparatif-section .wrap{
+max-width:100%;
+}
+#comparatif-section .t-head,
+#comparatif-section .s2-row{
+grid-template-columns:1.4fr .9fr .9fr;
+}
+#comparatif-section .th{
+min-height:68px;
+padding:14px 12px;
+font-size:12px;
+}
+#comparatif-section .head-select{
+height:68px;
+font-size:12px;
+padding:0 34px 0 10px;
+}
+#comparatif-section .s2-cell{
+padding:18px 12px;
+min-height:78px;
+font-size:12px;
+}
+#comparatif-section .flip-inner{
+width:38px;
+height:38px;
+}
+}
 
 /* Code d'accès */
 .access-gate{
@@ -1758,55 +1938,26 @@ footer{flex-direction:column;gap:8px;text-align:center;padding:24px max(12px,env
         <!-- COMPARATIF -->
         <div class="sec" id="comparatif-section">
           <div class="comparatif-wrap">
-            <div class="cmp-kicker">Comparatif</div>
-            <h2 class="cmp-title">SEAVEN bat les <em>autres plateformes&nbsp;?</em></h2>
-            <p class="cmp-sub">Choisis un concurrent pour voir la différence.</p>
-            <div class="cmp-selector" id="cmpSelector">
-              <div class="cmp-selector-left">SEAVEN</div>
-              <div class="cmp-selector-divider"></div>
-              <div class="cmp-selector-right">
-                <button type="button" class="cmp-selector-btn" id="cmpSelectBtn" aria-haspopup="listbox" aria-expanded="false">
-                  <span id="cmpSelectLabel">Planity</span>
-                  <svg class="cmp-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <div class="cmp-menu" id="cmpMenu" role="listbox" aria-label="Choisir un concurrent">
-                  <button type="button" class="cmp-opt active" data-cmp="planity" role="option" aria-selected="true">
-                    <span>Planity</span>
-                    <svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                  <button type="button" class="cmp-opt" data-cmp="fresha" role="option" aria-selected="false">
-                    <span>Fresha</span>
-                    <svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                  <button type="button" class="cmp-opt" data-cmp="treatwell" role="option" aria-selected="false">
-                    <span>Treatwell</span>
-                    <svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                  <button type="button" class="cmp-opt" data-cmp="booksy" role="option" aria-selected="false">
-                    <span>Booksy</span>
-                    <svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                  <button type="button" class="cmp-opt" data-cmp="iara" role="option" aria-selected="false">
-                    <span>Iara</span>
-                    <svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
+            <div class="wrap">
+              <div class="table">
+                <div class="t-head">
+                  <div class="th left">Fonctionnalité</div>
+                  <div class="th sv">SEAVEN</div>
+                  <div class="th cp">
+                    <div class="head-select-wrap">
+                      <select id="competitorSelect" class="head-select">
+                        <option value="planity">Planity</option>
+                        <option value="fresha">Fresha</option>
+                        <option value="treatwell">Treatwell</option>
+                        <option value="booksy">Booksy</option>
+                        <option value="iara">Iara</option>
+                      </select>
+                      <span class="head-arrow">⌄</span>
+                    </div>
+                  </div>
                 </div>
+                <div id="s2body"></div>
               </div>
-            </div>
-            <div class="cmp-unified" id="cmpRightCard" role="region" aria-label="Comparatif des fonctionnalités">
-              <div class="cmp-unified-grid" id="cmpUnifiedTable"></div>
             </div>
             <div class="cmp-end">
               <div class="cmp-end-title">Tout ce dont tu as besoin.<br /><em>Sans rien en plus.</em></div>
@@ -2112,177 +2263,74 @@ function updateReferral(v) {
 }
 updateReferral(15);
 
-/** Tableau « SEAVEN vs concurrents » (réf. maquette mobile). */
-const CMP_FEATURES = [
-  "Réservation en ligne",
-  "Réseau social avec feed & stories",
-  "Feed (photos / vidéos)",
-  "Marketplace intégrée",
-  "Abonnement selon volume clients",
-  "Comptabilité intelligente & automatisée",
-  "Créneaux d'urgence",
-  "Blacklist intelligente",
-  "Parrainage (client & pro -> pro)",
-  "Rappels automatiques (SMS/email)",
-  "Paiement intégré",
-  "Messagerie interne"
+const FEATS = [
+'IA répond aux DMs',
+'Gestion de stock auto',
+'Messagerie unifiée',
+'Réveil intelligent',
+'Comptabilité intégrée',
+'Marketplace sans commission',
+'Protection clientes',
+'Formations intégrées'
 ];
-const CMP_STATUS = { ok: "ok", no: "no", warn: "warn" };
-/** Libellé court (bouton) + titre colonne — clé = data-cmp */
-const CMP_COMPETITORS = {
-  planity: { name: "PLANITY", shortLabel: "Planity", icon: "planity" },
-  fresha: { name: "FRESHA", shortLabel: "Fresha", icon: "fresha" },
-  treatwell: { name: "TREATWELL", shortLabel: "Treatwell", icon: "treatwell" },
-  booksy: { name: "BOOKSY", shortLabel: "Booksy", icon: "booksy" },
-  iara: { name: "IARA", shortLabel: "Iara", icon: "iara" }
+
+const CDATA = {
+planity: [0,0,0,0,0,0,0,0],
+fresha: [0,0,0,0,0,1,0,0],
+treatwell: [0,0,0,0,0,0,0,0],
+booksy: [0,0,0,0,0,0,0,0],
+iara: [0,0,0,0,0,0,0,1]
 };
-/** Fresha / Planity / Booksy / Treatwell : même grille. Iara : + messagerie interne. */
-const CMP_COMPETITOR_BASE = {
-  "Réservation en ligne": CMP_STATUS.ok,
-  "Réseau social avec feed & stories": CMP_STATUS.no,
-  "Feed (photos / vidéos)": CMP_STATUS.no,
-  "Marketplace intégrée": CMP_STATUS.no,
-  "Abonnement selon volume clients": CMP_STATUS.no,
-  "Comptabilité intelligente & automatisée": CMP_STATUS.no,
-  "Créneaux d'urgence": CMP_STATUS.no,
-  "Blacklist intelligente": CMP_STATUS.no,
-  "Parrainage (client & pro -> pro)": CMP_STATUS.no,
-  "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
-  "Paiement intégré": CMP_STATUS.ok,
-  "Messagerie interne": CMP_STATUS.no
-};
-const CMP_DATA = {
-  planity: {
-    ...CMP_COMPETITOR_BASE,
-    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.no
-  },
-  fresha: {
-    ...CMP_COMPETITOR_BASE,
-    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.no
-  },
-  treatwell: {
-    ...CMP_COMPETITOR_BASE,
-    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.no
-  },
-  booksy: {
-    ...CMP_COMPETITOR_BASE,
-    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.no
-  },
-  iara: {
-    ...CMP_COMPETITOR_BASE,
-    "Rappels automatiques (SMS/email)": CMP_STATUS.ok,
-    "Paiement intégré": CMP_STATUS.ok,
-    "Messagerie interne": CMP_STATUS.ok
-  }
-};
-const CMP_WARN_HINTS = {};
-function cmpIconSvg(kind) {
-  if (kind === CMP_STATUS.ok) {
-    return `<svg class="cmp-ico ok" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 10.2 8.7 12.9 14 7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-  }
-  if (kind === CMP_STATUS.warn) {
-    return `<svg class="cmp-ico warn" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 22 20H2L12 3Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M12 17.4h.01" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>`;
-  }
-  return `<svg class="cmp-ico no" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6.7 6.7 13.3 13.3M13.3 6.7l-6.6 6.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`;
-}
-function cmpUnifiedRowHtml(f, key) {
-  const st = cmpStatusFor(key, f);
-  return `<div class="cmp-u-feat"><div class="cmp-txt">${f}</div></div><div class="cmp-u-ico cmp-u-seaven">${cmpIconSvg(CMP_STATUS.ok)}</div><div class="cmp-u-ico cmp-u-comp">${cmpIconSvg(st)}</div>`;
-}
-function cmpStatusFor(compKey, feature) {
-  const baseStatus = CMP_COMPETITOR_BASE[feature];
-  const competitorData = CMP_DATA[compKey] || CMP_DATA.planity;
-  if (Object.prototype.hasOwnProperty.call(competitorData, feature)) {
-    return competitorData[feature];
-  }
-  return baseStatus || CMP_STATUS.no;
-}
-const CMP_INITIALS = {planity:"P",fresha:"F",treatwell:"T",booksy:"B",iara:"I"};
-function renderComparatif(key) {
-  const table = document.getElementById("cmpUnifiedTable");
-  const rightCard = document.getElementById("cmpRightCard");
-  if (!table || !rightCard) return;
 
-  rightCard.classList.remove("is-swapping");
-  void rightCard.offsetWidth;
-  rightCard.classList.add("is-swapping");
+function s2Run(key){
+const data = CDATA[key];
+const body = document.getElementById('s2body');
 
-  const initial = CMP_INITIALS[key] || key.charAt(0).toUpperCase();
-  const headerHtml = `<div class="cmp-header"><div class="cmp-header-logo"><img src="./assets/logo-seaven-main.png?v=2" alt="SEAVEN" /></div><div class="cmp-header-comp"><button type="button" class="cmp-header-comp-btn" id="cmpHeaderBtn">${initial} <svg class="cmp-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="cmp-menu" id="cmpMenu2" role="listbox"></div></div></div>`;
+body.innerHTML = FEATS.map((feature, i) => `
+<div class="s2-row">
+<div class="s2-cell">${feature}</div>
 
-  table.innerHTML = headerHtml + CMP_FEATURES.map((f) => cmpUnifiedRowHtml(f, key)).join("");
+<div class="s2-cell c">
+<div class="flip-wrap">
+<div class="flip-inner" id="s2sv${i}">
+<div class="ff">·</div>
+<div class="fb fb-yes">✓</div>
+</div>
+</div>
+</div>
 
-  const hdrBtn = document.getElementById("cmpHeaderBtn");
-  const menu2 = document.getElementById("cmpMenu2");
-  if (hdrBtn && menu2) {
-    menu2.innerHTML = Object.keys(CMP_COMPETITORS).map(k => {
-      const active = k === key ? " active" : "";
-      return `<button type="button" class="cmp-opt${active}" data-cmp="${k}" role="option"><span>${CMP_COMPETITORS[k].name}</span><svg class="cmp-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
-    }).join("");
-    hdrBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-      menu2.classList.toggle("open");
-    });
-    menu2.querySelectorAll(".cmp-opt").forEach(function(btn) {
-      btn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        var k = btn.dataset.cmp;
-        if (k && CMP_COMPETITORS[k]) { renderComparatif(k); }
-      });
-    });
-  }
+<div class="s2-cell c">
+<div class="flip-wrap">
+<div class="flip-inner" id="s2cp${i}">
+<div class="ff">·</div>
+<div class="fb ${data[i] ? 'fb-yes' : 'fb-no'}">${data[i] ? '✓' : '✗'}</div>
+</div>
+</div>
+</div>
+</div>
+`).join('');
+
+FEATS.forEach((_, i) => {
+setTimeout(() => {
+const seavenEl = document.getElementById(`s2sv${i}`);
+if (seavenEl) seavenEl.classList.add('done');
+
+setTimeout(() => {
+const competitorEl = document.getElementById(`s2cp${i}`);
+if (competitorEl) competitorEl.classList.add('done');
+}, 180);
+}, i * 120);
+});
 }
-const cmpSelectBtn = document.getElementById("cmpSelectBtn");
-const cmpMenu = document.getElementById("cmpMenu");
-const cmpSelectLabel = document.getElementById("cmpSelectLabel");
-function cmpCloseMenu() {
-  if (!cmpMenu || !cmpSelectBtn) return;
-  cmpMenu.classList.remove("open");
-  cmpSelectBtn.setAttribute("aria-expanded", "false");
-}
-function cmpOpenMenu() {
-  if (!cmpMenu || !cmpSelectBtn) return;
-  cmpMenu.classList.add("open");
-  cmpSelectBtn.setAttribute("aria-expanded", "true");
-}
-cmpSelectBtn?.addEventListener("click", (e) => {
-  e.stopPropagation();
-  if (!cmpMenu) return;
-  const open = cmpMenu.classList.contains("open");
-  open ? cmpCloseMenu() : cmpOpenMenu();
+
+const competitorSelect = document.getElementById('competitorSelect');
+
+competitorSelect.addEventListener('change', function () {
+s2Run(this.value);
 });
-document.addEventListener("click", (e) => {
-  const wrap = document.getElementById("cmpSelector");
-  if (wrap && cmpMenu && !wrap.contains(e.target)) cmpCloseMenu();
-  var m2 = document.getElementById("cmpMenu2");
-  if (m2 && !m2.contains(e.target) && !(e.target.id === "cmpHeaderBtn" || e.target.closest("#cmpHeaderBtn"))) m2.classList.remove("open");
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") { cmpCloseMenu(); var m2 = document.getElementById("cmpMenu2"); if (m2) m2.classList.remove("open"); }
-});
-document.querySelectorAll(".cmp-opt").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const key = btn.dataset.cmp;
-    if (!key || !CMP_COMPETITORS[key]) return;
-    document.querySelectorAll(".cmp-opt").forEach((el) => {
-      el.classList.toggle("active", el === btn);
-      el.setAttribute("aria-selected", el === btn ? "true" : "false");
-    });
-    if (cmpSelectLabel) cmpSelectLabel.textContent = CMP_COMPETITORS[key].shortLabel;
-    renderComparatif(key);
-    cmpCloseMenu();
-  });
-});
-renderComparatif("planity");
+
+competitorSelect.value = 'fresha';
+s2Run('fresha');
 
 // ── MÉTIERS ──
 const metiers = [
