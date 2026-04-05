@@ -127,18 +127,22 @@ cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1)}
 .cfdot.on{background:#fff;width:22px;border-radius:3px}
 
 /* ══ GRANDE ROUE — Section Clients ══ */
-.wheel-wrap{position:relative;height:520px;overflow:hidden;margin-top:60px}
-#wheelCenter{position:absolute;left:50%;bottom:-80px;transform:translateX(-50%);width:0;height:0}
-.w-card{position:absolute;width:200px;height:260px;margin-left:-100px;margin-top:-130px;
+.wheel-wrap{position:relative;height:600px;overflow:hidden;margin-top:10px}
+#wheelCenter{position:absolute;left:50%;bottom:-72px;transform:translateX(-50%);width:0;height:0}
+.w-card{position:absolute;width:250px;height:325px;margin-left:-125px;margin-top:-162.5px;
 border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;
 gap:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);will-change:transform}
 .w-card::after{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(255,255,255,.12),transparent 55%)}
-.w-ico{font-size:46px;position:relative;z-index:1}
-.w-name{font-size:16px;font-weight:800;color:#fff;position:relative;z-index:1;text-align:center;padding:0 12px}
-.w-sub{font-size:11px;color:rgba(255,255,255,.45);position:relative;z-index:1;text-align:center}
+.w-ico{font-size:56px;position:relative;z-index:1}
+.w-name{font-size:18px;font-weight:800;color:#fff;position:relative;z-index:1;text-align:center;padding:0 12px}
+.w-sub{font-size:12px;color:rgba(255,255,255,.45);position:relative;z-index:1;text-align:center}
 .wheel-mask{position:absolute;bottom:0;left:0;right:0;height:40%;
 background:linear-gradient(transparent,#0A0A0B);pointer-events:none;z-index:10}
-.wheel-info{text-align:center;margin-top:24px;position:relative;z-index:2;min-height:80px}
+.wheel-info{text-align:center;margin-top:6px;position:relative;z-index:2;min-height:76px}
+/* Section Clients — continuité texte ↔ carousel (sans toucher aux autres .section) */
+#clients .eyebrow{margin-bottom:10px}
+#clients .headline{margin-bottom:8px}
+#clients .body-l{margin:0 auto 6px}
 .wi-name{font-size:22px;font-weight:900;letter-spacing:-.04em;color:#fff;margin-bottom:10px;
 transition:opacity .4s,transform .4s}
 .wi-stats{display:flex;gap:20px;justify-content:center}
@@ -156,13 +160,13 @@ transition:opacity .4s,transform .4s}
 .wdot{fill:#C4485F;filter:drop-shadow(0 0 8px rgba(196,72,95,.9))}
 .wring{fill:none;stroke:rgba(196,72,95,.35);stroke-width:1.5}
 .wave-card{position:absolute;background:rgba(18,18,28,.9);border:1px solid rgba(196,72,95,.2);
-border-radius:16px;padding:14px 18px;width:138px;text-align:center;
+border-radius:18px;padding:16px 18px;width:min(176px,40vw);min-width:120px;text-align:center;
 box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03) inset;
-backdrop-filter:blur(20px);pointer-events:none;transform:translate(-50%,-100%);margin-top:-18px}
-.wave-stem{position:absolute;width:1.5px;background:linear-gradient(rgba(196,72,95,.5),rgba(196,72,95,.1));transform:translateX(-50%);pointer-events:none}
-.wc-ico{font-size:22px;margin-bottom:6px;display:block}
-.wc-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
-.wc-val{font-size:18px;font-weight:900;letter-spacing:-.04em;line-height:1.1}
+backdrop-filter:blur(20px);pointer-events:none;transform:translate(-50%,-50%);z-index:5}
+.wave-stem{position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none}
+.wc-ico{font-size:28px;margin-bottom:8px;display:block}
+.wc-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.wc-val{font-size:20px;font-weight:900;letter-spacing:-.04em;line-height:1.1}
 
 /* ══ BENTO HOVER GLOW — Tarifs ══ */
 .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:70px}
@@ -416,7 +420,7 @@ nav{padding:0 20px}.nav-links{display:none}
 <div class="wave-section">
 <div class="wave-title sr">
 <span class="eyebrow">Tout connecté</span>
-<h2 class="headline" style="max-width:600px;margin:0 auto 60px">Ton activité,<br><span class="dim">en un seul flux.</span></h2>
+<h2 class="headline" style="max-width:600px;margin:0 auto 28px">Ton activité,<br><span class="dim">en un seul flux.</span></h2>
 </div>
 <div id="waveSvgWrap">
 <svg id="waveSvg" preserveAspectRatio="none">
@@ -680,7 +684,7 @@ window.addEventListener('resize',cfApply);
 cfApply();cfReset();
 
 /* ══ GRANDE ROUE CLIENTS ══ */
-const WN=5,WR=260,WSTEP=360/WN,WSPEED=0.45;
+const WN=5,WR=325,WSTEP=360/WN,WSPEED=0.45;
 const wCards=Array.from({length:WN},(_,i)=>document.getElementById(`wc${i}`));
 const WDATA=[
 {name:"L'IA calcule le prix depuis ta photo",stats:[{v:"IA",l:"Analyse photo"},{v:"Auto",l:"Tarif décomposé"},{v:"1 tap",l:"Réservation"}]},
@@ -702,10 +706,10 @@ const ang=(i*WSTEP+wAngle)%360;
 const rad=(ang-90)*Math.PI/180;
 const x=Math.cos(rad)*WR,y=Math.sin(rad)*WR;
 const ey=WH-80+y;
-const visible=y<180;
+const visible=y<210;
 const prom=Math.abs((y)/WR);
-const op=visible?Math.max(0,1-(y+20)/220):0;
-const sc=visible?Math.max(0.5,1-Math.abs(x)/(WR*1.4)):0;
+const op=visible?Math.max(0,1-(y+24)/260):0;
+const sc=visible?Math.max(0.48,1-Math.abs(x)/(WR*1.4)):0;
 card.style.transform=`translate(${x}px,${y}px) rotate(${ang}deg) scale(${sc})`;
 card.style.opacity=op;card.style.zIndex=Math.round(100-y);
 if(y<minY){minY=y;actIdx=i}
@@ -758,7 +762,6 @@ document.getElementById('wGlow').setAttribute('d',pd);
 document.getElementById('wFill').setAttribute('d',wvFill());
 const wrap=document.getElementById('waveSvgWrap').getBoundingClientRect();
 const sx=wrap.width/W,sy=wrap.height/H;
-const STEM=28;
 wPX.forEach((nx,i)=>{
 const px=nx*W,py=wvy(nx);
 document.getElementById(`wd${i}`).setAttribute('cx',px);
@@ -768,12 +771,11 @@ ring.setAttribute('cx',px);ring.setAttribute('cy',py);
 ring.setAttribute('r',16+4*Math.sin(wOff/30+i*2));
 const ex=wrap.left+px*sx,ey=wrap.top+py*sy;
 const prom=Math.abs((py-H*0.5)/(H*0.28));
+const pulse=1+0.028*Math.sin(wOff/36+i*1.25);
 const card=document.getElementById(`wcard${i}`);
-const stem=document.getElementById(`wstem${i}`);
-card.style.left=ex+'px';card.style.top=(ey-STEM)+'px';
-card.style.transform=`translate(-50%,-100%) scale(${0.82+0.22*prom})`;
-card.style.opacity=0.45+0.55*prom;
-stem.style.left=ex+'px';stem.style.top=(ey-STEM)+'px';stem.style.height=STEM+'px';stem.style.opacity=0.45+0.55*prom;
+card.style.left=ex+'px';card.style.top=ey+'px';
+card.style.transform=`translate(-50%,-50%) scale(${(0.86+0.2*prom)*pulse})`;
+card.style.opacity=0.5+0.5*prom;
 });
 requestAnimationFrame(wvFrame);
 }
