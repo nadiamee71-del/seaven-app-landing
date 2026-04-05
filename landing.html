@@ -2148,6 +2148,24 @@ function unlockLanding() {
     err.style.display = "none";
     const heroBg = document.getElementById("hero-bg-video");
     if (heroBg) {
+      heroBg.muted = true;
+      heroBg.defaultMuted = true;
+      heroBg.setAttribute("muted", "");
+      heroBg.loop = true;
+      heroBg.playsInline = true;
+      if (!heroBg.dataset.vInit) {
+        heroBg.dataset.vInit = "1";
+        heroBg.addEventListener("ended", function () {
+          this.currentTime = 0;
+          this.play();
+        });
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden && heroBg) {
+            const p2 = heroBg.play();
+            if (p2 && typeof p2.catch === "function") p2.catch(() => {});
+          }
+        });
+      }
       const p = heroBg.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
     }
